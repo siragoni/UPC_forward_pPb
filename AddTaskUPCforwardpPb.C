@@ -1,4 +1,4 @@
-AliAnalysisTaskUPCforward* AddTaskUPCforward(TString name = "name")
+AliAnalysisTaskUPCforwardpPb* AddTaskUPCforwardpPb(TString name = "name")
 {
     // get the manager via the static access member. since it's static, you don't need
     // to create an instance of the class here to call the function
@@ -16,7 +16,7 @@ AliAnalysisTaskUPCforward* AddTaskUPCforward(TString name = "name")
     TString fileName = AliAnalysisManager::GetCommonFileName();
     fileName += ":MyTask";      // create a subfolder in the file
     // now we create an instance of your task
-    AliAnalysisTaskUPCforward* task = new AliAnalysisTaskUPCforward(name.Data());
+    AliAnalysisTaskUPCforwardpPb* task = new AliAnalysisTaskUPCforwardpPb(name.Data());
     if(!task) return 0x0;
     // task->SelectCollisionCandidates(AliVEvent::kAnyINT);     // Physics Selection used by "everybody" but NOT in UPC
     // add your task to the manager

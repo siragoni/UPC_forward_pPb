@@ -64,18 +64,18 @@
 
 
 // my headers
-#include "AliAnalysisTaskUPCforward.h"
+#include "AliAnalysisTaskUPCforwardpPb.h"
 
 
 
-class AliAnalysisTaskUPCforward;    // your analysis class
+class AliAnalysisTaskUPCforwardpPb;    // your analysis class
 
 using namespace std;            // std namespace: so you can do things like 'cout'
 
-ClassImp(AliAnalysisTaskUPCforward) // classimp: necessary for root
+ClassImp(AliAnalysisTaskUPCforwardpPb) // classimp: necessary for root
 
 //_____________________________________________________________________________
-AliAnalysisTaskUPCforward::AliAnalysisTaskUPCforward()
+AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
     : AliAnalysisTaskSE(),
       fAOD(0),
       fOutputList(0),
@@ -339,7 +339,7 @@ AliAnalysisTaskUPCforward::AliAnalysisTaskUPCforward()
 }
 
 //_____________________________________________________________________________
-AliAnalysisTaskUPCforward::AliAnalysisTaskUPCforward(const char* name)
+AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
     : AliAnalysisTaskSE(name),
       fAOD(0),
       fOutputList(0),
@@ -609,14 +609,14 @@ AliAnalysisTaskUPCforward::AliAnalysisTaskUPCforward(const char* name)
                                         // make changes to your AddTask macro!
 }
 //_____________________________________________________________________________
-AliAnalysisTaskUPCforward::~AliAnalysisTaskUPCforward()
+AliAnalysisTaskUPCforwardpPb::~AliAnalysisTaskUPCforwardpPb()
 {
     // destructor
     if(fOutputList)    {delete fOutputList;}     	// at the end of your task, it is deleted
     if(fMuonTrackCuts) {delete fMuonTrackCuts;}   // from memory by calling this function
 }
 //_____________________________________________________________________________
-// void AliAnalysisTaskUPCforward::FillGoodRunVector(std::vector<Int_t> &fVectorGoodRunNumbers)
+// void AliAnalysisTaskUPCforwardpPb::FillGoodRunVector(std::vector<Int_t> &fVectorGoodRunNumbers)
 // {
 //   fVectorGoodRunNumbers.clear();
 //   Int_t listOfGoodRunNumbersLHC18q[] = { 295585, 295586, 295587, 295588, 295589, 295612,
@@ -707,7 +707,7 @@ AliAnalysisTaskUPCforward::~AliAnalysisTaskUPCforward()
 //   }
 // }
 //_____________________________________________________________________________
-void AliAnalysisTaskUPCforward::UserCreateOutputObjects()
+void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
 {
   // create output objects
   //
@@ -1711,13 +1711,13 @@ void AliAnalysisTaskUPCforward::UserCreateOutputObjects()
   // so it needs to know what's in the output
 }
 //_____________________________________________________________________________
-void AliAnalysisTaskUPCforward::NotifyRun()
+void AliAnalysisTaskUPCforwardpPb::NotifyRun()
 {
   /// Set run number for cuts
   fMuonTrackCuts->SetRun(fInputHandler);
 }
 //_____________________________________________________________________________
-void AliAnalysisTaskUPCforward::UserExec(Option_t *)
+void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
 {
   /* - This iSelectionCounter is used as a token. So at every passing step it is
      - increased by one. All the events are supposed to pass the first step
@@ -2542,7 +2542,7 @@ void AliAnalysisTaskUPCforward::UserExec(Option_t *)
         if ( (possibleJPsi.Mag() > 2.85) && (possibleJPsi.Mag() < 3.35) ){
           fZNCTimeAgainstEntriesH->Fill(fZNCTDC[iZDC]);
         }
-      }    
+      }
       fCounterZNCH->Fill(counterZNC);
     }
     counterZNA++;
@@ -3711,7 +3711,7 @@ void AliAnalysisTaskUPCforward::UserExec(Option_t *)
    - inclusive people's analysis, hence it is not fit for the UPC...
    -
  */
-Double_t AliAnalysisTaskUPCforward::CosThetaCollinsSoper( TLorentzVector muonPositive,
+Double_t AliAnalysisTaskUPCforwardpPb::CosThetaCollinsSoper( TLorentzVector muonPositive,
                                                           TLorentzVector muonNegative,
                                                           TLorentzVector possibleJPsi )
 {
@@ -3758,7 +3758,7 @@ Double_t AliAnalysisTaskUPCforward::CosThetaCollinsSoper( TLorentzVector muonPos
   return   CosThetaCS;
 }
 //_____________________________________________________________________________
-Double_t AliAnalysisTaskUPCforward::CosThetaHelicityFrame( TLorentzVector muonPositive,
+Double_t AliAnalysisTaskUPCforwardpPb::CosThetaHelicityFrame( TLorentzVector muonPositive,
                                                            TLorentzVector muonNegative,
                                                            TLorentzVector possibleJPsi )
 {
@@ -3807,7 +3807,7 @@ Double_t AliAnalysisTaskUPCforward::CosThetaHelicityFrame( TLorentzVector muonPo
 
 }
 //_____________________________________________________________________________
-Double_t AliAnalysisTaskUPCforward::CosPhiCollinsSoper( TLorentzVector muonPositive,
+Double_t AliAnalysisTaskUPCforwardpPb::CosPhiCollinsSoper( TLorentzVector muonPositive,
                                                         TLorentzVector muonNegative,
                                                         TLorentzVector possibleJPsi )
 {
@@ -3857,7 +3857,7 @@ Double_t AliAnalysisTaskUPCforward::CosPhiCollinsSoper( TLorentzVector muonPosit
   return   phi;
 }
 //_____________________________________________________________________________
-Double_t AliAnalysisTaskUPCforward::CosPhiHelicityFrame(  TLorentzVector muonPositive,
+Double_t AliAnalysisTaskUPCforwardpPb::CosPhiHelicityFrame(  TLorentzVector muonPositive,
                                                           TLorentzVector muonNegative,
                                                           TLorentzVector possibleJPsi )
 {
@@ -3907,7 +3907,7 @@ Double_t AliAnalysisTaskUPCforward::CosPhiHelicityFrame(  TLorentzVector muonPos
   return   phi;
 }
 //_____________________________________________________________________________
-Double_t AliAnalysisTaskUPCforward::AccEffCorrection( Double_t CosThetaToBeWeighted )
+Double_t AliAnalysisTaskUPCforwardpPb::AccEffCorrection( Double_t CosThetaToBeWeighted )
 {
   Double_t val = 0;
   Double_t par[13] = { 1.84270e-04, 1.35000e-02, 2.52572e+00, 4.49481e-01, 7.71374e-01,
@@ -3928,7 +3928,7 @@ Double_t AliAnalysisTaskUPCforward::AccEffCorrection( Double_t CosThetaToBeWeigh
 
 }
 //_____________________________________________________________________________
-void AliAnalysisTaskUPCforward::Terminate(Option_t *)
+void AliAnalysisTaskUPCforwardpPb::Terminate(Option_t *)
 {
     cout << endl;
     // terminate

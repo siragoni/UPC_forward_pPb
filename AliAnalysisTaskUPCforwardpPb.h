@@ -2,11 +2,11 @@
 /* See cxx source for full Copyright notice */
 /* $Id$ */
 
-#ifndef AliAnalysisTaskUPCforward_H
-#define AliAnalysisTaskUPCforward_H
+#ifndef AliAnalysisTaskUPCforwardpPb_H
+#define AliAnalysisTaskUPCforwardpPb_H
 
 /**
- * @file   AliAnalysisTaskUPCforward.h
+ * @file   AliAnalysisTaskUPCforwardpPb.h
  * @author Simone Ragoni <Simone.Ragoni@cern.ch>
  * @date   February 2019
  */
@@ -23,27 +23,27 @@ class AliMuonTrackCuts; 											// Include class for standard muon tack cuts
 // typedef std::vector< std::vector< TH1F* > >  MatrixTH1F;
 
 /**
- * \file AliAnalysisTaskUPCforward.h
- * \brief Contains the declaration of the AliAnalysisTaskUPCforward class
+ * \file AliAnalysisTaskUPCforwardpPb.h
+ * \brief Contains the declaration of the AliAnalysisTaskUPCforwardpPb class
  */
 
 /**
- * \class AliAnalysisTaskUPCforward
+ * \class AliAnalysisTaskUPCforwardpPb
  * \brief Contains the tools to every part of my analysis
  */
-class AliAnalysisTaskUPCforward : public AliAnalysisTaskSE
+class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
 {
     public:
                                 /**
-                                 * Create a new AliAnalysisTaskUPCforward with
+                                 * Create a new AliAnalysisTaskUPCforwardpPb with
                                  * default constructor. Based on my understanding
                                  * this is mostly related to input/output
                                  * processes.
                                  */
-                                AliAnalysisTaskUPCforward();
+                                AliAnalysisTaskUPCforwardpPb();
 
                                 /**
-                                 * Create a new AliAnalysisTaskUPCforward with
+                                 * Create a new AliAnalysisTaskUPCforwardpPb with
                                  * a specific name. This serves to instantiate
                                  * the AliAnalysisTaskSE object built with the
                                  * constructor, that will take this specific
@@ -51,14 +51,14 @@ class AliAnalysisTaskUPCforward : public AliAnalysisTaskSE
                                  *
                                  * \param name , the name taken by the AliAnalysisTaskSE object.
                                  */
-                                AliAnalysisTaskUPCforward(const char *name);
+                                AliAnalysisTaskUPCforwardpPb(const char *name);
 
                                 /**
                                  * Virtual destructor for the class. It will
                                  * take care of all the particular objects to be
                                  * destroyed for the class.
                                  */
-        virtual                 ~AliAnalysisTaskUPCforward();
+        virtual                 ~AliAnalysisTaskUPCforwardpPb();
 
                                 /**
                                  * The function related to the instantiation of
@@ -1548,12 +1548,12 @@ class AliAnalysisTaskUPCforward : public AliAnalysisTaskSE
         /**
          * Not implemented yet...
          */
-        AliAnalysisTaskUPCforward(const AliAnalysisTaskUPCforward&);
+        AliAnalysisTaskUPCforwardpPb(const AliAnalysisTaskUPCforwardpPb&);
 
         /**
          * Not implemented yet...
          */
-        AliAnalysisTaskUPCforward& operator=(const AliAnalysisTaskUPCforward&);
+        AliAnalysisTaskUPCforwardpPb& operator=(const AliAnalysisTaskUPCforwardpPb&);
 
 
         /**
@@ -1561,7 +1561,7 @@ class AliAnalysisTaskUPCforward : public AliAnalysisTaskSE
          * If I happen to encounter it again in the future, I will make sure to
          * record it!
          */
-        ClassDef(AliAnalysisTaskUPCforward, 42);
+        ClassDef(AliAnalysisTaskUPCforwardpPb, 1);
 };
 
 #endif
