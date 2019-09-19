@@ -8,7 +8,7 @@
 // precompiled header files (with extension pcm) are available, so that you do not need to
 // specify includes for those. for your own task however, you (probably) have not generated a
 // pcm file, so we need to include it explicitly
-#include "AliAnalysisTaskUPCforward.h"
+#include "AliAnalysisTaskUPCforwardpPb.h"
 
 void runAnalysis(Int_t opt, Int_t isMC = 0)
 // opt = 0; 2018 q
@@ -39,12 +39,12 @@ void runAnalysis(Int_t opt, Int_t isMC = 0)
     // here we have to differentiate between using the just-in-time compiler
     // from root6, or the interpreter of root5
 #if !defined (__CINT__) || defined (__CLING__)
-    gInterpreter->LoadMacro("AliAnalysisTaskUPCforward.cxx++g");
-    AliAnalysisTaskUPCforward *task = reinterpret_cast<AliAnalysisTaskUPCforward*>(gInterpreter->ExecuteMacro("AddTaskUPCforward.C"));
+    gInterpreter->LoadMacro("AliAnalysisTaskUPCforwardpPb.cxx++g");
+    AliAnalysisTaskUPCforwardpPb *task = reinterpret_cast<AliAnalysisTaskUPCforwardpPb*>(gInterpreter->ExecuteMacro("AddTaskUPCforwardpPb.C"));
 #else
-    gROOT->LoadMacro("AliAnalysisTaskUPCforward.cxx++g");
-    gROOT->LoadMacro("AddTaskUPCforward.C");
-    AliAnalysisTaskUPCforward *task = AddTaskUPCforward();
+    gROOT->LoadMacro("AliAnalysisTaskUPCforwardpPb.cxx++g");
+    gROOT->LoadMacro("AddTaskUPCforwardpPb.C");
+    AliAnalysisTaskUPCforwardpPb *task = AddTaskUPCforwardpPb();
 #endif
 
 
@@ -92,8 +92,8 @@ void runAnalysis(Int_t opt, Int_t isMC = 0)
         // also specify the include (header) paths on grid
         alienHandler->AddIncludePath("-I. -I$ROOTSYS/include -I$ALICE_ROOT -I$ALICE_ROOT/include -I$ALICE_PHYSICS/include");
         // make sure your source files get copied to grid
-        alienHandler->SetAdditionalLibs("AliAnalysisTaskUPCforward.cxx AliAnalysisTaskUPCforward.h");
-        alienHandler->SetAnalysisSource("AliAnalysisTaskUPCforward.cxx");
+        alienHandler->SetAdditionalLibs("AliAnalysisTaskUPCforwardpPb.cxx AliAnalysisTaskUPCforwardpPb.h");
+        alienHandler->SetAnalysisSource("AliAnalysisTaskUPCforwardpPb.cxx");
         // select the aliphysics version. all other packages
         // are LOADED AUTOMATICALLY!
         alienHandler->SetAliPhysicsVersion("vAN-20181028_ROOT6-1");

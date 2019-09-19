@@ -76,7 +76,7 @@ ClassImp(AliAnalysisTaskUPCforwardpPb) // classimp: necessary for root
 
 //_____________________________________________________________________________
 AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
-    : AliAnalysisTaskSE(name),
+    : AliAnalysisTaskSE(),
       fAOD(0),
       fOutputList(0),
       fNumberMuonsH(0),
@@ -84,7 +84,6 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
       fEtaMuonH(0),
       fRAbsMuonH(0),
       fInvariantMassDistributionH(0),
-      fInvariantMassDistributionAtDcaH(0),
       fEntriesAgainstRunNumberH(0),
       fEntriesAgainstRunNumberProperlyH(0),
       fRunNumberTriggerCMUP11ClassH(0),
@@ -156,7 +155,6 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
       fEtaMuonH(0),
       fRAbsMuonH(0),
       fInvariantMassDistributionH(0),
-      fInvariantMassDistributionAtDcaH(0),
       fEntriesAgainstRunNumberH(0),
       fEntriesAgainstRunNumberProperlyH(0),
       fRunNumberTriggerCMUP11ClassH(0),
@@ -279,9 +277,6 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
 
   fInvariantMassDistributionH = new TH1F("fInvariantMassDistributionH", "fInvariantMassDistributionH", 2000, 0, 20);
   fOutputList->Add(fInvariantMassDistributionH);
-
-  fInvariantMassDistributionAtDcaH = new TH1F("fInvariantMassDistributionAtDcaH", "fInvariantMassDistributionAtDcaH", 2000, 0, 20);
-  fOutputList->Add(fInvariantMassDistributionAtDcaH);
 
   fEntriesAgainstRunNumberH = new TH1F("fEntriesAgainstRunNumberH", "fEntriesAgainstRunNumberH", 10000, 290000, 300000);
   fOutputList->Add(fEntriesAgainstRunNumberH);
@@ -1100,5 +1095,12 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
 
   // post the data
   PostData(1, fOutputList);
+}
+//_____________________________________________________________________________
+void AliAnalysisTaskUPCforwardpPb::Terminate(Option_t *)
+{
+    cout << endl;
+    // terminate
+    // called at the END of the analysis (when all events are processed)
 }
 //_____________________________________________________________________________

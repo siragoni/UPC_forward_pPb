@@ -6,7 +6,7 @@ AliAODZDC/
 
 
 #   -   Ignore compilation files
-AliAnalysisTaskUPCforward_*
+AliAnalysisTaskUPCforwardpPb_*
 
 
 #   -   Ignore output files
