@@ -10,18 +10,37 @@
 // pcm file, so we need to include it explicitly
 #include "AliAnalysisTaskUPCforwardpPb.h"
 
-void runAnalysis(Int_t opt, Int_t isMC = 0)
+void runAnalysis(Int_t opt)
 // opt = 0; 2018 q
 // opt = 1; 2018 r
 {
-    // set if you want to run the analysis locally (kTRUE), or on grid (kFALSE)
-    // Bool_t local = kFALSE;
-    Bool_t local = kTRUE;
-    // if you run on grid, specify test mode (kTRUE) or full grid model (kFALSE)
-    Bool_t gridTest = kFALSE;
-    // Bool_t gridTest = kTRUE;
+  // set if you want to run the analysis locally (kTRUE), or on grid (kFALSE)
+  // Bool_t local = kFALSE;
+  // Bool_t local = kTRUE;
+  // if you run on grid, specify test mode (kTRUE) or full grid model (kFALSE)
+  // Bool_t gridTest = kFALSE;
+  // Bool_t gridTest = kTRUE;
 
-    // since we will compile a class, tell root where to look for headers
+  /**
+   * RUN ON LOCAL:
+   */
+  // Bool_t local    = kTRUE;
+  // Bool_t gridTest = kFALSE;
+
+  /**
+   * RUN ON GRIDTEST:
+   */
+  // Bool_t local    = kFALSE;
+  // Bool_t gridTest = kTRUE;
+
+
+  /**
+   * FULL GRID MOD:
+   */
+  Bool_t local    = kFALSE;
+  Bool_t gridTest = kFALSE;
+
+
 #if !defined (__CINT__) || defined (__CLING__)
     gInterpreter->ProcessLine(".include $ROOTSYS/include");
     gInterpreter->ProcessLine(".include $ALICE_ROOT/include");
@@ -100,54 +119,23 @@ void runAnalysis(Int_t opt, Int_t isMC = 0)
         // set the Alien API version
         alienHandler->SetAPIVersion("V1.1x");
         // select the input data for 2018 q
-	// for 2018 q	/alice/data/2018/LHC18q/000296510/muon_calo_pass2/PWGUD/UD_PbPb_AOD/421_20190103-1942/
-	// for 2018 r  /alice/data/2018/LHC18r/000296849/muon_calo_pass2/PWGUD/UD_PbPb_AOD/423_20190104-1437/
-  if ( isMC == 0 ) {
-  	if (opt == 0) {
-  	  alienHandler->SetGridDataDir("/alice/data/2018/LHC18q");
-  	  alienHandler->SetDataPattern("*muon_calo_pass2/PWGUD/UD_PbPb_AOD/425_20190111-1316/*AliAOD.UPCNano.root");
-  	  // MC has no prefix, data has prefix 000
-  	  alienHandler->SetRunPrefix("000");
-  	  // runnumber
-  	  alienHandler->AddRunNumber(296510);
-  	} else if (opt == 1) {
-  	  alienHandler->SetGridDataDir("/alice/data/2018/LHC18r");
-  	  alienHandler->SetDataPattern("*muon_calo_pass2/PWGUD/UD_PbPb_AOD/426_20190111-1316/*AliAOD.UPCNano.root");
-  	  // MC has no prefix, data has prefix 000
-  	  alienHandler->SetRunPrefix("000");
-  	  // runnumber
-  	  alienHandler->AddRunNumber(296849);
-  	} else {
-  	  cout << " not a valid option ... bye!" << endl;
-  	}
-  } else if ( isMC == 1 ) {
-    if (opt == 0) {
-      alienHandler->SetGridDataDir("/alice/sim/2018/LHC18l7/kCohJpsiToMu");
-      alienHandler->SetDataPattern("*muon_calo_pass2/PWGUD/UD_PbPb_AOD/425_20190111-1316/*AliAOD.UPCNano.root");
-      // MC has no prefix, data has prefix 000
-      // alienHandler->SetRunPrefix("000");
-      // runnumber
-      // for (auto & runNumberForMC : fVectorGoodRunNumbersIsMC) {
-      //   alienHandler->AddRunNumber(runNumberForMC);
-      // }
-    } else if (opt == 1) {
-      alienHandler->SetGridDataDir("/alice/data/2018/LHC18r");
-      alienHandler->SetDataPattern("*muon_calo_pass2/PWGUD/UD_PbPb_AOD/426_20190111-1316/*AliAOD.UPCNano.root");
-      // MC has no prefix, data has prefix 000
-      alienHandler->SetRunPrefix("000");
-      // runnumber
-      alienHandler->AddRunNumber(296849);
-    } else {
-      cout << " not a valid option ... bye!" << endl;
-    }
+      	if (opt == 0) {
+      	  alienHandler->SetGridDataDir("/alice/data/2016/LHC16s");
+      	  alienHandler->SetDataPattern("*muon_calo_pass3/AOD191/PWGUD/UD_pPb_AOD/126_20190119-1721/*AliAOD.UPCNano.root");
+      	  // MC has no prefix, data has prefix 000
+      	  alienHandler->SetRunPrefix("000");
+      	  // runnumber
+      	  alienHandler->AddRunNumber(267110);
+      	} else {
+      	  cout << " not a valid option ... bye!" << endl;
+      	}
 
-  }
         // number of files per subjob
         alienHandler->SetSplitMaxInputFileNumber(10);
-        alienHandler->SetExecutable("myTask.sh");
+        alienHandler->SetExecutable("pPbLHC16s.sh");
         // specify how many seconds your job may take
         alienHandler->SetTTL(10000);
-        alienHandler->SetJDLName("myTask.jdl");
+        alienHandler->SetJDLName("pPbLHC16s.jdl");
 
         alienHandler->SetOutputToRunNo(kTRUE);
         alienHandler->SetKeepLogs(kTRUE);
@@ -163,13 +151,11 @@ void runAnalysis(Int_t opt, Int_t isMC = 0)
         alienHandler->SetMaxMergeStages(1);
 
 
-        TString LHC18q("LHC18q");
-        TString LHC18r("LHC18r");
+        TString LHC16s("LHC16s");
         // define the output folders
-        alienHandler->SetGridWorkingDir("myWorkingDir");
+        alienHandler->SetGridWorkingDir("pPbLHC16s_ZDC");
         // alienHandler->SetGridOutputDir("myOutputDir");
-        if (opt == 0) alienHandler->SetGridOutputDir(LHC18q.Data());
-        if (opt == 1) alienHandler->SetGridOutputDir(LHC18r.Data());
+        if (opt == 0) alienHandler->SetGridOutputDir(LHC16s.Data());
 
 
 
