@@ -155,6 +155,9 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
         TH1F*                   fInvariantMassDistributionRapidityBins0N0NH[2];       //!
         TH1F*                   fInvariantMassDistributionMoreRapidityBins0N0NH[3];   //!
 
+        TH1F*                   fInvariantMassDistributionSmall0N0NH;                 //!
+        TH1F*                   fInvariantMassDistributionRapidityBinsSmall0N0NH[2];  //!
+
                 /**
                  * This histogram records the energy distri-
                  * bution of the neutron ZDC. This plot should
@@ -460,7 +463,7 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
          * If I happen to encounter it again in the future, I will make sure to
          * record it!
          */
-        ClassDef(AliAnalysisTaskUPCforwardpPb, 3);
+        ClassDef(AliAnalysisTaskUPCforwardpPb, 4);
 };
 
 #endif

@@ -89,6 +89,55 @@ EOF
 done
 
 
+
+
+aliroot -b -l <<EOF
+.L fitRootConverted/fitJPsiCrystalBall0N0N.cpp
+fitJPsiTemplate("$ROOTfile",0,0);
+EOF
+# rm pngResults/Systematics.root
+# mv pngResults/Systematics2.root pngResults/Systematics.root
+
+for value2 in {0..1}
+do
+aliroot -b -l <<EOF
+.L fitRootConverted/fitJPsiCrystalBall0N0N.cpp
+fitJPsiTemplate("$ROOTfile",1,$value2);
+EOF
+# rm pngResults/Systematics.root
+# mv pngResults/Systematics2.root pngResults/Systematics.root
+done
+
+for value2 in {0..2}
+do
+aliroot -b -l <<EOF
+.L fitRootConverted/fitJPsiCrystalBall0N0N.cpp
+fitJPsiTemplate("$ROOTfile",2,$value2);
+EOF
+# rm pngResults/Systematics.root
+# mv pngResults/Systematics2.root pngResults/Systematics.root
+done
+
+
+
+aliroot -b -l <<EOF
+.L fitRootConverted/fitJPsiCrystalBallSmall0N0N.cpp
+fitJPsiTemplate("$ROOTfile",0,0);
+EOF
+# rm pngResults/Systematics.root
+# mv pngResults/Systematics2.root pngResults/Systematics.root
+
+for value2 in {0..1}
+do
+aliroot -b -l <<EOF
+.L fitRootConverted/fitJPsiCrystalBallSmall0N0N.cpp
+fitJPsiTemplate("$ROOTfile",1,$value2);
+EOF
+# rm pngResults/Systematics.root
+# mv pngResults/Systematics2.root pngResults/Systematics.root
+done
+
+
 # for value in {1..10}
 # do
 # for value2 in {0..4}
@@ -144,12 +193,19 @@ done
 if [ -d "pngResults/$(date +%F)" ]; then rm -rf pngResults/$(date +%F); fi
 mkdir -p pngResults/$(date +%F)
 mkdir -p pngResults/$(date +%F)/FitInvMass
+mkdir -p pngResults/$(date +%F)/FitInvMass0N0N
+mkdir -p pngResults/$(date +%F)/FitInvMass0N0Nsmall
 # mkdir -p pngResults/$(date +%F)/FitInvMassHalfBin
 # mkdir -p pngResults/$(date +%F)/FitInvMassHalfHalfBin
 
 mv pngResults/InvMassSystematics_0_*              pngResults/$(date +%F)/FitInvMass
 mv pngResults/InvMassSystematics_1_*              pngResults/$(date +%F)/FitInvMass
 mv pngResults/InvMassSystematics_2_*              pngResults/$(date +%F)/FitInvMass
+mv pngResults/InvMassSystematics0N0N_0_*          pngResults/$(date +%F)/FitInvMass0N0N
+mv pngResults/InvMassSystematics0N0N_1_*          pngResults/$(date +%F)/FitInvMass0N0N
+mv pngResults/InvMassSystematics0N0N_2_*          pngResults/$(date +%F)/FitInvMass0N0N
+mv pngResults/InvMassSystematics0N0Nsmall_0_*     pngResults/$(date +%F)/FitInvMass0N0Nsmall
+mv pngResults/InvMassSystematics0N0Nsmall_1_*     pngResults/$(date +%F)/FitInvMass0N0Nsmall
 # mv pngResults/fitPtDistrALL*                      pngResults/$(date +%F)/FitInvMass
 # mv pngResults/InvMassSystematicsHalfBin_1_*       pngResults/$(date +%F)/FitInvMassHalfBin
 # mv pngResults/InvMassSystematicsHalfBin_2_*       pngResults/$(date +%F)/FitInvMassHalfBin

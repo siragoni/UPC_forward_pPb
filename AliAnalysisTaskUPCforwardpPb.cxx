@@ -89,6 +89,8 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
       fInvariantMassDistribution0N0NH(0),
       fInvariantMassDistributionRapidityBins0N0NH{ 0, 0 },
       fInvariantMassDistributionMoreRapidityBins0N0NH{ 0, 0, 0 },
+      fInvariantMassDistributionSmall0N0NH(0),
+      fInvariantMassDistributionRapidityBinsSmall0N0NH{ 0, 0 },
       fEntriesAgainstRunNumberH(0),
       fEntriesAgainstRunNumberProperlyH(0),
       fRunNumberTriggerCMUP11ClassH(0),
@@ -175,6 +177,8 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
       fInvariantMassDistribution0N0NH(0),
       fInvariantMassDistributionRapidityBins0N0NH{ 0, 0 },
       fInvariantMassDistributionMoreRapidityBins0N0NH{ 0, 0, 0 },
+      fInvariantMassDistributionSmall0N0NH(0),
+      fInvariantMassDistributionRapidityBinsSmall0N0NH{ 0, 0 },
       fEntriesAgainstRunNumberH(0),
       fEntriesAgainstRunNumberProperlyH(0),
       fRunNumberTriggerCMUP11ClassH(0),
@@ -341,6 +345,17 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
                         Form("fInvariantMassDistributionMoreRapidityBins0N0NH_%d", iRapidity),
                         2000, 0, 20);
     fOutputList->Add(fInvariantMassDistributionMoreRapidityBins0N0NH[iRapidity]);
+  }
+
+  fInvariantMassDistributionSmall0N0NH = new TH1F("fInvariantMassDistributionSmall0N0NH", "fInvariantMassDistributionSmall0N0NH", 2000, 0, 20);
+  fOutputList->Add(fInvariantMassDistributionSmall0N0NH);
+
+  for( Int_t iRapidity = 0; iRapidity < 2; iRapidity++ ) {
+    fInvariantMassDistributionRapidityBinsSmall0N0NH[iRapidity]
+            = new TH1F( Form("fInvariantMassDistributionRapidityBinsSmall0N0NH_%d", iRapidity),
+                        Form("fInvariantMassDistributionRapidityBinsSmall0N0NH_%d", iRapidity),
+                        2000, 0, 20);
+    fOutputList->Add(fInvariantMassDistributionRapidityBinsSmall0N0NH[iRapidity]);
   }
 
 
@@ -1247,6 +1262,19 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
                 } else if ( possibleJPsi.Rapidity() > -3.00 && possibleJPsi.Rapidity() <= -2.50 ) {
                   fInvariantMassDistributionMoreRapidityBins0N0NH[2]->Fill(possibleJPsi.Mag());
                 }
+                /**
+                 * - Pt-integrated analysis
+                 * - in 2 rapidity bins.
+                 * -
+                 */
+                if (        possibleJPsi.Rapidity() > -3.60 && possibleJPsi.Rapidity() <= -3.10 ) {
+                  fInvariantMassDistributionSmall0N0NH->Fill(possibleJPsi.Mag());
+                  fInvariantMassDistributionRapidityBinsSmall0N0NH[0]->Fill(possibleJPsi.Mag());
+                } else if ( possibleJPsi.Rapidity() > -3.10 && possibleJPsi.Rapidity() <= -2.60 ) {
+                  fInvariantMassDistributionSmall0N0NH->Fill(possibleJPsi.Mag());
+                  fInvariantMassDistributionRapidityBinsSmall0N0NH[1]->Fill(possibleJPsi.Mag());
+                }
+
             }
         }
   }
