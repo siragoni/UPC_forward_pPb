@@ -158,15 +158,15 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
         TH1F*                   fInvariantMassDistributionSmall0N0NH;                 //!
         TH1F*                   fInvariantMassDistributionRapidityBinsSmall0N0NH[2];  //!
 
-                /**
-                 * This histogram records the energy distri-
-                 * bution of the neutron ZDC. This plot should
-                 * show the relative components of the 0 neutron
-                 * peak, the 1 neutron peak and possibly the
-                 * 2 neutrons peak. Anything higher than that,
-                 * requires help from the user and is more like
-                 * a guess...
-                 */
+                                /**
+                                 * This histogram records the energy distri-
+                                 * bution of the neutron ZDC. This plot should
+                                 * show the relative components of the 0 neutron
+                                 * peak, the 1 neutron peak and possibly the
+                                 * 2 neutrons peak. Anything higher than that,
+                                 * requires help from the user and is more like
+                                 * a guess...
+                                 */
         TH1F*                   fZNCEnergyAgainstEntriesH;                 //!
         TH1F*                   fZNCEnergyAgainstEntriesExtendedH;         //!
         TH1F*                   fZNCEnergyAgainstEntriesExtendedHv2;       //!
@@ -369,9 +369,15 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
                                  * of the dimuon pairs.
                                  *
                                  * Shift +1 => 20 Mev/c shift
+                                 *
+                                 * Restricted rapidity: -3.6 < y < -2.6
                                  */
-        TH1F*                   fDimuonPtDistributionH;                     //!
-        TH1F*                   fDimuonPtDistributionShiftPlusOneH;         //!
+        TH1F*                   fDimuonPtDistributionH;                              //!
+        TH1F*                   fDimuonPtDistributionShiftPlusOneH;                  //!
+
+        TH1F*                   fDimuonPtDistributionRestrictedRapidity0N0NH;        //!
+        TH1F*                   fDimuonPtDistributionRestrictedRapidity0N0N36to31H;  //!
+        TH1F*                   fDimuonPtDistributionRestrictedRapidity0N0N31to26H;  //!
 
 
         //_______________________________
@@ -463,7 +469,7 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
          * If I happen to encounter it again in the future, I will make sure to
          * record it!
          */
-        ClassDef(AliAnalysisTaskUPCforwardpPb, 4);
+        ClassDef(AliAnalysisTaskUPCforwardpPb, 6);
 };
 
 #endif
