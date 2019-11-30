@@ -10,7 +10,7 @@
 // pcm file, so we need to include it explicitly
 #include "AliAnalysisTaskUPCforwardpPb.h"
 
-void runAnalysis(Int_t opt)
+void runAnalysisRunOne(Int_t opt)
 // opt = 0; 2018 q
 // opt = 1; 2018 r
 {
@@ -130,6 +130,14 @@ void runAnalysis(Int_t opt)
           // alienHandler->SetRunPrefix("000");
           // // runnumber
           // alienHandler->AddRunNumber(267110);
+
+          alienHandler->SetGridDataDir("/alice/data/2013/LHC13f");
+          alienHandler->SetDataPattern("*pass4/PWGUD/UD_pPb_AOD/119_20190104-1433/*AliAOD.UPCNano.root");
+          // MC has no prefix, data has prefix 000
+          alienHandler->SetRunPrefix("000");
+          // runnumber
+          alienHandler->AddRunNumber(196972);
+
           /* -
            * - NEW DATASET
            * -
@@ -140,17 +148,6 @@ void runAnalysis(Int_t opt)
       	  // alienHandler->SetDataPattern("*pass1_UD/PWGUD/UD_pPb_AOD/144_20191104-1006/*AliAOD.UPCNano.root");
       	  // // MC has no prefix, data has prefix 000
       	  // alienHandler->SetRunPrefix("000");
-
-          alienHandler->SetGridDataDir("/alice/data/2016/LHC16r");
-      	  alienHandler->SetDataPattern("*pass1_UD/PWGUD/UD_pPb_AOD/143_20191104-1006/*AliAOD.UPCNano.root");
-      	  // MC has no prefix, data has prefix 000
-      	  alienHandler->SetRunPrefix("000");
-
-
-
-
-
-
       	  // runnumber
           /* - This is the standard run list.
            * - Below I am using a reduced run list
@@ -165,28 +162,10 @@ void runAnalysis(Int_t opt)
           //                                         /*266615,*/ 266614, 266613, 266595, 266593, 266591, 266588, 266587, 266584, 266549,
           //                                         266543, 266539, 266534, 266533, 266525, 266523, 266522, 266520, 266518, 266516,
           //                                         266514, 266487, 266480, 266479, 266472, 266441, 266439 };
-          Int_t listOfGoodRunNumbersLHC16s[]  = { 267131, 267130, 267110, 267109, 267077, 267072, 267070, 267067, 267063, 267062,
-                                                  267022, 267020, 266998, 266997, 266994, 266993, 266988, 266944, 266943, 266942,
-                                                  266940, 266915, 266912, 266886, 266885, 266883, 266882, 266880, 266878, 266857,
-                                                  266807, 266805, 266800, 266776, 266775, 266708, 266706, 266703, 266702, 266676,
-                                                  266674, 266669, 266668, 266665, 266659, 266658, 266657, 266630, 266621, 266618,
-                                                  266614, 266613, 266595, 266593, 266591, 266588, 266587, 266584, 266549,
-                                                  266543, 266539, 266534, 266533, 266525, 266523, 266522, 266520, 266518, 266516,
-                                                  266514, 266487, 266480, 266479, 266472, 266441, 266439 };
-          // for( Int_t iRunLHC16s = 0; iRunLHC16s <  76; iRunLHC16s++){
+          //
+          // for( Int_t iRunLHC16s = 0; iRunLHC16s <  /*76 - standard*/ 38; iRunLHC16s++){
           //   alienHandler->AddRunNumber( listOfGoodRunNumbersLHC16s[iRunLHC16s] );
           // }
-          Int_t listOfGoodRunNumbersLHC16r[]  = { 266318, 266316, 266312, 266305, 266304, 266300, 266299, 266296, 266235, 266234,
-                                                  266208, 266197, 266196, 266193, 266190, 266189, 266187, 266117, 266086, 266085,
-                                                  266084, 266081, 266076, 266074, 266034, 266025, 266023, 266022, 265841, 265840,
-                                                  265797, 265795, 265792, 265789, 265788, 265787, 265785, 265756, 265754, 265746,
-                                                  265744, 265742, 265741, 265740, 265714, 265713, 265709, 265701, 265700, 265698,
-                                                  265697, 265696, 265694, 265691, 265607, 265596, 265594 };
-          for( Int_t iRunLHC16r = 0; iRunLHC16r <  57; iRunLHC16r++){
-            if ( iRunLHC16r == 51 ) continue;
-            alienHandler->AddRunNumber( listOfGoodRunNumbersLHC16r[iRunLHC16r] );
-          }
-
       	} else {
       	  cout << " not a valid option ... bye!" << endl;
       	}
@@ -203,18 +182,18 @@ void runAnalysis(Int_t opt)
         // merging: run with "kTRUE" and "full" for normal run
         // to merge on grid run jobs in SetRunMode("terminate")
         // to collect final results set SetMergeViaJDL(kFALSE)
-        alienHandler->SetMergeViaJDL(kTRUE);
+        // alienHandler->SetMergeViaJDL(kTRUE);
 
         /* - The setting to kFALSE is to download the output files
            -
          */
-        // alienHandler->SetMergeViaJDL(kFALSE);
+        alienHandler->SetMergeViaJDL(kFALSE);
         alienHandler->SetMaxMergeStages(1);
 
 
-        TString LHC16s("LHC16r");
+        TString LHC16s("LHC16s");
         // define the output folders
-        alienHandler->SetGridWorkingDir("pPbLHC16r_NoADdecisions");
+        alienHandler->SetGridWorkingDir("pPbLHC13_V2");
         // alienHandler->SetGridOutputDir("myOutputDir");
         if (opt == 0) alienHandler->SetGridOutputDir(LHC16s.Data());
 
@@ -234,12 +213,12 @@ void runAnalysis(Int_t opt)
             /* - The option FULL is to send the full analysis.
                -
              */
-            alienHandler->SetRunMode("full");
+            // alienHandler->SetRunMode("full");
 
             /* - This option TERMINATE is used for the merging of the files.
                -
              */
-            // alienHandler->SetRunMode("terminate");
+            alienHandler->SetRunMode("terminate");
             mgr->StartAnalysis("grid");
         }
     }

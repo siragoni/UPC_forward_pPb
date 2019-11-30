@@ -8,16 +8,24 @@
 #include "TLegend.h"
 
 // Int_t nRuns     = 38;
-Int_t nRuns     = 77;
-Int_t runList[] = {
-  267131, 267130, 267110, 267109, 267077, 267072, 267070, 267067, 267063, 267062,
-  267022, 267020, 266998, 266997, 266994, 266993, 266988, 266944, 266943, 266942,
-  266940, 266915, 266912, 266886, 266885, 266883, 266882, 266880, 266878, 266857,
-  266807, 266805, 266800, 266776, 266775, 266708, 266706, 266703, 266702, 266676,
-  266674, 266669, 266668, 266665, 266659, 266658, 266657, 266630, 266621, 266618,
-  266615, 266614, 266613, 266595, 266593, 266591, 266588, 266587, 266584, 266549,
-  266543, 266539, 266534, 266533, 266525, 266523, 266522, 266520, 266518, 266516,
-  266514, 266487, 266480, 266479, 266472, 266441, 266439 };
+Int_t nRuns     = 56;
+// Int_t runList[] = {
+//   267131, 267130, 267110, 267109, 267077, 267072, 267070, 267067, 267063, 267062,
+//   267022, 267020, 266998, 266997, 266994, 266993, 266988, 266944, 266943, 266942,
+//   266940, 266915, 266912, 266886, 266885, 266883, 266882, 266880, 266878, 266857,
+//   266807, 266805, 266800, 266776, 266775, 266708, 266706, 266703, 266702, 266676,
+//   266674, 266669, 266668, 266665, 266659, 266658, 266657, 266630, 266621, 266618,
+//   266615, 266614, 266613, 266595, 266593, 266591, 266588, 266587, 266584, 266549,
+//   266543, 266539, 266534, 266533, 266525, 266523, 266522, 266520, 266518, 266516,
+//   266514, 266487, 266480, 266479, 266472, 266441, 266439 };
+Int_t runList[]  = {
+  266318, 266316, 266312, 266305, 266304, 266300, 266299, 266296, 266235, 266234,
+  266208, 266197, 266196, 266193, 266190, 266189, 266187, 266117, 266086, 266085,
+  266084, 266081, 266076, 266074, 266034, 266025, 266023, 266022, 265841, 265840,
+  265797, 265795, 265792, 265789, 265788, 265787, 265785, 265756, 265754, 265746,
+  265744, 265742, 265741, 265740, 265714, 265713, 265709, 265701, 265700, 265698,
+  265697, 265694, 265691, 265607, 265596, 265594 };
+
 // Int_t runList[]  = {
 //   267131, 267130, 267110, 267109, 267077, 267072, 267070, 267067, 267063, 267062,
 //   267022, 267020, 266998, 266997, 266994, 266993, 266988, 266944, 266943, 266942,
@@ -32,7 +40,7 @@ Int_t runList[] = {
 
 // void lumiEvgenyStyle(TString className = "CMUL7-B-NOPF-MUFAST"){
 // void lumiEvgenyStyle(TString className = "CMUP11-B-NOPF-MUFAST"){
-void lumiEvgenyStyle(TString className = "CMUP23-B-NOPF-MUFAST"){
+void lumiEvgenyStyle(TString className = "CMUP14-B-NOPF-MUFAST"){
 //void lumiEvgenyStyle(TString className = "CCUP9-B-NOPF-CENTNOTRD"){
   TH1D* hTrigRecorded = new TH1D("hTrigRecorded","",nRuns,0,nRuns);
   TH1D* hTrigAnalysed = new TH1D("hTrigAnalysed","",nRuns,0,nRuns);
@@ -59,7 +67,7 @@ void lumiEvgenyStyle(TString className = "CMUP23-B-NOPF-MUFAST"){
   AliTriggerClass* cl     = 0x0;
   AliTriggerClass* clRef  = 0x0;
   AliTriggerClass* clLT   = 0x0;
-  TFile* f = new TFile("AnalysisResultsLHC16s13112019.root");
+  TFile* f = new TFile("AnalysisResultsLHC16r28112019.root");
   // TFile* f = new TFile("AnalysisResultsLHC16sHalfRunList.root");
   TList* list = (TList*) f->Get("MyTask/MyOutputContainer"); // provide your list here
   TH2F* h2 = (TH2F*) list->FindObject("fTriggersVsRunH");
@@ -67,11 +75,11 @@ void lumiEvgenyStyle(TString className = "CMUP23-B-NOPF-MUFAST"){
 
   for (Int_t i=0;i<nRuns;i++){
     Int_t r = runList[i];
-    if ( r == 266615 ) continue;
+    // if ( r == 266615 ) continue;
     char* srun = Form("%i",r);
     t->GetEntryWithIndex(r);
     printf("%i ",run);
-    className = "CMUP23-B-NOPF-MUFAST";
+    className = "CMUP14-B-NOPF-MUFAST";
     // if (run<=245542) className = "CMUP10-B-NOPF-MUFAST";
     // AliTriggerClass* cl     = (AliTriggerClass*) classes->FindObject(className.Data());
     // AliTriggerClass* clRef  = (AliTriggerClass*) classes->FindObject("C0V0M-B-NOPF-CENTNOTRD");
@@ -137,13 +145,14 @@ void lumiEvgenyStyle(TString className = "CMUP23-B-NOPF-MUFAST"){
 
 
 
-    Int_t class_bin = 2;
+    Int_t class_bin = 0;
     // check for consistency with fTriggersVsRun contents
     // if (className.Contains("CMUP10-B-NOPF-MUFAST")) class_bin = 4;
     // if (className.Contains("CMUP11-B-NOPF-MUFAST")) class_bin = 1;
     Int_t run_bin       = h2->GetYaxis()->FindFixBin(run+0.5);
     cout << "bin = " << h2->GetYaxis()->FindBin(run+0.5) << endl;
-    Int_t nTrigAnalysed = h2->GetBinContent(class_bin,h2->GetYaxis()->FindFixBin(run+0.5));
+    // Int_t nTrigAnalysed = h2->GetBinContent(class_bin,h2->GetYaxis()->FindFixBin(run+0.5));
+    Int_t nTrigAnalysed = h2->GetBinContent(class_bin+1,run_bin);
     cout << "run = " << run << " , run_bin = " << run_bin <<  ", nTrigAnalysed = " << nTrigAnalysed << endl;
     Int_t nTrigRecorded = l2a;
     // Double_t lumiAnalysed = nTrigRecorded>=1 ? Double_t(nTrigAnalysed)/nTrigRecorded*lumiRecorded : 0;
