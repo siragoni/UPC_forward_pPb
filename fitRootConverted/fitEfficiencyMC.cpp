@@ -20,9 +20,10 @@ using namespace std;
 Double_t fLumiPerRun = 0;
 Int_t    fRunNum     = 0;
 Double_t GlobalAxE   = 0;
-// Double_t fLumi       = 10853.457;
 // Double_t fLumi       = 11919.684;
-Double_t fLumi       = 7867.421;
+
+
+Double_t fLumi       = 7917.604;  // REDUCED run list...
 
 //_____________________________________________________________________________
 /* - There were plenty of ways to do this...
@@ -119,61 +120,6 @@ void SetLuminosityCap()
   else if ( fRunNum == 266472 ) { fLumiPerRun = 86.2489; }
   else if ( fRunNum == 266441 ) { fLumiPerRun = 143.532; }
   else if ( fRunNum == 266439 ) { fLumiPerRun = 33.9646; }
-  else if ( fRunNum == 266318 ) { fLumiPerRun = 66.2315; }
-  else if ( fRunNum == 266316 ) { fLumiPerRun = 9.58106; }
-  else if ( fRunNum == 266312 ) { fLumiPerRun = 157.511; }
-  else if ( fRunNum == 266305 ) { fLumiPerRun = 198.184; }
-  else if ( fRunNum == 266304 ) { fLumiPerRun = 85.8848; }
-  else if ( fRunNum == 266300 ) { fLumiPerRun = 129.924; }
-  else if ( fRunNum == 266299 ) { fLumiPerRun = 133.485; }
-  else if ( fRunNum == 266296 ) { fLumiPerRun = 116.474; }
-  else if ( fRunNum == 266235 ) { fLumiPerRun = 414.245; }
-  else if ( fRunNum == 266234 ) { fLumiPerRun = 199.209; }
-  else if ( fRunNum == 266208 ) { fLumiPerRun = 149.731; }
-  else if ( fRunNum == 266197 ) { fLumiPerRun = 118.298; }
-  else if ( fRunNum == 266196 ) { fLumiPerRun = 68.0719; }
-  else if ( fRunNum == 266193 ) { fLumiPerRun = 88.4665; }
-  else if ( fRunNum == 266190 ) { fLumiPerRun = 79.6631; }
-  else if ( fRunNum == 266189 ) { fLumiPerRun = 32.3559; }
-  else if ( fRunNum == 266187 ) { fLumiPerRun = 127.149; }
-  else if ( fRunNum == 266117 ) { fLumiPerRun = 153.453; }
-  else if ( fRunNum == 266086 ) { fLumiPerRun = 116.072; }
-  else if ( fRunNum == 266085 ) { fLumiPerRun = 63.4458; }
-  else if ( fRunNum == 266084 ) { fLumiPerRun = 22.4614; }
-  else if ( fRunNum == 266081 ) { fLumiPerRun = 47.3174; }
-  else if ( fRunNum == 266076 ) { fLumiPerRun = 195.23;  }
-  else if ( fRunNum == 266074 ) { fLumiPerRun = 230.263; }
-  else if ( fRunNum == 266034 ) { fLumiPerRun = 86.9949; }
-  else if ( fRunNum == 266025 ) { fLumiPerRun = 658.516; }
-  else if ( fRunNum == 266023 ) { fLumiPerRun = 133.836; }
-  else if ( fRunNum == 266022 ) { fLumiPerRun = 340.669; }
-  else if ( fRunNum == 265841 ) { fLumiPerRun = 210.894; }
-  else if ( fRunNum == 265840 ) { fLumiPerRun = 3.65278; }
-  else if ( fRunNum == 265797 ) { fLumiPerRun = 41.2853; }
-  else if ( fRunNum == 265795 ) { fLumiPerRun = 65.9944; }
-  else if ( fRunNum == 265792 ) { fLumiPerRun = 34.2686; }
-  else if ( fRunNum == 265789 ) { fLumiPerRun = 168.22;  }
-  else if ( fRunNum == 265788 ) { fLumiPerRun = 145.194; }
-  else if ( fRunNum == 265787 ) { fLumiPerRun = 251.743; }
-  else if ( fRunNum == 265785 ) { fLumiPerRun = 316.091; }
-  else if ( fRunNum == 265756 ) { fLumiPerRun = 51.7427; }
-  else if ( fRunNum == 265754 ) { fLumiPerRun = 96.0737; }
-  else if ( fRunNum == 265746 ) { fLumiPerRun = 366.01;  }
-  else if ( fRunNum == 265744 ) { fLumiPerRun = 168.605; }
-  else if ( fRunNum == 265742 ) { fLumiPerRun = 184.746; }
-  else if ( fRunNum == 265741 ) { fLumiPerRun = 80.0317; }
-  else if ( fRunNum == 265740 ) { fLumiPerRun = 72.2736; }
-  else if ( fRunNum == 265714 ) { fLumiPerRun = 46.912;  }
-  else if ( fRunNum == 265713 ) { fLumiPerRun = 41.2605; }
-  else if ( fRunNum == 265709 ) { fLumiPerRun = 48.43;   }
-  else if ( fRunNum == 265701 ) { fLumiPerRun = 124.259; }
-  else if ( fRunNum == 265700 ) { fLumiPerRun = 33.3219; }
-  else if ( fRunNum == 265698 ) { fLumiPerRun = 140.203; }
-  else if ( fRunNum == 265697 ) { fLumiPerRun = 19.0271; }
-  else if ( fRunNum == 265694 ) { fLumiPerRun = 577.183; }
-  else if ( fRunNum == 265691 ) { fLumiPerRun = 351.54;  }
-  else if ( fRunNum == 265607 ) { fLumiPerRun = 0.647854;}
-  else if ( fRunNum == 265596 ) { fLumiPerRun = 4.23135; }
   else                          { fLumiPerRun = 1.00;    }
 
 
@@ -185,16 +131,8 @@ void SetLuminosityCap()
  */
 void fitEfficiencyMC(){
 
-  // TFile* fileList = new TFile("../MyUPC-MonteCarlo/AnalysisResults.root");
-  // TFile* fileList = new TFile("AnalysisResultsMC06062019.root");
-  // TFile* fileList = new TFile("MCtrainResults/2019-06-16-LHC18qr/kCohJpsiToMu/AnalysisResults.root");
-  // TFile* fileList = new TFile("MCtrainResults/2019-10-30/kCohJpsiToMu/AnalysisResults.root");
-  // TFile* fileList = new TFile("MCtrainResults/2019-11-09/kCohJpsiToMu/AnalysisResults.root");
-  // TFile* fileList = new TFile("AnalysisResultsMCcohJPsiALLaods.root");  //Used file
-  // TFile* fileList = new TFile("AnalysisResultsIncoh22112019_TrueRapid.root");  //Used file: for LHC16s
-  TFile* fileList = new TFile("AnalysisResultsLHC16rIncohMC.root");  //Used file: for LHC16r
-  // TFile* fileList = new TFile("AnalysisResultsLHC17e4Coh16112019.root");
-  // TFile* fileList = new TFile("AnalysisResultsMCcohJPsi09112019.root");
+  // TFile* fileList = new TFile("AnalysisResultsIncohMC_02042020.root");  //Used file: for LHC16s NO ADC multi
+  TFile* fileList = new TFile("AnalysisResultsIncohMC_ADdecisions.root");  //Used file: for LHC16s ADA and ADC decisions
   TDirectory* dir = fileList->GetDirectory("MyTask");
   TList* listings;
   dir->GetObject("MyOutputContainer", listings);
@@ -237,10 +175,48 @@ void fitEfficiencyMC(){
   Int_t counter = 0;
   cout << "fEfficiencyPerRunH : " << endl;
   for ( Int_t iLoop = 1; iLoop <= RealEfficiency->GetNbinsX(); iLoop++ ) {
-    if ( iLoop > 79 ) break;
+    if ( iLoop > 77 ) break;
+    // if ( iLoop > 75 ) break;
     TString label          = RealEfficiency->GetXaxis()->GetBinLabel(iLoop);
     runLabel[iLoop]        = RealEfficiency->GetXaxis()->GetBinLabel(iLoop);
-    if ( atoi( label.Data() ) == 266615) continue;
+    // if ( atoi( label.Data() ) == 266615) continue;
+    if ( atoi( label.Data() ) >  267131) continue;
+    if ( atoi( label.Data() ) == 266439) continue;
+
+
+
+
+    //_______________________________
+    //
+    // REDUCED run list
+    //
+    if ( atoi( label.Data() ) == 267110) continue;
+    if ( atoi( label.Data() ) == 266885) continue;
+    if ( atoi( label.Data() ) == 266882) continue;
+    if ( atoi( label.Data() ) == 266857) continue;
+    if ( atoi( label.Data() ) == 266775) continue;
+    if ( atoi( label.Data() ) == 266706) continue;
+    if ( atoi( label.Data() ) == 266703) continue;
+    if ( atoi( label.Data() ) == 266702) continue;
+    if ( atoi( label.Data() ) == 266668) continue;
+    if ( atoi( label.Data() ) == 266658) continue;
+    if ( atoi( label.Data() ) == 266657) continue;
+    if ( atoi( label.Data() ) == 266614) continue;
+    if ( atoi( label.Data() ) == 266613) continue;
+    if ( atoi( label.Data() ) == 266591) continue;
+    if ( atoi( label.Data() ) == 266588) continue;
+    if ( atoi( label.Data() ) == 266587) continue;
+    if ( atoi( label.Data() ) == 266584) continue;
+    if ( atoi( label.Data() ) == 266518) continue;
+    if ( atoi( label.Data() ) == 266516) continue;
+    if ( atoi( label.Data() ) == 266514) continue;
+    if ( atoi( label.Data() ) == 266472) continue;
+    if ( atoi( label.Data() ) == 266441) continue;
+    //_______________________________
+
+
+
+
     // if ( atoi( label.Data() ) == 266807) continue;
     // if ( atoi( label.Data() ) == 266805) continue;
     // if ( atoi( label.Data() ) == 266800) continue;
@@ -317,7 +293,7 @@ void fitEfficiencyMC(){
       // counter++;
     }
 
-
+    if (ComputedEfficiency[iLoop] > 0.08) cout << "BEWARE Run: " << label.Data() << endl;
     GlobalAxE += (weight * ComputedEfficiency[iLoop]);
     cout << "Global AxE   = " << GlobalAxE << endl;
     cout << "Contribution ="  << (weight * ComputedEfficiency[iLoop]) << endl;

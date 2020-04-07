@@ -192,6 +192,8 @@ done
 
 if [ -d "pngResults/$(date +%F)" ]; then rm -rf pngResults/$(date +%F); fi
 mkdir -p pngResults/$(date +%F)
+mkdir -p pngResults/$(date +%F)/PtDistrV1
+mkdir -p pngResults/$(date +%F)/PtDistrV3
 mkdir -p pngResults/$(date +%F)/FitInvMass
 mkdir -p pngResults/$(date +%F)/FitInvMass0N0N
 mkdir -p pngResults/$(date +%F)/FitInvMass0N0Nsmall
@@ -214,3 +216,25 @@ mv pngResults/InvMassSystematics0N0Nsmall_1_*     pngResults/$(date +%F)/FitInvM
 # mv pngResults/Systematics.root                    pngResults/$(date +%F)/XNXN
 # mv pngResults/SystematicsHalfBin.root             pngResults/$(date +%F)/XNXNhalfBin
 # mv pngResults/SystematicsHalfHalfBin.root         pngResults/$(date +%F)/XNXNhalfHalfBin
+
+
+for value in {0..3}
+do
+aliroot -b -l <<EOF
+.L fitRootConverted/fitPtDistr_Pbp.cpp
+fitPtDistr("$ROOTfile",$value);
+EOF
+done
+
+mv pngResults/fitPtDistr*              pngResults/$(date +%F)/PtDistrV1
+
+
+for value in {0..3}
+do
+aliroot -b -l <<EOF
+.L fitRootConverted/fitPtDistr_Pbp_VariableBinning.cpp
+fitPtDistr("$ROOTfile",$value);
+EOF
+done
+
+mv pngResults/fitPtDistr*              pngResults/$(date +%F)/PtDistrV3

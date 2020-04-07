@@ -59,8 +59,8 @@ void lumiEvgenyStyle(TString className = "CMUP23-B-NOPF-MUFAST"){
   AliTriggerClass* cl     = 0x0;
   AliTriggerClass* clRef  = 0x0;
   AliTriggerClass* clLT   = 0x0;
-  TFile* f = new TFile("AnalysisResultsLHC16s13112019.root");
-  // TFile* f = new TFile("AnalysisResultsLHC16sHalfRunList.root");
+  // TFile* f = new TFile("AnalysisResultsLHC16s_02042020.root");
+  TFile* f = new TFile("AnalysisResultsLHC16s_ADCmulti_reducedrunlist.root");
   TList* list = (TList*) f->Get("MyTask/MyOutputContainer"); // provide your list here
   TH2F* h2 = (TH2F*) list->FindObject("fTriggersVsRunH");
 
@@ -68,6 +68,15 @@ void lumiEvgenyStyle(TString className = "CMUP23-B-NOPF-MUFAST"){
   for (Int_t i=0;i<nRuns;i++){
     Int_t r = runList[i];
     if ( r == 266615 ) continue;
+
+
+
+
+
+
+    // if ( r == 267110 || r == 266885 || r == 266882 || r == 266857 || r == 266775 || r == 266706 || r == 266703 || r == 266702 || r == 266668 || r == 266658 || r == 266657 || r == 266614 || r == 266613 || r == 266591 || r == 266588 || r == 266587 || r == 266584 || r == 266518 || r == 266516 || r == 266514 || r == 266472 || r == 266441  ) continue;
+
+
     char* srun = Form("%i",r);
     t->GetEntryWithIndex(r);
     printf("%i ",run);
