@@ -67,7 +67,8 @@ void lumiEvgenyStyle(TString className = "CMUP14-B-NOPF-MUFAST"){
   AliTriggerClass* cl     = 0x0;
   AliTriggerClass* clRef  = 0x0;
   AliTriggerClass* clLT   = 0x0;
-  TFile* f = new TFile("AnalysisResultsLHC16r28112019.root");
+  // TFile* f = new TFile("AnalysisResultsLHC16r28112019.root");
+  TFile* f = new TFile("AnalysisResultsOldLHC16r_ZDC.root");
   // TFile* f = new TFile("AnalysisResultsLHC16sHalfRunList.root");
   TList* list = (TList*) f->Get("MyTask/MyOutputContainer"); // provide your list here
   TH2F* h2 = (TH2F*) list->FindObject("fTriggersVsRunH");
@@ -76,10 +77,15 @@ void lumiEvgenyStyle(TString className = "CMUP14-B-NOPF-MUFAST"){
   for (Int_t i=0;i<nRuns;i++){
     Int_t r = runList[i];
     // if ( r == 266615 ) continue;
+    if ( r == 265691 ) continue;
+    if ( r == 265607 ) continue;
+    if ( r == 265596 ) continue;
+    if ( r == 265594 ) continue;
     char* srun = Form("%i",r);
     t->GetEntryWithIndex(r);
     printf("%i ",run);
-    className = "CMUP14-B-NOPF-MUFAST";
+    // className = "CMUP14-B-NOPF-MUFAST";
+    className = "CMUP16-B-NOPF-MUFAST";
     // if (run<=245542) className = "CMUP10-B-NOPF-MUFAST";
     // AliTriggerClass* cl     = (AliTriggerClass*) classes->FindObject(className.Data());
     // AliTriggerClass* clRef  = (AliTriggerClass*) classes->FindObject("C0V0M-B-NOPF-CENTNOTRD");
@@ -145,7 +151,8 @@ void lumiEvgenyStyle(TString className = "CMUP14-B-NOPF-MUFAST"){
 
 
 
-    Int_t class_bin = 0;
+    // Int_t class_bin = 0;
+    Int_t class_bin = 6;
     // check for consistency with fTriggersVsRun contents
     // if (className.Contains("CMUP10-B-NOPF-MUFAST")) class_bin = 4;
     // if (className.Contains("CMUP11-B-NOPF-MUFAST")) class_bin = 1;

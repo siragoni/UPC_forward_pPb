@@ -129,11 +129,10 @@ void SetLuminosityCap()
  * - run-by-run basis.
  * -
  */
-void fitEfficiencyMC(){
+void fitEfficiencyMC( Int_t selectionFlag = 0 ){
 
-  // TFile* fileList = new TFile("AnalysisResultsIncohMC_02042020.root");  //Used file: for LHC16s NO ADC multi
-  // TFile* fileList = new TFile("AnalysisResultsIncohMC_ADdecisions.root");  //Used file: for LHC16s ADA and ADC decisions
-  TFile* fileList = new TFile("AnalysisResultsLHC16s_propertrigger.root");  //Used file: for LHC16s proper trigger
+  // TFile* fileList = new TFile("AnalysisResultsIncohMC_highenergy_Run2settings.root");  //Used file: for LHC16s proper trigger
+  TFile* fileList = new TFile("AnalysisResultsIncohMC_NoCutAtAll.root");  //Used file: for LHC16s proper trigger
   TDirectory* dir = fileList->GetDirectory("MyTask");
   TList* listings;
   dir->GetObject("MyOutputContainer", listings);
@@ -147,14 +146,54 @@ void fitEfficiencyMC(){
    *     OBJ: TH1F	  fRAbsMuonH	                fRAbsMuonH                  : 0 at: 0x5a3c0c0
    *     OBJ: TH1F	  fInvariantMassDistributionH	fInvariantMassDistributionH : 0 at: 0x5a3c720
    */
-  // TH1F* fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunH");
-  // TH1F* fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunH");
-  // TH1F* fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunRestrictedRapidityH");
-  // TH1F* fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunRestrictedRapidityH");
-  // TH1F* fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunRestrictedRapidity36to31H");
-  // TH1F* fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunRestrictedRapidity36to31H");
-  TH1F* fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunRestrictedRapidity31to26H");
-  TH1F* fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunRestrictedRapidity31to26H");
+  TH1F* fEfficiencyPerRunH   = 0x0;
+  TH1F* fMCEfficiencyPerRunH = 0x0;
+  if (        selectionFlag == 0  ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettings");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettings");
+  } else if ( selectionFlag == 1  ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettingsTwoBinsRapidityH_0");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettingsTwoBinsRapidityH_0");
+  } else if ( selectionFlag == 2  ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettingsTwoBinsRapidityH_1");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettingsTwoBinsRapidityH_1");
+  } else if ( selectionFlag == 3  ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettingsThreeBinsRapidityH_0");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettingsThreeBinsRapidityH_0");
+  } else if ( selectionFlag == 4  ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettingsThreeBinsRapidityH_1");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettingsThreeBinsRapidityH_1");
+  } else if ( selectionFlag == 5  ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettingsThreeBinsRapidityH_2");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettingsThreeBinsRapidityH_2");
+  } else if ( selectionFlag == 6  ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettingsFourBinsRapidityH_0");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettingsFourBinsRapidityH_0");
+  } else if ( selectionFlag == 7  ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettingsFourBinsRapidityH_1");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettingsFourBinsRapidityH_1");
+  } else if ( selectionFlag == 8  ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettingsFourBinsRapidityH_2");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettingsFourBinsRapidityH_2");
+  } else if ( selectionFlag == 9  ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettingsFourBinsRapidityH_3");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettingsFourBinsRapidityH_3");
+  } else if ( selectionFlag == 10 ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettingsFiveBinsRapidityH_0");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettingsFiveBinsRapidityH_0");
+  } else if ( selectionFlag == 11 ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettingsFiveBinsRapidityH_1");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettingsFiveBinsRapidityH_1");
+  } else if ( selectionFlag == 12 ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettingsFiveBinsRapidityH_2");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettingsFiveBinsRapidityH_2");
+  } else if ( selectionFlag == 13 ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettingsFiveBinsRapidityH_3");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettingsFiveBinsRapidityH_3");
+  } else if ( selectionFlag == 14 ) {
+    fEfficiencyPerRunH   = (TH1F*)listings->FindObject("fEfficiencyPerRunWithRunTwoSettingsFiveBinsRapidityH_4");
+    fMCEfficiencyPerRunH = (TH1F*)listings->FindObject("fMCEfficiencyPerRunWithRunTwoSettingsFiveBinsRapidityH_4");
+  }
   fEfficiencyPerRunH  ->Sumw2();
   fMCEfficiencyPerRunH->Sumw2();
 

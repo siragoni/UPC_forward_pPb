@@ -380,14 +380,82 @@ void fitJPsiTemplate(const char* AnalysisName, const int selectionFlag, const in
   TH1F *fInvariantMassDistributionH = 0x0;
   if      ( selectionFlag == 0 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionH");
   else if ( selectionFlag == 1 ) {
-    if      ( selectionFlag2 == 0 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityBinsH_0");
-    else if ( selectionFlag2 == 1 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityBinsH_1");
-    // else if ( selectionFlag2 == 2 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityBinsH_2");
+    // if      ( selectionFlag2 == 0 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityBinsH_0");
+    // else if ( selectionFlag2 == 1 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityBinsH_1");
+    if      ( selectionFlag2 == 0 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionHCMUP14");
+    else if ( selectionFlag2 == 1 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionHCMUP16");
+    else if ( selectionFlag2 == 2 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionHV0ADec");
+    else if ( selectionFlag2 == 3 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionHV0CDec");
+    else if ( selectionFlag2 == 4 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionHADADec");
+    else if ( selectionFlag2 == 5 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionHADCDec");
+    else if ( selectionFlag2 == 6 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionHV0Ccells");
+    else if ( selectionFlag2 == 7 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionOneNeutronZNCH");
+    else if ( selectionFlag2 == 8 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionOneNeutronZNAH");
+    else if ( selectionFlag2 == 9 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionOnlyTwoTracks_RightRapidity_PtCutH");
+    else if ( selectionFlag2 == 10) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionOnlyThreeTracks_RightRapidity_PtCutH");
   }
   else if ( selectionFlag == 2 ) {
     if      ( selectionFlag2 == 0 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionMoreRapidityBinsH_0");
     else if ( selectionFlag2 == 1 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionMoreRapidityBinsH_1");
     else if ( selectionFlag2 == 2 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionMoreRapidityBinsH_2");
+  }
+  else if ( selectionFlag == 3 ) {
+    if      ( selectionFlag2 == 0 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionH");
+    else if ( selectionFlag2 == 1 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityBinsNewH_0");
+    else if ( selectionFlag2 == 2 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityBinsNewH_1");
+    else if ( selectionFlag2 == 3 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionZeroZNAH");
+    else if ( selectionFlag2 == 4 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityBinsZeroZNAH_0");
+    else if ( selectionFlag2 == 5 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityBinsZeroZNAH_1");
+    else if ( selectionFlag2 == 6 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionZeroZNCH");
+    else if ( selectionFlag2 == 7 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityBinsZeroZNCH0");
+    else if ( selectionFlag2 == 8 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityBinsZeroZNCH1");
+    else if ( selectionFlag2 == 9 ) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionSmall0N0NH");
+    else if ( selectionFlag2 == 10) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityBinsSmall0N0NH_0");
+    else if ( selectionFlag2 == 11) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityBinsSmall0N0NH_1");
+    else if ( selectionFlag2 == 12) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionZeroZNCH");
+    else if ( selectionFlag2 == 13) {
+      fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNCH_0");
+      fInvariantMassDistributionH->Add( (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNCH_1") );
+    }
+    else if ( selectionFlag2 == 14) {
+      fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNCH_2");
+      fInvariantMassDistributionH->Add( (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNCH_3") );
+    }
+    else if ( selectionFlag2 == 15) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityThreeBinsZeroZNCH_0");
+    else if ( selectionFlag2 == 16) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityThreeBinsZeroZNCH_1");
+    else if ( selectionFlag2 == 17) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityThreeBinsZeroZNCH_2");
+    else if ( selectionFlag2 == 18) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNCH_0");
+    else if ( selectionFlag2 == 19) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNCH_1");
+    else if ( selectionFlag2 == 20) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNCH_2");
+    else if ( selectionFlag2 == 21) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNCH_3");
+    else if ( selectionFlag2 == 22) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFiveBinsZeroZNCH_0");
+    else if ( selectionFlag2 == 23) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFiveBinsZeroZNCH_1");
+    else if ( selectionFlag2 == 24) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFiveBinsZeroZNCH_2");
+    else if ( selectionFlag2 == 25) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFiveBinsZeroZNCH_3");
+    else if ( selectionFlag2 == 26) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFiveBinsZeroZNCH_4");
+    else if ( selectionFlag2 == 27) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionZeroZNAH");
+    else if ( selectionFlag2 == 28) {
+      fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNAH_0");
+      fInvariantMassDistributionH->Add( (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNAH_1") );
+    }
+    else if ( selectionFlag2 == 29) {
+      fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNAH_2");
+      fInvariantMassDistributionH->Add( (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNAH_3") );
+    }
+    else if ( selectionFlag2 == 30) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityThreeBinsZeroZNAH_0");
+    else if ( selectionFlag2 == 31) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityThreeBinsZeroZNAH_1");
+    else if ( selectionFlag2 == 32) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityThreeBinsZeroZNAH_2");
+    else if ( selectionFlag2 == 33) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNAH_0");
+    else if ( selectionFlag2 == 34) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNAH_1");
+    else if ( selectionFlag2 == 35) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNAH_2");
+    else if ( selectionFlag2 == 36) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFourBinsZeroZNAH_3");
+    else if ( selectionFlag2 == 37) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFiveBinsZeroZNAH_0");
+    else if ( selectionFlag2 == 38) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFiveBinsZeroZNAH_1");
+    else if ( selectionFlag2 == 39) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFiveBinsZeroZNAH_2");
+    else if ( selectionFlag2 == 40) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFiveBinsZeroZNAH_3");
+    else if ( selectionFlag2 == 41) fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionRapidityFiveBinsZeroZNAH_4");
+
+
   }
   else                           fInvariantMassDistributionH = (TH1F*)listings->FindObject("fInvariantMassDistributionH");
   fInvariantMassDistributionH->Rebin(5);
@@ -474,7 +542,8 @@ void fitJPsiTemplate(const char* AnalysisName, const int selectionFlag, const in
   for(Int_t i = 0; i < 18; i++) cout << fFitInvMass->GetParameter(i) << endl << flush;
 
 
-  fInvariantMassDistributionH->Fit( fFitInvMass,"LR","", 1.4, 6. );
+  // fInvariantMassDistributionH->Fit( fFitInvMass,"LR","", 1.4, 6. );
+  fInvariantMassDistributionH->Fit( fFitInvMass,"LR","", 2.6, 3.5 );
   TCanvas* PtDistrCanvas = new TCanvas( "InvariantMassDimuonFit", "InvariantMassDimuonFit", 900, 800 );
   gPad->SetMargin(0.13,0.01,0.12,0.01);
   // gPad->SetLogy();
@@ -497,8 +566,8 @@ void fitJPsiTemplate(const char* AnalysisName, const int selectionFlag, const in
   fInvariantMassDistributionH->GetXaxis()->SetLabelFont(42);
   fInvariantMassDistributionH->GetYaxis()->SetLabelFont(42);
   fInvariantMassDistributionH->GetXaxis()->SetNdivisions(408);
-  fInvariantMassDistributionH->GetYaxis()->SetRangeUser(0.0000000000001, fInvariantMassDistributionH->GetMaximum()*1.3);
-  fInvariantMassDistributionH->GetXaxis()->SetRangeUser(0, 6);
+  fInvariantMassDistributionH->GetYaxis()->SetRangeUser(0.0000000000001, fInvariantMassDistributionH->GetMaximum()*2.5);
+  fInvariantMassDistributionH->GetXaxis()->SetRangeUser(1, 4);
   // gPad ->SetLogy();
   fInvariantMassDistributionH->Draw("PEsame");
   JPsiPeakFit    ->SetLineColor(kRed);
@@ -541,14 +610,15 @@ void fitJPsiTemplate(const char* AnalysisName, const int selectionFlag, const in
   latex->SetTextFont(42);
   latex->SetTextAlign(11);
   latex->SetNDC();
-  latex->DrawLatex(0.17,0.94,"ALICE Performance, Pb-p #sqrt{s_{NN}} = 8.18 TeV");
+  latex->DrawLatex(0.17,0.94,"ALICE Performance, Pb-p #sqrt{s_{NN}} = 8.16 TeV");
   latex->SetTextSize(0.045);
   // latex->DrawLatex(0.55,0.84,"UPC, #it{L} = 235 ub^{-1}");
   latex->DrawLatex(0.55,0.84,"UPC, LHC16s");
   // latex->DrawLatex(0.55,0.78,"#it{p}_{T} < 0.3 GeV/#it{c}");
-  if      ( selectionFlag <  7 ) latex->DrawLatex(0.55,0.78,"#it{p}_{T}-integrated");
-  else                           latex->DrawLatex(0.55,0.78,"#it{p}_{T} > 0.25 GeV/#it{c}");
-
+  if     ( selectionFlag  != 2) {
+  if     ( selectionFlag2 == 11 ) latex->DrawLatex(0.55,0.78,"#it{p}_{T} < 1 GeV/c");
+  else                            latex->DrawLatex(0.55,0.78,"#it{p}_{T}-integrated");
+  }
   // latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-4.0,-2.5));
   if        ( selectionFlag == 0 ) {
                                latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-4.0,  -2.50));
@@ -559,11 +629,38 @@ void fitJPsiTemplate(const char* AnalysisName, const int selectionFlag, const in
     if ( selectionFlag2 == 0 ) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-4.0,  -3.5));
     if ( selectionFlag2 == 1 ) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.5,  -3.0));
     if ( selectionFlag2 == 2 ) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.0,  -2.5));
+  } else if ( selectionFlag == 3 ) {
+    if ( selectionFlag2 == 12) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-4.000,  -2.500));
+    if ( selectionFlag2 == 13) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-4.000,  -3.250));
+    if ( selectionFlag2 == 14) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.250,  -2.500));
+    if ( selectionFlag2 == 15) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-4.000,  -3.500));
+    if ( selectionFlag2 == 16) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.500,  -3.000));
+    if ( selectionFlag2 == 17) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.000,  -2.500));
+    if ( selectionFlag2 == 18) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-4.000,  -3.625));
+    if ( selectionFlag2 == 19) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.625,  -3.250));
+    if ( selectionFlag2 == 20) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.250,  -2.875));
+    if ( selectionFlag2 == 21) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-2.875,  -2.500));
+    if ( selectionFlag2 == 22) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-4.000,  -3.700));
+    if ( selectionFlag2 == 23) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.700,  -3.400));
+    if ( selectionFlag2 == 24) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.400,  -3.100));
+    if ( selectionFlag2 == 25) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.100,  -2.800));
+    if ( selectionFlag2 == 26) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-2.800,  -2.500));
+    if ( selectionFlag2 == 27) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-4.000,  -2.500));
+    if ( selectionFlag2 == 28) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-4.000,  -3.250));
+    if ( selectionFlag2 == 29) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.250,  -2.500));
+    if ( selectionFlag2 == 30) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-4.000,  -3.500));
+    if ( selectionFlag2 == 31) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.500,  -3.000));
+    if ( selectionFlag2 == 32) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.000,  -2.500));
+    if ( selectionFlag2 == 33) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-4.000,  -3.625));
+    if ( selectionFlag2 == 34) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.625,  -3.250));
+    if ( selectionFlag2 == 35) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.250,  -2.875));
+    if ( selectionFlag2 == 36) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-2.875,  -2.500));
+    if ( selectionFlag2 == 37) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-4.000,  -3.700));
+    if ( selectionFlag2 == 38) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.700,  -3.400));
+    if ( selectionFlag2 == 39) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.400,  -3.100));
+    if ( selectionFlag2 == 40) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-3.100,  -2.800));
+    if ( selectionFlag2 == 41) latex->DrawLatex(0.55,0.72,Form("%.1f < y < %.1f",-2.800,  -2.500));
   }
-  // if      ( selectionFlag == 3 || selectionFlag == 7 ) latex->DrawLatex(0.17,0.80,"0N0N");
-  // else if ( selectionFlag == 4 || selectionFlag == 8 ) latex->DrawLatex(0.17,0.80,"0NXN");
-  // else if ( selectionFlag == 5 || selectionFlag == 9 ) latex->DrawLatex(0.17,0.80,"XN0N");
-  // else if ( selectionFlag == 6 || selectionFlag == 10) latex->DrawLatex(0.17,0.80,"XNXN");
 
 
   /* - This is the part where we obtain the actual number of J/Psi, PsiPrime
@@ -600,7 +697,7 @@ void fitJPsiTemplate(const char* AnalysisName, const int selectionFlag, const in
   // }
   // numberOfTotalBkg = fTwoGammaFromModelH      -> Integral();
   // numberOfTotalBkg = GammaGammaFit-> Integral(2.2,6,1.E-15);
-  numberOfTotalBkg    = (GammaGammaFit-> Integral(2.2,6))/0.05;
+  numberOfTotalBkg    = (GammaGammaFit-> Integral(2.8,3.3))/0.05;
   numberOfTotalBkgErr = numberOfTotalBkg*fFitInvMass->GetParError(17)/fFitInvMass->GetParameter(17);
   latex->DrawLatex(0.55,0.66,Form("N_{J/#psi} = %.0f #pm %.0f",        numberOfTotalJPsi,  numberOfTotalJPsiErr ));//fFitInvMass->GetParameter(0) *fFitInvMass->GetParError(15)/0.05 ) );
   latex->DrawLatex(0.55,0.60,Form("N_{#psi(2S)} = %.0f #pm %.0f",      numberOfTotalPsi2s, numberOfTotalPsi2sErr));//fFitInvMass->GetParameter(5) *fFitInvMass->GetParError(16)/0.05 ) );
