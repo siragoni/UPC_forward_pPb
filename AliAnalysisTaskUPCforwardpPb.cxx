@@ -1396,7 +1396,7 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
               }
         }
 
-        cout << "Eta min channel[" << iV0Hits << "] = " << AliVVZERO::GetVZEROEtaMin(iV0Hits) << endl;
+        // cout << "Eta min channel[" << iV0Hits << "] = " << AliVVZERO::GetVZEROEtaMin(iV0Hits) << endl;
   }
 
   /* -
