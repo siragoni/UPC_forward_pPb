@@ -163,6 +163,8 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
       fDimuonPtDistributionRestrictedRapidity0N0NHv3(0),
       fDimuonPtDistributionRestrictedRapidity0N0N36to31Hv3(0),
       fDimuonPtDistributionRestrictedRapidity0N0N31to26Hv3(0),
+      fPtSidebandZeroZNCH(0),
+      fPtSidebandZeroZNAH(0),
       fDimuonPtDistributionZeroZNAH(0),
       fDimuonPtDistributionZeroZNAbinsH{0,0},
       fDimuonPtDistributionZeroZNAfourbinsH{0,0,0,0},
@@ -213,7 +215,10 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-      fV0TotalNCells(0)
+      fV0TotalNCells(0),
+      fVZEROhitsH(0),
+      fVZEROCNumberOfHitsSameEventH(0),
+      fVZEROANumberOfHitsSameEventH(0)
 {
     // default constructor, don't allocate memory here!
     // this is used by root for IO purposes, it needs to remain empty
@@ -305,6 +310,8 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
       fDimuonPtDistributionRestrictedRapidity0N0NHv3(0),
       fDimuonPtDistributionRestrictedRapidity0N0N36to31Hv3(0),
       fDimuonPtDistributionRestrictedRapidity0N0N31to26Hv3(0),
+      fPtSidebandZeroZNCH(0),
+      fPtSidebandZeroZNAH(0),
       fDimuonPtDistributionZeroZNAH(0),
       fDimuonPtDistributionZeroZNAbinsH{0,0},
       fDimuonPtDistributionZeroZNAfourbinsH{0,0,0,0},
@@ -355,7 +362,10 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-      fV0TotalNCells(0)
+      fV0TotalNCells(0),
+      fVZEROhitsH(0),
+      fVZEROCNumberOfHitsSameEventH(0),
+      fVZEROANumberOfHitsSameEventH(0)
 {
 
     // constructor
@@ -787,6 +797,13 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
   fDimuonPtDistributionZeroZNAH = new TH1F("fDimuonPtDistributionZeroZNAH", "fDimuonPtDistributionZeroZNAH", 4000, 0, 20);
   fOutputList->Add(fDimuonPtDistributionZeroZNAH);
 
+  fPtSidebandZeroZNAH = new TH1F("fPtSidebandZeroZNAH", "fPtSidebandZeroZNAH", 4000, 0, 20);
+  fOutputList->Add(fPtSidebandZeroZNAH);
+
+  fPtSidebandZeroZNCH = new TH1F("fPtSidebandZeroZNCH", "fPtSidebandZeroZNCH", 4000, 0, 20);
+  fOutputList->Add(fPtSidebandZeroZNCH);
+
+
   for( Int_t iRapidity = 0; iRapidity < 2; iRapidity++ ) {
     fDimuonPtDistributionZeroZNAbinsH[iRapidity]
             = new TH1F( Form("fDimuonPtDistributionZeroZNAbinsH_%d", iRapidity),
@@ -896,6 +913,20 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
   fZNAEnergyBeforeTimingSelectionExtendedH = new TH1F("fZNAEnergyBeforeTimingSelectionExtendedH", "fZNAEnergyBeforeTimingSelectionExtendedH", 20000, -10000, 400000);
   fOutputList->Add(fZNAEnergyBeforeTimingSelectionExtendedH);
 
+
+
+  /* -
+   * - VZERO plots
+   */
+
+  fVZEROhitsH = new TH1F("fVZEROhitsH", "fVZEROhitsH", 70, -0.5, 69.5);
+  fOutputList->Add(fVZEROhitsH);
+
+  fVZEROCNumberOfHitsSameEventH = new TH1F("fVZEROCNumberOfHitsSameEventH", "fVZEROCNumberOfHitsSameEventH", 70, -0.5, 69.5);
+  fOutputList->Add(fVZEROCNumberOfHitsSameEventH);
+
+  fVZEROANumberOfHitsSameEventH = new TH1F("fVZEROANumberOfHitsSameEventH", "fVZEROANumberOfHitsSameEventH", 70, -0.5, 69.5);
+  fOutputList->Add(fVZEROANumberOfHitsSameEventH);
 
 
 
@@ -1285,23 +1316,69 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
      - whether the number of fired V0C cells is above 2 is just to add up the
      - boolean numbers for 0<i<32. Let's see.
      -
-     - Weird fact: this doesn't seem to work... I have changed it so that if
-     - the single cell has recorded a signal (kTRUE) then it adds up to the
-     - total number of cells. Hope for the best.
      -
-     - I am an idiot!!!!!! I have to reset the variable everytime!!!!
    */
   fV0TotalNCells = 0;
+  Double_t fVZEROCfiredcells = 0;
+  Double_t fVZEROAfiredcells = 0;
   for(Int_t iV0Hits = 0; iV0Hits < 64; iV0Hits++) {
         fV0Hits[iV0Hits] = dataVZERO->GetBBFlag(iV0Hits);
         if(fV0Hits[iV0Hits] == kTRUE) {
               // if(iV0Hits < 32) fV0TotalNCells += fV0Hits[iV0Hits];
+              fVZEROhitsH->Fill( iV0Hits );
               if(iV0Hits < 32) fV0TotalNCells += 1;
+              if(iV0Hits < 32) {
+                fVZEROCfiredcells += 1;
+              } else {
+                fVZEROAfiredcells += 1;
+              }
         }
         // std::cout << "fV0Hits[iV0Hits = " << iV0Hits << ", fRunNum=" << fRunNum << "] = " << fV0Hits[iV0Hits] << endl;
         // std::cout << "fV0TotalNCells (fRunNum = " << fRunNum << ") = " << fV0TotalNCells << endl;
   }
   fCounterH->Fill(18);
+  fVZEROCNumberOfHitsSameEventH->Fill( fVZEROCfiredcells );
+  fVZEROANumberOfHitsSameEventH->Fill( fVZEROAfiredcells );
+
+  /* -
+   * - Looking for coincident hits.
+   * -
+   */
+  // Int_t TwoHitsFirstRing   = -1;
+  // Int_t ThreeHitsFirstRing = -1;
+  // Int_t FourHitsFirstRing  = -1;
+  // Int_t FiveHitsFirstRing  = -1;
+  // Int_t SixHitsFirstRing   = -1;
+  // Int_t SevenHitsFirstRing = -1;
+  // Int_t EightHitsFirstRing = -1;
+  // for(Int_t iV0Hits = 0; iV0Hits < 8; iV0Hits++) {
+  //       if(iV0Hits < 8 && fV0Hits[iV0Hits+0] == kTRUE) {
+  //           if(iV0Hits < 7 && fV0Hits[iV0Hits+1] == kTRUE) {
+  //               if(iV0Hits < 6 && fV0Hits[iV0Hits+2] == kTRUE) {
+  //                 if(iV0Hits < 5 && fV0Hits[iV0Hits+3] == kTRUE) {
+  //                     if(iV0Hits < 4 && fV0Hits[iV0Hits+4] == kTRUE) {
+  //                         if(iV0Hits < 3 && fV0Hits[iV0Hits+5] == kTRUE) {
+  //                             if(iV0Hits < 2 && fV0Hits[iV0Hits+6] == kTRUE) {
+  //                                 if( < 1 && fV0Hits[iV0Hits+7] == kTRUE) {
+  //                                   EightHitsFirstRing = 0;
+  //                                   iV0Hits += 8;
+  //                                 } else {
+  //                                   SevenHitsFirstRing = iV0Hits;
+  //                                   iV0Hits += 7;
+  //                                 }
+  //                             }
+  //                         }
+  //                     }
+  //                 }
+  //               }
+  //           }
+  //       }
+  // }
+
+
+
+
+
 
   /* - AD: we try to find the AD object data in the nano-AOD. If we cannot,
      - we return, because there would be no way to actually select the events
@@ -1425,10 +1502,10 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
        PostData(1, fOutputList);
        return;
   }
-  if(fADCDecision != 0) {
-       PostData(1, fOutputList);
-       return;
-  }
+  // if(fADCDecision != 0) {
+  //      PostData(1, fOutputList);
+  //      return;
+  // }
   //
   //
   // /* - Empty V0C decision
@@ -2097,6 +2174,9 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
 
     if (        possibleJPsi.Rapidity() > -4.00 && possibleJPsi.Rapidity() <= -2.50 ) {
         if ( ptOfTheDimuonPair < 1.00 ) fInvariantMassDistributionZeroZNCH->Fill(possibleJPsi.Mag());
+        if ( (possibleJPsi.Mag() > 1.5) && (possibleJPsi.Mag() < 2.5) ) {
+          fPtSidebandZeroZNCH->Fill(ptOfTheDimuonPair);
+        }
         if ( (possibleJPsi.Mag() > 2.8) && (possibleJPsi.Mag() < 3.3) ) {
           fDimuonPtDistributionZeroZNCH   ->Fill(ptOfTheDimuonPair);
         }
@@ -2203,6 +2283,9 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
 
     if (        possibleJPsi.Rapidity() > -4.00 && possibleJPsi.Rapidity() <= -2.50 ) {
         if ( ptOfTheDimuonPair < 1.00 ) fInvariantMassDistributionZeroZNAH->Fill(possibleJPsi.Mag());
+        if ( (possibleJPsi.Mag() > 1.5) && (possibleJPsi.Mag() < 2.5) ) {
+          fPtSidebandZeroZNAH->Fill(ptOfTheDimuonPair);
+        }
         if ( (possibleJPsi.Mag() > 2.8) && (possibleJPsi.Mag() < 3.3) ) {
           fDimuonPtDistributionZeroZNAH   ->Fill(ptOfTheDimuonPair);
         }

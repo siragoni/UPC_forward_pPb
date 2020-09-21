@@ -435,6 +435,9 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
         TH1F*                   fDimuonPtDistributionRestrictedRapidity0N0N36to31H;  //!
         TH1F*                   fDimuonPtDistributionRestrictedRapidity0N0N31to26H;  //!
 
+        TH1F*                   fPtSidebandZeroZNCH;             //!
+        TH1F*                   fPtSidebandZeroZNAH;             //!
+
         TH1F*                   fDimuonPtDistributionZeroZNAH;             //!
         TH1F*                   fDimuonPtDistributionZeroZNAbinsH[2];      //!
         TH1F*                   fDimuonPtDistributionZeroZNAthreebinsH[3]; //!
@@ -450,6 +453,11 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
         TH1F*                   fDimuonPtDistributionRestrictedRapidity0N0NHv3;      //!
         TH1F*                   fDimuonPtDistributionRestrictedRapidity0N0N36to31Hv3;//!
         TH1F*                   fDimuonPtDistributionRestrictedRapidity0N0N31to26Hv3;//!
+
+        TH1F*                   fVZEROhitsH;                   //!
+        TH1F*                   fVZEROCNumberOfHitsSameEventH; //!
+        TH1F*                   fVZEROANumberOfHitsSameEventH; //!
+
 
 
         //_______________________________
@@ -541,7 +549,7 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
          * If I happen to encounter it again in the future, I will make sure to
          * record it!
          */
-        ClassDef(AliAnalysisTaskUPCforwardpPb, 15);
+        ClassDef(AliAnalysisTaskUPCforwardpPb, 16);
 };
 
 #endif
