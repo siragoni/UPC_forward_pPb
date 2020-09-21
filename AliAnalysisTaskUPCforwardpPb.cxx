@@ -217,8 +217,18 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
       fV0TotalNCells(0),
       fVZEROhitsH(0),
+      fVZEROhitsWithVZEROCcutH(0),
+      fVZEROhitsMoreThanFiveVZEROCcellsH(0),
       fVZEROCNumberOfHitsSameEventH(0),
-      fVZEROANumberOfHitsSameEventH(0)
+      fVZEROANumberOfHitsSameEventH(0),
+      fInvariantMassDistributionZeroZNAVZEROhitsLessThanFiveH(0),
+      fInvariantMassDistributionZeroZNCVZEROhitsLessThanFiveH(0),
+      fInvariantMassDistributionZeroZNAVZEROhitsMoreThanFiveH(0),
+      fInvariantMassDistributionZeroZNCVZEROhitsMoreThanFiveH(0),
+      fDimuonPtDistributionZeroZNAVZEROhitsLessThanFiveH(0),
+      fDimuonPtDistributionZeroZNCVZEROhitsLessThanFiveH(0),
+      fDimuonPtDistributionZeroZNAVZEROhitsMoreThanFiveH(0),
+      fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH(0)
 {
     // default constructor, don't allocate memory here!
     // this is used by root for IO purposes, it needs to remain empty
@@ -364,8 +374,18 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
       fV0TotalNCells(0),
       fVZEROhitsH(0),
+      fVZEROhitsWithVZEROCcutH(0),
+      fVZEROhitsMoreThanFiveVZEROCcellsH(0),
       fVZEROCNumberOfHitsSameEventH(0),
-      fVZEROANumberOfHitsSameEventH(0)
+      fVZEROANumberOfHitsSameEventH(0),
+      fInvariantMassDistributionZeroZNAVZEROhitsLessThanFiveH(0),
+      fInvariantMassDistributionZeroZNCVZEROhitsLessThanFiveH(0),
+      fInvariantMassDistributionZeroZNAVZEROhitsMoreThanFiveH(0),
+      fInvariantMassDistributionZeroZNCVZEROhitsMoreThanFiveH(0),
+      fDimuonPtDistributionZeroZNAVZEROhitsLessThanFiveH(0),
+      fDimuonPtDistributionZeroZNCVZEROhitsLessThanFiveH(0),
+      fDimuonPtDistributionZeroZNAVZEROhitsMoreThanFiveH(0),
+      fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH(0)
 {
 
     // constructor
@@ -922,13 +942,41 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
   fVZEROhitsH = new TH1F("fVZEROhitsH", "fVZEROhitsH", 70, -0.5, 69.5);
   fOutputList->Add(fVZEROhitsH);
 
+  fVZEROhitsWithVZEROCcutH = new TH1F("fVZEROhitsWithVZEROCcutH", "fVZEROhitsWithVZEROCcutH", 70, -0.5, 69.5);
+  fOutputList->Add(fVZEROhitsWithVZEROCcutH);
+
+  fVZEROhitsMoreThanFiveVZEROCcellsH = new TH1F("fVZEROhitsMoreThanFiveVZEROCcellsH", "fVZEROhitsMoreThanFiveVZEROCcellsH", 70, -0.5, 69.5);
+  fOutputList->Add(fVZEROhitsMoreThanFiveVZEROCcellsH);
+
   fVZEROCNumberOfHitsSameEventH = new TH1F("fVZEROCNumberOfHitsSameEventH", "fVZEROCNumberOfHitsSameEventH", 70, -0.5, 69.5);
   fOutputList->Add(fVZEROCNumberOfHitsSameEventH);
 
   fVZEROANumberOfHitsSameEventH = new TH1F("fVZEROANumberOfHitsSameEventH", "fVZEROANumberOfHitsSameEventH", 70, -0.5, 69.5);
   fOutputList->Add(fVZEROANumberOfHitsSameEventH);
 
+  fInvariantMassDistributionZeroZNAVZEROhitsLessThanFiveH = new TH1F("fInvariantMassDistributionZeroZNAVZEROhitsLessThanFiveH", "fInvariantMassDistributionZeroZNAVZEROhitsLessThanFiveH", 4000, 0, 40);
+  fOutputList->Add(fInvariantMassDistributionZeroZNAVZEROhitsLessThanFiveH);
 
+  fInvariantMassDistributionZeroZNCVZEROhitsLessThanFiveH = new TH1F("fInvariantMassDistributionZeroZNCVZEROhitsLessThanFiveH", "fInvariantMassDistributionZeroZNCVZEROhitsLessThanFiveH", 4000, 0, 40);
+  fOutputList->Add(fInvariantMassDistributionZeroZNCVZEROhitsLessThanFiveH);
+
+  fInvariantMassDistributionZeroZNAVZEROhitsMoreThanFiveH = new TH1F("fInvariantMassDistributionZeroZNAVZEROhitsMoreThanFiveH", "fInvariantMassDistributionZeroZNAVZEROhitsMoreThanFiveH", 4000, 0, 40);
+  fOutputList->Add(fInvariantMassDistributionZeroZNAVZEROhitsMoreThanFiveH);
+
+  fInvariantMassDistributionZeroZNCVZEROhitsMoreThanFiveH = new TH1F("fInvariantMassDistributionZeroZNCVZEROhitsMoreThanFiveH", "fInvariantMassDistributionZeroZNCVZEROhitsMoreThanFiveH", 4000, 0, 40);
+  fOutputList->Add(fInvariantMassDistributionZeroZNCVZEROhitsMoreThanFiveH);
+
+  fDimuonPtDistributionZeroZNAVZEROhitsLessThanFiveH = new TH1F("fDimuonPtDistributionZeroZNAVZEROhitsLessThanFiveH", "fDimuonPtDistributionZeroZNAVZEROhitsLessThanFiveH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionZeroZNAVZEROhitsLessThanFiveH);
+
+  fDimuonPtDistributionZeroZNCVZEROhitsLessThanFiveH = new TH1F("fDimuonPtDistributionZeroZNCVZEROhitsLessThanFiveH", "fDimuonPtDistributionZeroZNCVZEROhitsLessThanFiveH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionZeroZNCVZEROhitsLessThanFiveH);
+
+  fDimuonPtDistributionZeroZNAVZEROhitsMoreThanFiveH = new TH1F("fDimuonPtDistributionZeroZNAVZEROhitsMoreThanFiveH", "fDimuonPtDistributionZeroZNAVZEROhitsMoreThanFiveH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionZeroZNAVZEROhitsMoreThanFiveH);
+
+  fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH = new TH1F("fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH", "fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH);
 
   //_______________________________
   // - End of the function
@@ -1339,6 +1387,17 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
   fCounterH->Fill(18);
   fVZEROCNumberOfHitsSameEventH->Fill( fVZEROCfiredcells );
   fVZEROANumberOfHitsSameEventH->Fill( fVZEROAfiredcells );
+  for(Int_t iV0Hits = 0; iV0Hits < 64; iV0Hits++) {
+        if(fV0Hits[iV0Hits] == kTRUE) {
+              if( fVZEROCfiredcells < 5 ) {
+                fVZEROhitsWithVZEROCcutH->Fill( iV0Hits );
+              } else {
+                fVZEROhitsMoreThanFiveVZEROCcellsH->Fill( iV0Hits );
+              }
+        }
+
+        cout << "Eta min channel[" << iV0Hits << "] = " << AliVVZERO::GetVZEROEtaMin(iV0Hits) << endl;
+  }
 
   /* -
    * - Looking for coincident hits.
@@ -2174,11 +2233,18 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
 
     if (        possibleJPsi.Rapidity() > -4.00 && possibleJPsi.Rapidity() <= -2.50 ) {
         if ( ptOfTheDimuonPair < 1.00 ) fInvariantMassDistributionZeroZNCH->Fill(possibleJPsi.Mag());
+        if ( ptOfTheDimuonPair < 1.00 && fVZEROCfiredcells < 5 ) fInvariantMassDistributionZeroZNCVZEROhitsLessThanFiveH->Fill(possibleJPsi.Mag());
+        if ( ptOfTheDimuonPair < 1.00 && fVZEROCfiredcells > 4 ) fInvariantMassDistributionZeroZNCVZEROhitsMoreThanFiveH->Fill(possibleJPsi.Mag());
         if ( (possibleJPsi.Mag() > 1.5) && (possibleJPsi.Mag() < 2.5) ) {
           fPtSidebandZeroZNCH->Fill(ptOfTheDimuonPair);
         }
         if ( (possibleJPsi.Mag() > 2.8) && (possibleJPsi.Mag() < 3.3) ) {
           fDimuonPtDistributionZeroZNCH   ->Fill(ptOfTheDimuonPair);
+          if ( fVZEROCfiredcells < 5 ) {
+            fDimuonPtDistributionZeroZNCVZEROhitsLessThanFiveH->Fill( ptOfTheDimuonPair );
+          } else {
+            fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH->Fill( ptOfTheDimuonPair );
+          }
         }
         if(        possibleJPsi.Rapidity() <= -3.625 ) {
           if ( ptOfTheDimuonPair < 1.00 ) fInvariantMassDistributionRapidityFourBinsZeroZNCH[0]->Fill(possibleJPsi.Mag());
@@ -2283,6 +2349,13 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
 
     if (        possibleJPsi.Rapidity() > -4.00 && possibleJPsi.Rapidity() <= -2.50 ) {
         if ( ptOfTheDimuonPair < 1.00 ) fInvariantMassDistributionZeroZNAH->Fill(possibleJPsi.Mag());
+        if ( ptOfTheDimuonPair < 1.00 && fVZEROCfiredcells < 5 ) fInvariantMassDistributionZeroZNAVZEROhitsLessThanFiveH->Fill(possibleJPsi.Mag());
+        if ( ptOfTheDimuonPair < 1.00 && fVZEROCfiredcells > 4 ) fInvariantMassDistributionZeroZNAVZEROhitsMoreThanFiveH->Fill(possibleJPsi.Mag());
+        if ( fVZEROCfiredcells < 5 ) {
+          fDimuonPtDistributionZeroZNAVZEROhitsLessThanFiveH->Fill( ptOfTheDimuonPair );
+        } else {
+          fDimuonPtDistributionZeroZNAVZEROhitsMoreThanFiveH->Fill( ptOfTheDimuonPair );
+        }
         if ( (possibleJPsi.Mag() > 1.5) && (possibleJPsi.Mag() < 2.5) ) {
           fPtSidebandZeroZNAH->Fill(ptOfTheDimuonPair);
         }

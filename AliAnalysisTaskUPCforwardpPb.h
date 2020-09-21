@@ -454,10 +454,21 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
         TH1F*                   fDimuonPtDistributionRestrictedRapidity0N0N36to31Hv3;//!
         TH1F*                   fDimuonPtDistributionRestrictedRapidity0N0N31to26Hv3;//!
 
-        TH1F*                   fVZEROhitsH;                   //!
-        TH1F*                   fVZEROCNumberOfHitsSameEventH; //!
-        TH1F*                   fVZEROANumberOfHitsSameEventH; //!
+        TH1F*                   fVZEROhitsH;                        //!
+        TH1F*                   fVZEROhitsWithVZEROCcutH;           //!
+        TH1F*                   fVZEROhitsMoreThanFiveVZEROCcellsH; //!
+        TH1F*                   fVZEROCNumberOfHitsSameEventH;      //!
+        TH1F*                   fVZEROANumberOfHitsSameEventH;      //!
 
+        TH1F*                   fDimuonPtDistributionZeroZNAVZEROhitsLessThanFiveH; //!
+        TH1F*                   fDimuonPtDistributionZeroZNCVZEROhitsLessThanFiveH; //!
+        TH1F*                   fDimuonPtDistributionZeroZNAVZEROhitsMoreThanFiveH; //!
+        TH1F*                   fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH; //!
+
+        TH1F*                   fInvariantMassDistributionZeroZNAVZEROhitsLessThanFiveH; //!
+        TH1F*                   fInvariantMassDistributionZeroZNCVZEROhitsLessThanFiveH; //!
+        TH1F*                   fInvariantMassDistributionZeroZNAVZEROhitsMoreThanFiveH; //!
+        TH1F*                   fInvariantMassDistributionZeroZNCVZEROhitsMoreThanFiveH; //!
 
 
         //_______________________________
