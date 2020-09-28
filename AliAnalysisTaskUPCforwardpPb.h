@@ -91,6 +91,12 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
         virtual void            NotifyRun();
 
                                 /**
+                                 * Tags which VZERO-C cell should the muon
+                                 * have activated.
+                                 */
+        virtual Int_t           MuonTagCellVZEROC(Double_t ItsEta, Double_t ItsPhi);
+
+                                /**
                                  * Use the class as a data member. It contains
                                  * the cuts for the muon track.
                                  */
@@ -460,6 +466,12 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
         TH1F*                   fVZEROCNumberOfHitsSameEventH;      //!
         TH1F*                   fVZEROANumberOfHitsSameEventH;      //!
 
+        TH1F*                   fVZEROhitsInnerRingsH;                    //!
+        TH1F*                   fVZEROhitsOuterRingH;                     //!
+        TH1F*                   fEventTaggedVZEROCH;                      //!
+        TH1F*                   fEventNotTaggedVZEROCH;                   //!
+        TH1F*                   fIdentityOfVZEROCH;                       //!
+
         TH1F*                   fDimuonPtDistributionZeroZNAVZEROhitsLessThanFiveH; //!
         TH1F*                   fDimuonPtDistributionZeroZNCVZEROhitsLessThanFiveH; //!
         TH1F*                   fDimuonPtDistributionZeroZNAVZEROhitsMoreThanFiveH; //!
@@ -560,7 +572,7 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
          * If I happen to encounter it again in the future, I will make sure to
          * record it!
          */
-        ClassDef(AliAnalysisTaskUPCforwardpPb, 16);
+        ClassDef(AliAnalysisTaskUPCforwardpPb, 17);
 };
 
 #endif

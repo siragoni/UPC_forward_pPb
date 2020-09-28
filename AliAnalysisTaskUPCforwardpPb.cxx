@@ -228,7 +228,12 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
       fDimuonPtDistributionZeroZNAVZEROhitsLessThanFiveH(0),
       fDimuonPtDistributionZeroZNCVZEROhitsLessThanFiveH(0),
       fDimuonPtDistributionZeroZNAVZEROhitsMoreThanFiveH(0),
-      fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH(0)
+      fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH(0),
+      fVZEROhitsInnerRingsH(0),
+      fVZEROhitsOuterRingH(0),
+      fEventTaggedVZEROCH(0),
+      fEventNotTaggedVZEROCH(0),
+      fIdentityOfVZEROCH(0)
 {
     // default constructor, don't allocate memory here!
     // this is used by root for IO purposes, it needs to remain empty
@@ -385,7 +390,12 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
       fDimuonPtDistributionZeroZNAVZEROhitsLessThanFiveH(0),
       fDimuonPtDistributionZeroZNCVZEROhitsLessThanFiveH(0),
       fDimuonPtDistributionZeroZNAVZEROhitsMoreThanFiveH(0),
-      fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH(0)
+      fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH(0),
+      fVZEROhitsInnerRingsH(0),
+      fVZEROhitsOuterRingH(0),
+      fEventTaggedVZEROCH(0),
+      fEventNotTaggedVZEROCH(0),
+      fIdentityOfVZEROCH(0)
 {
 
     // constructor
@@ -978,6 +988,22 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
   fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH = new TH1F("fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH", "fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH", 4000, 0, 20);
   fOutputList->Add(fDimuonPtDistributionZeroZNCVZEROhitsMoreThanFiveH);
 
+
+  fVZEROhitsInnerRingsH = new TH1F("fVZEROhitsInnerRingsH", "fVZEROhitsInnerRingsH", 70, -0.5, 69.5);
+  fOutputList->Add(fVZEROhitsInnerRingsH);
+
+  fVZEROhitsOuterRingH = new TH1F("fVZEROhitsOuterRingH", "fVZEROhitsOuterRingH", 70, -0.5, 69.5);
+  fOutputList->Add(fVZEROhitsOuterRingH);
+
+  fEventTaggedVZEROCH = new TH1F("fEventTaggedVZEROCH", "fEventTaggedVZEROCH", 70, -0.5, 69.5);
+  fOutputList->Add(fEventTaggedVZEROCH);
+
+  fEventNotTaggedVZEROCH = new TH1F("fEventNotTaggedVZEROCH", "fEventNotTaggedVZEROCH", 70, -0.5, 69.5);
+  fOutputList->Add(fEventNotTaggedVZEROCH);
+
+  fIdentityOfVZEROCH = new TH1F("fIdentityOfVZEROCH", "fIdentityOfVZEROCH", 70, -0.5, 69.5);
+  fOutputList->Add(fIdentityOfVZEROCH);
+
   //_______________________________
   // - End of the function
   PostData(1, fOutputList);           // postdata will notify the analysis manager of changes / updates to the
@@ -1367,19 +1393,35 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
      -
    */
   fV0TotalNCells = 0;
-  Double_t fVZEROCfiredcells = 0;
-  Double_t fVZEROAfiredcells = 0;
+  Double_t fOuterRingCells        = 0;
+  Double_t fVZEROCfiredcells      = 0;
+  Double_t fVZEROAfiredcells      = 0;
+  Double_t fVZEROCfiredInnerCells = 0;
   for(Int_t iV0Hits = 0; iV0Hits < 64; iV0Hits++) {
         fV0Hits[iV0Hits] = dataVZERO->GetBBFlag(iV0Hits);
-        if(fV0Hits[iV0Hits] == kTRUE) {
+        // if(fV0Hits[iV0Hits] == kTRUE) {
+        //       // if(iV0Hits < 32) fV0TotalNCells += fV0Hits[iV0Hits];
+        //       fVZEROhitsH->Fill( iV0Hits );
+        //       if(iV0Hits < 32) fV0TotalNCells += 1;
+        //       if(iV0Hits < 32) {
+        //         fVZEROCfiredcells += 1;
+        //       } else {
+        //         fVZEROAfiredcells += 1;
+        //       }
+        // }
+        if( ((Double_t) fV0Hits[iV0Hits]) > 0.5 ) {
               // if(iV0Hits < 32) fV0TotalNCells += fV0Hits[iV0Hits];
               fVZEROhitsH->Fill( iV0Hits );
               if(iV0Hits < 32) fV0TotalNCells += 1;
               if(iV0Hits < 32) {
                 fVZEROCfiredcells += 1;
+                if(iV0Hits < 24) {
+                  fVZEROCfiredInnerCells += 1;
+                }
               } else {
                 fVZEROAfiredcells += 1;
               }
+              if(iV0Hits < 32 && iV0Hits > 23) fOuterRingCells += 1;
         }
         // std::cout << "fV0Hits[iV0Hits = " << iV0Hits << ", fRunNum=" << fRunNum << "] = " << fV0Hits[iV0Hits] << endl;
         // std::cout << "fV0TotalNCells (fRunNum = " << fRunNum << ") = " << fV0TotalNCells << endl;
@@ -1694,6 +1736,27 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
         return;
   }
   fCounterH->Fill(92);
+
+
+
+  Int_t FirstMuonVZEROC  = MuonTagCellVZEROC( track[0]->Eta(), track[0]->Phi() );
+  Int_t SecondMuonVZEROC = MuonTagCellVZEROC( track[1]->Eta(), track[1]->Phi() );
+  fIdentityOfVZEROCH   ->Fill(FirstMuonVZEROC );
+  fIdentityOfVZEROCH   ->Fill(SecondMuonVZEROC);
+  fVZEROhitsInnerRingsH->Fill(fVZEROCfiredInnerCells);
+  fVZEROhitsOuterRingH ->Fill(fOuterRingCells);
+  if( fV0TotalNCells > 0 ){
+    if ( (Double_t) fV0Hits[FirstMuonVZEROC] > 0.5 || (Double_t) fV0Hits[SecondMuonVZEROC] > 0.5 ) {
+      fEventTaggedVZEROCH->Fill(fV0TotalNCells);
+    } else {
+      fEventNotTaggedVZEROCH->Fill(fV0TotalNCells);
+    }
+  }
+
+  // Int_t TrueNumberOfActivatedVZEROC = fV0Hits[FirstMuonVZEROC] + fV0Hits[SecondMuonVZEROC];
+
+
+
   /* - Implementing the track cut on the unlike muons
    * -
    */
@@ -2630,6 +2693,25 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
 
   // post the data
   PostData(1, fOutputList);
+}
+//_____________________________________________________________________________
+Int_t AliAnalysisTaskUPCforwardpPb::MuonTagCellVZEROC(Double_t ItsEta, Double_t ItsPhi)
+{
+  // coverage in eta of v0c
+  // -3.7,-3.2,-2.7,-2.2,-1.7 for ring 0, 1, 2, 3 and 4, respectively
+
+  Int_t i_eta = -1;
+  Int_t idx   = -1;
+  if      ( ItsEta>-3.7 && ItsEta<-3.2) i_eta = 0;
+  else if ( ItsEta>-3.2 && ItsEta<-2.7) i_eta = 1;
+  else if ( ItsEta>-2.7 && ItsEta<-2.2) i_eta = 2;
+
+  if (i_eta> -1) {
+    Int_t i_phi = (Int_t) ((4.0*ItsPhi/TMath::Pi()));
+    idx = i_eta*8+i_phi;
+  }
+
+  return idx;
 }
 //_____________________________________________________________________________
 void AliAnalysisTaskUPCforwardpPb::Terminate(Option_t *)
