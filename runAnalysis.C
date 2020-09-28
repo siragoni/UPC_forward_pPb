@@ -30,15 +30,15 @@ void runAnalysis(Int_t opt)
   /**
    * RUN ON GRIDTEST:
    */
-  Bool_t local    = kFALSE;
-  Bool_t gridTest = kTRUE;
+  // Bool_t local    = kFALSE;
+  // Bool_t gridTest = kTRUE;
 
 
   /**
    * FULL GRID MOD:
    */
-  // Bool_t local    = kFALSE;
-  // Bool_t gridTest = kFALSE;
+  Bool_t local    = kFALSE;
+  Bool_t gridTest = kFALSE;
 
 
 #if !defined (__CINT__) || defined (__CLING__)
