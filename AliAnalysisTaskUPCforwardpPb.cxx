@@ -1599,23 +1599,23 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
        PostData(1, fOutputList);
        return;
   }
-  if(fADADecision != 0) {
-       PostData(1, fOutputList);
-       return;
-  }
-  // if(fADCDecision != 0) {
+  // if(fADADecision != 0) {
   //      PostData(1, fOutputList);
   //      return;
   // }
+  if(fADCDecision != 0) {
+       PostData(1, fOutputList);
+       return;
+  }
   //
   //
   // /* - Empty V0C decision
   //  * - or at least in beam timing.
   //  */
-  // if( !(fV0CDecision == 0 || fV0CDecision == 1) ) {
-  //      PostData(1, fOutputList);
-  //      return;
-  // }
+  if( !(fV0CDecision == 0 || fV0CDecision == 1) ) {
+       PostData(1, fOutputList);
+       return;
+  }
   // /* - 0 tracklets in SPD
   //    - Is it like this?? Not too sure what fTracklets was!
   //  */
