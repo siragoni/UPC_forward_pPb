@@ -228,7 +228,7 @@ void runAnalysis(Int_t opt)
 
         TString LHC16s("LHC16s");
         // define the output folders
-        alienHandler->SetGridWorkingDir("pPbLHC16s_New_VZERO_5");
+        alienHandler->SetGridWorkingDir("pPbLHC16s_New_VZERO_6");
         // alienHandler->SetGridOutputDir("myOutputDir");
         if (opt == 0) alienHandler->SetGridOutputDir(LHC16s.Data());
 
