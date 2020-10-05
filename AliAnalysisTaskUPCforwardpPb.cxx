@@ -233,7 +233,12 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
       fVZEROhitsOuterRingH(0),
       fEventTaggedVZEROCH(0),
       fEventNotTaggedVZEROCH(0),
-      fIdentityOfVZEROCH(0)
+      fIdentityOfVZEROCH(0),
+      fIROneH(0),
+      fIRTwoH(0),
+      fDimuonPtDistributionOuterRingH(0),
+      fDimuonPtDistributionAtLeastOneMuonOuterRingH(0),
+      fDimuonPtDistributionSecondRingH(0)
 {
     // default constructor, don't allocate memory here!
     // this is used by root for IO purposes, it needs to remain empty
@@ -395,7 +400,12 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
       fVZEROhitsOuterRingH(0),
       fEventTaggedVZEROCH(0),
       fEventNotTaggedVZEROCH(0),
-      fIdentityOfVZEROCH(0)
+      fIdentityOfVZEROCH(0),
+      fIROneH(0),
+      fIRTwoH(0),
+      fDimuonPtDistributionOuterRingH(0),
+      fDimuonPtDistributionAtLeastOneMuonOuterRingH(0),
+      fDimuonPtDistributionSecondRingH(0)
 {
 
     // constructor
@@ -1003,6 +1013,22 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
 
   fIdentityOfVZEROCH = new TH1F("fIdentityOfVZEROCH", "fIdentityOfVZEROCH", 70, -0.5, 69.5);
   fOutputList->Add(fIdentityOfVZEROCH);
+
+  fIROneH = new TH1F("fIROneH", "fIROneH", 200, -0.5, 199.5);
+  fOutputList->Add(fIROneH);
+
+  fIRTwoH = new TH1F("fIRTwoH", "fIRTwoH", 200, -0.5, 199.5);
+  fOutputList->Add(fIRTwoH);
+
+  fDimuonPtDistributionOuterRingH = new TH1F("fDimuonPtDistributionOuterRingH", "fDimuonPtDistributionOuterRingH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionOuterRingH);
+
+  fDimuonPtDistributionAtLeastOneMuonOuterRingH = new TH1F("fDimuonPtDistributionAtLeastOneMuonOuterRingH", "fDimuonPtDistributionAtLeastOneMuonOuterRingH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionAtLeastOneMuonOuterRingH);
+
+  fDimuonPtDistributionSecondRingH = new TH1F("fDimuonPtDistributionSecondRingH", "fDimuonPtDistributionSecondRingH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionSecondRingH);
+
 
   //_______________________________
   // - End of the function
@@ -2063,6 +2089,43 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
   }
 
 
+
+  /* -
+   * -
+   * - IR timing maps
+   * -
+   */
+  Int_t fClosestIR1 = 100;
+  Int_t fClosestIR2 = 100;
+  for(Int_t item=-1; item>=-90; item--) {
+    Int_t bin = 90+item;
+    Bool_t isFired = fIR1Map.TestBitNumber(bin);
+    if(isFired) {
+      fClosestIR1 = TMath::Abs(item);
+      break;
+    }
+  if(fClosestIR1 == 100)fClosestIR1 = 0;
+  }
+  for(Int_t item=-1; item>=-90; item--) {
+    Int_t bin = 90+item;
+    Bool_t isFired = fIR2Map.TestBitNumber(bin);
+    if(isFired) {
+      fClosestIR2 = TMath::Abs(item);
+      break;
+    }
+  }
+  if(fClosestIR2 == 100)fClosestIR2 = 0;
+
+  fIROneH->Fill(fClosestIR1);
+  fIRTwoH->Fill(fClosestIR2);
+
+
+
+
+
+
+
+
   /**
    * - Pt-integrated analysis
    * - in 2 rapidity bins.
@@ -2143,6 +2206,22 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
     fInvariantMassDistributionIncoherentShiftPlusTwoH ->Fill(possibleJPsi.Mag());
   }
 
+
+
+
+  if (        possibleJPsi.Rapidity() > -4.00 && possibleJPsi.Rapidity() <= -2.50 ) {
+      if ( (possibleJPsi.Mag() > 2.8) && (possibleJPsi.Mag() < 3.3) ) {
+        if( FirstMuonVZEROC > 23 && SecondMuonVZEROC > 23 ) {
+          fDimuonPtDistributionOuterRingH->Fill(ptOfTheDimuonPair);
+        }
+        if( FirstMuonVZEROC > 23 || SecondMuonVZEROC > 23 ) {
+          fDimuonPtDistributionAtLeastOneMuonOuterRingH->Fill(ptOfTheDimuonPair);
+        }
+        if( FirstMuonVZEROC > 15 && SecondMuonVZEROC > 15 && fVZEROCfiredcells > 4 ) {
+          fDimuonPtDistributionSecondRingH->Fill(ptOfTheDimuonPair);
+        }
+      }
+  }
 
 
 
@@ -2705,6 +2784,7 @@ Int_t AliAnalysisTaskUPCforwardpPb::MuonTagCellVZEROC(Double_t ItsEta, Double_t 
   if      ( ItsEta>-3.7 && ItsEta<-3.2) i_eta = 0;
   else if ( ItsEta>-3.2 && ItsEta<-2.7) i_eta = 1;
   else if ( ItsEta>-2.7 && ItsEta<-2.2) i_eta = 2;
+  else if ( ItsEta>-2.2 && ItsEta<-1.7) i_eta = 3;
 
   if (i_eta> -1) {
     Int_t i_phi = (Int_t) ((4.0*ItsPhi/TMath::Pi()));

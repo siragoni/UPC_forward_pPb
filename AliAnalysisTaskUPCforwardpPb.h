@@ -507,6 +507,27 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
                                  * pt > 0.25 GeV/c for pt of the dimuon pair.
                                  */
         TH1F*                   fInvariantMassDistributionIncoherentExtendedH;     //!
+
+                                /**
+                                 * IR1 and IR2 distributions
+                                 * after all cuts.
+                                 */
+        TH1F*                   fIROneH;     //!
+        TH1F*                   fIRTwoH;     //!
+
+                                /**
+                                 * Pt distributions
+                                 * for outer ring and
+                                 * weirdly populated
+                                 * 2nd ring.
+                                 */
+        TH1F*                   fDimuonPtDistributionOuterRingH;               //!
+        TH1F*                   fDimuonPtDistributionSecondRingH;              //!
+        TH1F*                   fDimuonPtDistributionAtLeastOneMuonOuterRingH; //!
+
+
+
+
         // Finished cloned histograms.
         //_______________________________
 
@@ -572,7 +593,7 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
          * If I happen to encounter it again in the future, I will make sure to
          * record it!
          */
-        ClassDef(AliAnalysisTaskUPCforwardpPb, 17);
+        ClassDef(AliAnalysisTaskUPCforwardpPb, 18);
 };
 
 #endif
