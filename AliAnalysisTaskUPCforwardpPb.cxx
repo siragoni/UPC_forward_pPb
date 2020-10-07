@@ -1625,14 +1625,14 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
        PostData(1, fOutputList);
        return;
   }
-  // if(fADADecision != 0) {
-  //      PostData(1, fOutputList);
-  //      return;
-  // }
-  if(fADCDecision != 0) {
+  if(fADADecision != 0) {
        PostData(1, fOutputList);
        return;
   }
+  // if(fADCDecision != 0) {
+  //      PostData(1, fOutputList);
+  //      return;
+  // }
   //
   //
   // /* - Empty V0C decision
