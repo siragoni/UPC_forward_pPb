@@ -524,6 +524,12 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
         TH1F*                   fDimuonPtDistributionOuterRingH;               //!
         TH1F*                   fDimuonPtDistributionSecondRingH;              //!
         TH1F*                   fDimuonPtDistributionAtLeastOneMuonOuterRingH; //!
+        TH1F*                   fDimuonPtDistributionNullIROneH;               //!
+        TH1F*                   fDimuonPtDistributionNullIRTwoH;               //!
+        TH1F*                   fDimuonPtDistributionNegativeIROneH;           //!
+        TH1F*                   fDimuonPtDistributionNegativeIRTwoH;           //!
+        TH1F*                   fDimuonPtDistributionPositiveIROneH;           //!
+        TH1F*                   fDimuonPtDistributionPositiveIRTwoH;           //!
 
 
 

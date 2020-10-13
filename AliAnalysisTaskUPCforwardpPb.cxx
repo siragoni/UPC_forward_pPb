@@ -238,7 +238,13 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
       fIRTwoH(0),
       fDimuonPtDistributionOuterRingH(0),
       fDimuonPtDistributionAtLeastOneMuonOuterRingH(0),
-      fDimuonPtDistributionSecondRingH(0)
+      fDimuonPtDistributionSecondRingH(0),
+      fDimuonPtDistributionNullIROneH(0),
+      fDimuonPtDistributionNullIRTwoH(0),
+      fDimuonPtDistributionNegativeIROneH(0),
+      fDimuonPtDistributionNegativeIRTwoH(0),
+      fDimuonPtDistributionPositiveIROneH(0),
+      fDimuonPtDistributionPositiveIRTwoH(0)
 {
     // default constructor, don't allocate memory here!
     // this is used by root for IO purposes, it needs to remain empty
@@ -405,7 +411,13 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
       fIRTwoH(0),
       fDimuonPtDistributionOuterRingH(0),
       fDimuonPtDistributionAtLeastOneMuonOuterRingH(0),
-      fDimuonPtDistributionSecondRingH(0)
+      fDimuonPtDistributionSecondRingH(0),
+      fDimuonPtDistributionNullIROneH(0),
+      fDimuonPtDistributionNullIRTwoH(0),
+      fDimuonPtDistributionNegativeIROneH(0),
+      fDimuonPtDistributionNegativeIRTwoH(0),
+      fDimuonPtDistributionPositiveIROneH(0),
+      fDimuonPtDistributionPositiveIRTwoH(0)
 {
 
     // constructor
@@ -1029,6 +1041,23 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
   fDimuonPtDistributionSecondRingH = new TH1F("fDimuonPtDistributionSecondRingH", "fDimuonPtDistributionSecondRingH", 4000, 0, 20);
   fOutputList->Add(fDimuonPtDistributionSecondRingH);
 
+  fDimuonPtDistributionNullIROneH = new TH1F("fDimuonPtDistributionNullIROneH", "fDimuonPtDistributionNullIROneH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionNullIROneH);
+
+  fDimuonPtDistributionNullIRTwoH = new TH1F("fDimuonPtDistributionNullIRTwoH", "fDimuonPtDistributionNullIRTwoH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionNullIRTwoH);
+
+  fDimuonPtDistributionNegativeIROneH = new TH1F("fDimuonPtDistributionNegativeIROneH", "fDimuonPtDistributionNegativeIROneH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionNegativeIROneH);
+
+  fDimuonPtDistributionNegativeIRTwoH = new TH1F("fDimuonPtDistributionNegativeIRTwoH", "fDimuonPtDistributionNegativeIRTwoH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionNegativeIRTwoH);
+
+  fDimuonPtDistributionPositiveIROneH = new TH1F("fDimuonPtDistributionPositiveIROneH", "fDimuonPtDistributionPositiveIROneH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionPositiveIROneH);
+
+  fDimuonPtDistributionPositiveIRTwoH = new TH1F("fDimuonPtDistributionPositiveIRTwoH", "fDimuonPtDistributionPositiveIRTwoH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionPositiveIRTwoH);
 
   //_______________________________
   // - End of the function
@@ -1420,6 +1449,7 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
    */
   fV0TotalNCells = 0;
   Double_t fOuterRingCells        = 0;
+  Double_t fThirdRingCells        = 0;
   Double_t fVZEROCfiredcells      = 0;
   Double_t fVZEROAfiredcells      = 0;
   Double_t fVZEROCfiredInnerCells = 0;
@@ -1448,6 +1478,7 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
                 fVZEROAfiredcells += 1;
               }
               if(iV0Hits < 32 && iV0Hits > 23) fOuterRingCells += 1;
+              if(iV0Hits < 24 && iV0Hits > 15) fThirdRingCells += 1;
         }
         // std::cout << "fV0Hits[iV0Hits = " << iV0Hits << ", fRunNum=" << fRunNum << "] = " << fV0Hits[iV0Hits] << endl;
         // std::cout << "fV0TotalNCells (fRunNum = " << fRunNum << ") = " << fV0TotalNCells << endl;
@@ -2095,26 +2126,32 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
    * - IR timing maps
    * -
    */
-  Int_t fClosestIR1 = 100;
-  Int_t fClosestIR2 = 100;
+  Int_t fClosestIR1         = 100;
+  Int_t fClosestIR2         = 100;
+  Int_t fClosestIR1truesign = 100;
+  Int_t fClosestIR2truesign = 100;
   for(Int_t item=-1; item>=-90; item--) {
     Int_t bin = 90+item;
     Bool_t isFired = fIR1Map.TestBitNumber(bin);
     if(isFired) {
-      fClosestIR1 = TMath::Abs(item);
+      fClosestIR1         = TMath::Abs(item);
+      fClosestIR1truesign = item;
       break;
     }
-  if(fClosestIR1 == 100)fClosestIR1 = 0;
+  if(fClosestIR1         == 100)fClosestIR1         = 0;
+  if(fClosestIR1truesign == 100)fClosestIR1truesign = 0;
   }
   for(Int_t item=-1; item>=-90; item--) {
     Int_t bin = 90+item;
     Bool_t isFired = fIR2Map.TestBitNumber(bin);
     if(isFired) {
       fClosestIR2 = TMath::Abs(item);
+      fClosestIR2truesign = item;
       break;
     }
   }
-  if(fClosestIR2 == 100)fClosestIR2 = 0;
+  if(fClosestIR2         == 100)fClosestIR2         = 0;
+  if(fClosestIR2truesign == 100)fClosestIR2truesign = 0;
 
   fIROneH->Fill(fClosestIR1);
   fIRTwoH->Fill(fClosestIR2);
@@ -2211,14 +2248,33 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
 
   if (        possibleJPsi.Rapidity() > -4.00 && possibleJPsi.Rapidity() <= -2.50 ) {
       if ( (possibleJPsi.Mag() > 2.8) && (possibleJPsi.Mag() < 3.3) ) {
-        if( FirstMuonVZEROC > 23 && SecondMuonVZEROC > 23 ) {
+        // if( FirstMuonVZEROC > 23 && SecondMuonVZEROC > 23 ) {
+        if( (Double_t) fOuterRingCells > 0.5 ) {
           fDimuonPtDistributionOuterRingH->Fill(ptOfTheDimuonPair);
         }
-        if( FirstMuonVZEROC > 23 || SecondMuonVZEROC > 23 ) {
+        if( (Double_t) fThirdRingCells > 0.5 ) {
           fDimuonPtDistributionAtLeastOneMuonOuterRingH->Fill(ptOfTheDimuonPair);
         }
-        if( FirstMuonVZEROC > 15 && SecondMuonVZEROC > 15 && fVZEROCfiredcells > 4 ) {
+        if( (Double_t) fOuterRingCells < 0.5 && (Double_t) fThirdRingCells > 0.5 ) {
           fDimuonPtDistributionSecondRingH->Fill(ptOfTheDimuonPair);
+        }
+        if( (Double_t) fClosestIR1 < 0.5 ) {
+          fDimuonPtDistributionNullIROneH->Fill(ptOfTheDimuonPair);
+        }
+        if( (Double_t) fClosestIR2 < 0.5 ) {
+          fDimuonPtDistributionNullIRTwoH->Fill(ptOfTheDimuonPair);
+        }
+        if( (Double_t) fClosestIR1truesign < 0 ) {
+          fDimuonPtDistributionNegativeIROneH->Fill(ptOfTheDimuonPair);
+        }
+        if( (Double_t) fClosestIR1truesign > 0 ) {
+          fDimuonPtDistributionPositiveIROneH->Fill(ptOfTheDimuonPair);
+        }
+        if( (Double_t) fClosestIR2truesign < 0 ) {
+          fDimuonPtDistributionNegativeIRTwoH->Fill(ptOfTheDimuonPair);
+        }
+        if( (Double_t) fClosestIR2truesign > 0 ) {
+          fDimuonPtDistributionPositiveIRTwoH->Fill(ptOfTheDimuonPair);
         }
       }
   }
