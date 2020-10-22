@@ -239,6 +239,7 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
       fDimuonPtDistributionOuterRingH(0),
       fDimuonPtDistributionAtLeastOneMuonOuterRingH(0),
       fDimuonPtDistributionSecondRingH(0),
+      fDimuonPtDistributionCorrelationVZEROH(0),
       fDimuonPtDistributionNullIROneH(0),
       fDimuonPtDistributionNullIRTwoH(0),
       fDimuonPtDistributionNegativeIROneH(0),
@@ -412,6 +413,7 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
       fDimuonPtDistributionOuterRingH(0),
       fDimuonPtDistributionAtLeastOneMuonOuterRingH(0),
       fDimuonPtDistributionSecondRingH(0),
+      fDimuonPtDistributionCorrelationVZEROH(0),
       fDimuonPtDistributionNullIROneH(0),
       fDimuonPtDistributionNullIRTwoH(0),
       fDimuonPtDistributionNegativeIROneH(0),
@@ -1040,6 +1042,9 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
 
   fDimuonPtDistributionSecondRingH = new TH1F("fDimuonPtDistributionSecondRingH", "fDimuonPtDistributionSecondRingH", 4000, 0, 20);
   fOutputList->Add(fDimuonPtDistributionSecondRingH);
+
+  fDimuonPtDistributionCorrelationVZEROH = new TH1F("fDimuonPtDistributionCorrelationVZEROH", "fDimuonPtDistributionCorrelationVZEROH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionCorrelationVZEROH);
 
   fDimuonPtDistributionNullIROneH = new TH1F("fDimuonPtDistributionNullIROneH", "fDimuonPtDistributionNullIROneH", 4000, 0, 20);
   fOutputList->Add(fDimuonPtDistributionNullIROneH);
@@ -1674,12 +1679,11 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
        return;
   }
   // /* - 0 tracklets in SPD
-  //    - Is it like this?? Not too sure what fTracklets was!
   //  */
-  // // if(fTracklets != 0) {
-  // //      PostData(1, fOutputList);
-  // //      return;
-  // // }
+  if(fTracklets != 0) {
+       PostData(1, fOutputList);
+       return;
+  }
   // /* - Maximum 2 V0C cells fired.
   //    -
   //    - Trying a more readable and immediate approach.
@@ -2257,6 +2261,9 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
         }
         if( (Double_t) fOuterRingCells < 0.5 && (Double_t) fThirdRingCells > 0.5 ) {
           fDimuonPtDistributionSecondRingH->Fill(ptOfTheDimuonPair);
+        }
+        if( (Double_t) fOuterRingCells > 0.5 && (Double_t) fThirdRingCells > 0.5 ) {
+          fDimuonPtDistributionCorrelationVZEROH->Fill(ptOfTheDimuonPair);
         }
         if( (Double_t) fClosestIR1 < 0.5 ) {
           fDimuonPtDistributionNullIROneH->Fill(ptOfTheDimuonPair);

@@ -524,6 +524,7 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
         TH1F*                   fDimuonPtDistributionOuterRingH;               //!
         TH1F*                   fDimuonPtDistributionSecondRingH;              //!
         TH1F*                   fDimuonPtDistributionAtLeastOneMuonOuterRingH; //!
+        TH1F*                   fDimuonPtDistributionCorrelationVZEROH;        //!
         TH1F*                   fDimuonPtDistributionNullIROneH;               //!
         TH1F*                   fDimuonPtDistributionNullIRTwoH;               //!
         TH1F*                   fDimuonPtDistributionNegativeIROneH;           //!
@@ -599,7 +600,7 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
          * If I happen to encounter it again in the future, I will make sure to
          * record it!
          */
-        ClassDef(AliAnalysisTaskUPCforwardpPb, 18);
+        ClassDef(AliAnalysisTaskUPCforwardpPb, 19);
 };
 
 #endif
