@@ -1665,10 +1665,10 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
        PostData(1, fOutputList);
        return;
   }
-  // if(fADCDecision != 0) {
-  //      PostData(1, fOutputList);
-  //      return;
-  // }
+  if(fADCDecision != 0) {
+       PostData(1, fOutputList);
+       return;
+  }
   //
   //
   // /* - Empty V0C decision
@@ -1768,9 +1768,9 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
      * - Compatibility with Run 1 analysis.
      * -
      */
-    // if ( !( (track[nGoodMuons]->Eta() < -2.5) && (track[nGoodMuons]->Eta() > -3.7) ) ) {
-    //   continue;
-    // }
+    if ( !( (track[nGoodMuons]->Eta() < -2.7) && (track[nGoodMuons]->Eta() > -3.7) ) ) {
+      continue;
+    }
 
     // MUON SELECTION
     /* - This is Eugeny Krishen's MUON selection from the talk in 14/1/2019 for
@@ -1862,6 +1862,10 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
 
 
 
+  if ( possibleJPsi.Rapidity() < -3.7  && possibleJPsi.Rapidity() > -2.7 ) {
+    PostData(1, fOutputList);
+    return;
+  }
 
 
 
