@@ -148,15 +148,15 @@ void runAnalysis(Int_t opt)
            * - NB: Adding each run manually...
            * -
            */
-          alienHandler->SetGridDataDir("/alice/data/2016/LHC16s");
-      	  alienHandler->SetDataPattern("*pass1_UD/PWGUD/UD_pPb_AOD/144_20191104-1006/*AliAOD.UPCNano.root");
-      	  // MC has no prefix, data has prefix 000
-      	  alienHandler->SetRunPrefix("000");
-
-          // alienHandler->SetGridDataDir("/alice/data/2016/LHC16r");
-      	  // alienHandler->SetDataPattern("*pass1_UD/PWGUD/UD_pPb_AOD/143_20191104-1006/*AliAOD.UPCNano.root");
+          // alienHandler->SetGridDataDir("/alice/data/2016/LHC16s");
+      	  // alienHandler->SetDataPattern("*pass1_UD/PWGUD/UD_pPb_AOD/144_20191104-1006/*AliAOD.UPCNano.root");
       	  // // MC has no prefix, data has prefix 000
       	  // alienHandler->SetRunPrefix("000");
+
+          alienHandler->SetGridDataDir("/alice/data/2016/LHC16r");
+      	  alienHandler->SetDataPattern("*pass1_UD/PWGUD/UD_pPb_AOD/143_20191104-1006/*AliAOD.UPCNano.root");
+      	  // MC has no prefix, data has prefix 000
+      	  alienHandler->SetRunPrefix("000");
 
 
 
@@ -185,9 +185,9 @@ void runAnalysis(Int_t opt)
                                                   266614, 266613, 266595, 266593, 266591, 266588, 266587, 266584, 266549,
                                                   266543, 266539, 266534, 266533, 266525, 266523, 266522, 266520, 266518, 266516,
                                                   266514, 266487, 266480, 266479, 266472, 266441, 266439 };
-          for( Int_t iRunLHC16s = 0; iRunLHC16s <  76; iRunLHC16s++){
-            alienHandler->AddRunNumber( listOfGoodRunNumbersLHC16s[iRunLHC16s] );
-          }
+          // for( Int_t iRunLHC16s = 0; iRunLHC16s <  76; iRunLHC16s++){
+          //   alienHandler->AddRunNumber( listOfGoodRunNumbersLHC16s[iRunLHC16s] );
+          // }
           Int_t listOfGoodRunNumbersLHC16r[]  = { 265589, 265594, 265596, 265607, 265669, 265691, 265694,
                                                   265697, 265698, 265700, 265701, 265709, 265713, 265714, 265740,
                                                   265741, 265742, 265744, 265746, 265754, 265756, 265785, 265787,
@@ -196,10 +196,10 @@ void runAnalysis(Int_t opt)
                                                   266117, 266187, 266189, 266190, 266193, 266196, 266197, 266208,
                                                   266234, 266235, 266296, 266299, 266300, 266304, 266305, 266312,
                                                   266316, 266318    };
-          // for( Int_t iRunLHC16r = 0; iRunLHC16r <  57; iRunLHC16r++){
-          //   // // // if ( iRunLHC16r == 51 ) continue;
-          //   alienHandler->AddRunNumber( listOfGoodRunNumbersLHC16r[iRunLHC16r] );
-          // }
+          for( Int_t iRunLHC16r = 0; iRunLHC16r <  57; iRunLHC16r++){
+            // // // if ( iRunLHC16r == 51 ) continue;
+            alienHandler->AddRunNumber( listOfGoodRunNumbersLHC16r[iRunLHC16r] );
+          }
 
       	} else {
       	  cout << " not a valid option ... bye!" << endl;
@@ -217,18 +217,18 @@ void runAnalysis(Int_t opt)
         // merging: run with "kTRUE" and "full" for normal run
         // to merge on grid run jobs in SetRunMode("terminate")
         // to collect final results set SetMergeViaJDL(kFALSE)
-        // alienHandler->SetMergeViaJDL(kTRUE);
+        alienHandler->SetMergeViaJDL(kTRUE);
 
         /* - The setting to kFALSE is to download the output files
            -
          */
-        alienHandler->SetMergeViaJDL(kFALSE);
+        // alienHandler->SetMergeViaJDL(kFALSE);
         alienHandler->SetMaxMergeStages(1);
 
 
         TString LHC16s("LHC16s");
         // define the output folders
-        alienHandler->SetGridWorkingDir("pPbLHC16s_New_strongcuts");
+        alienHandler->SetGridWorkingDir("pPbLHC16r_New_strongcuts");
         // alienHandler->SetGridOutputDir("myOutputDir");
         if (opt == 0) alienHandler->SetGridOutputDir(LHC16s.Data());
 
@@ -248,12 +248,12 @@ void runAnalysis(Int_t opt)
             /* - The option FULL is to send the full analysis.
                -
              */
-            // alienHandler->SetRunMode("full");
+            alienHandler->SetRunMode("full");
 
             /* - This option TERMINATE is used for the merging of the files.
                -
              */
-            alienHandler->SetRunMode("terminate");
+            // alienHandler->SetRunMode("terminate");
             mgr->StartAnalysis("grid");
         }
     }
