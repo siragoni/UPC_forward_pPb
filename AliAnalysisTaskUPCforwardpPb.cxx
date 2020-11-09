@@ -245,7 +245,11 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
       fDimuonPtDistributionNegativeIROneH(0),
       fDimuonPtDistributionNegativeIRTwoH(0),
       fDimuonPtDistributionPositiveIROneH(0),
-      fDimuonPtDistributionPositiveIRTwoH(0)
+      fDimuonPtDistributionPositiveIRTwoH(0),
+      fInvariantMassDistributionZeroZNC37to37H{0,0},
+      fInvariantMassDistributionZeroZNA37to37H{0,0},
+      fDimuonPtDistributionZeroZNCbins27to37H{0,0},
+      fDimuonPtDistributionZeroZNAbins27to37H{0,0}
 {
     // default constructor, don't allocate memory here!
     // this is used by root for IO purposes, it needs to remain empty
@@ -419,7 +423,11 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
       fDimuonPtDistributionNegativeIROneH(0),
       fDimuonPtDistributionNegativeIRTwoH(0),
       fDimuonPtDistributionPositiveIROneH(0),
-      fDimuonPtDistributionPositiveIRTwoH(0)
+      fDimuonPtDistributionPositiveIRTwoH(0),
+      fInvariantMassDistributionZeroZNC37to37H{0,0},
+      fInvariantMassDistributionZeroZNA37to37H{0,0},
+      fDimuonPtDistributionZeroZNCbins27to37H{0,0},
+      fDimuonPtDistributionZeroZNAbins27to37H{0,0}
 {
 
     // constructor
@@ -1064,6 +1072,39 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
   fDimuonPtDistributionPositiveIRTwoH = new TH1F("fDimuonPtDistributionPositiveIRTwoH", "fDimuonPtDistributionPositiveIRTwoH", 4000, 0, 20);
   fOutputList->Add(fDimuonPtDistributionPositiveIRTwoH);
 
+  for( Int_t iRapidity = 0; iRapidity < 2; iRapidity++ ) {
+    fDimuonPtDistributionZeroZNCbins27to37H[iRapidity]
+            = new TH1F( Form("fDimuonPtDistributionZeroZNCbins27to37H_%d", iRapidity),
+                        Form("fDimuonPtDistributionZeroZNCbins27to37H_%d", iRapidity),
+                        4000, 0, 20);
+    fOutputList->Add(fDimuonPtDistributionZeroZNCbins27to37H[iRapidity]);
+  }
+
+  for( Int_t iRapidity = 0; iRapidity < 2; iRapidity++ ) {
+    fDimuonPtDistributionZeroZNAbins27to37H[iRapidity]
+            = new TH1F( Form("fDimuonPtDistributionZeroZNAbins27to37H_%d", iRapidity),
+                        Form("fDimuonPtDistributionZeroZNAbins27to37H_%d", iRapidity),
+                        4000, 0, 20);
+    fOutputList->Add(fDimuonPtDistributionZeroZNAbins27to37H[iRapidity]);
+  }
+
+  for( Int_t iRapidity = 0; iRapidity < 2; iRapidity++ ) {
+    fInvariantMassDistributionZeroZNA37to37H[iRapidity]
+            = new TH1F( Form("fInvariantMassDistributionZeroZNA37to37H_%d", iRapidity),
+                        Form("fInvariantMassDistributionZeroZNA37to37H_%d", iRapidity),
+                        2000, 0, 20);
+    fOutputList->Add(fInvariantMassDistributionZeroZNA37to37H[iRapidity]);
+  }
+
+  for( Int_t iRapidity = 0; iRapidity < 2; iRapidity++ ) {
+    fInvariantMassDistributionZeroZNC37to37H[iRapidity]
+            = new TH1F( Form("fInvariantMassDistributionZeroZNC37to37H_%d", iRapidity),
+                        Form("fInvariantMassDistributionZeroZNC37to37H_%d", iRapidity),
+                        2000, 0, 20);
+    fOutputList->Add(fInvariantMassDistributionZeroZNC37to37H[iRapidity]);
+  }
+
+
   //_______________________________
   // - End of the function
   PostData(1, fOutputList);           // postdata will notify the analysis manager of changes / updates to the
@@ -1680,18 +1721,18 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
   }
   // /* - 0 tracklets in SPD
   //  */
-  if(fTracklets != 0) {
-       PostData(1, fOutputList);
-       return;
-  }
+  // if(fTracklets != 0) {
+  //      PostData(1, fOutputList);
+  //      return;
+  // }
   // /* - Maximum 2 V0C cells fired.
   //    -
   //    - Trying a more readable and immediate approach.
   //  */
-  // if( fV0TotalNCells > 2 ) {
-  //      PostData(1, fOutputList);
-  //      return;
-  // }
+  if( fV0TotalNCells > 5 ) {
+       PostData(1, fOutputList);
+       return;
+  }
   //
   //
   // //_______________________________
@@ -2440,6 +2481,45 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
     }
 
 
+
+
+
+
+
+
+
+
+
+
+    if (        possibleJPsi.Rapidity() > -3.7 && possibleJPsi.Rapidity() <= -2.7 ) {
+        if (   ptOfTheDimuonPair < 1.00 ) {
+          if ( possibleJPsi.Rapidity() < -3.2 ){
+            fInvariantMassDistributionZeroZNC37to37H[0]->Fill(possibleJPsi.Mag());
+          } else{
+            fInvariantMassDistributionZeroZNC37to37H[1]->Fill(possibleJPsi.Mag());
+          }
+        }
+        if ( possibleJPsi.Rapidity() < -3.2 ){
+          if ( (possibleJPsi.Mag() > 2.8) && (possibleJPsi.Mag() < 3.3) ) {
+            fDimuonPtDistributionZeroZNCbins27to37H[0]->Fill(ptOfTheDimuonPair);
+          }
+        } else {
+          if ( (possibleJPsi.Mag() > 2.8) && (possibleJPsi.Mag() < 3.3) ) {
+            fDimuonPtDistributionZeroZNCbins27to37H[1]->Fill(ptOfTheDimuonPair);
+          }
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
     if (        possibleJPsi.Rapidity() > -4.00 && possibleJPsi.Rapidity() <= -2.50 ) {
         if ( ptOfTheDimuonPair < 1.00 ) fInvariantMassDistributionZeroZNCH->Fill(possibleJPsi.Mag());
         if ( ptOfTheDimuonPair < 1.00 && fVZEROCfiredcells < 5 ) fInvariantMassDistributionZeroZNCVZEROhitsLessThanFiveH->Fill(possibleJPsi.Mag());
@@ -2551,6 +2631,42 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
           }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    if (        possibleJPsi.Rapidity() > -3.7 && possibleJPsi.Rapidity() <= -2.7 ) {
+        if (   ptOfTheDimuonPair < 1.00 ) {
+          if ( possibleJPsi.Rapidity() < -3.2 ){
+            fInvariantMassDistributionZeroZNA37to37H[0]->Fill(possibleJPsi.Mag());
+          } else{
+            fInvariantMassDistributionZeroZNA37to37H[1]->Fill(possibleJPsi.Mag());
+          }
+        }
+        if ( possibleJPsi.Rapidity() < -3.2 ){
+          if ( (possibleJPsi.Mag() > 2.8) && (possibleJPsi.Mag() < 3.3) ) {
+            fDimuonPtDistributionZeroZNAbins27to37H[0]->Fill(ptOfTheDimuonPair);
+          }
+        } else {
+          if ( (possibleJPsi.Mag() > 2.8) && (possibleJPsi.Mag() < 3.3) ) {
+            fDimuonPtDistributionZeroZNAbins27to37H[1]->Fill(ptOfTheDimuonPair);
+          }
+        }
+
+
+    }
+
+
+
+
 
 
 

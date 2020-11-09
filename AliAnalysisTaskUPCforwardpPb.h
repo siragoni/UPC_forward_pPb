@@ -189,6 +189,8 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
         TH1F*                   fInvariantMassDistributionRapidityFiveBinsZeroZNAH[5];        //!
         TH1F*                   fInvariantMassDistributionZeroZNCH;                           //!
         TH1F*                   fInvariantMassDistributionRapidityBinsZeroZNCH[2];            //!
+        TH1F*                   fInvariantMassDistributionZeroZNA37to37H[2];                  //!
+        TH1F*                   fInvariantMassDistributionZeroZNC37to37H[2];                  //!
         TH1F*                   fInvariantMassDistributionRapidityThreeBinsZeroZNCH[3];       //!
         TH1F*                   fInvariantMassDistributionRapidityFourBinsZeroZNCH[4];        //!
         TH1F*                   fInvariantMassDistributionRapidityFiveBinsZeroZNCH[5];        //!
@@ -446,12 +448,14 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
 
         TH1F*                   fDimuonPtDistributionZeroZNAH;             //!
         TH1F*                   fDimuonPtDistributionZeroZNAbinsH[2];      //!
+        TH1F*                   fDimuonPtDistributionZeroZNAbins27to37H[2];//!
         TH1F*                   fDimuonPtDistributionZeroZNAthreebinsH[3]; //!
         TH1F*                   fDimuonPtDistributionZeroZNAfourbinsH[4];  //!
         TH1F*                   fDimuonPtDistributionZeroZNAfivebinsH[5];  //!
 
         TH1F*                   fDimuonPtDistributionZeroZNCH;             //!
         TH1F*                   fDimuonPtDistributionZeroZNCbinsH[2];      //!
+        TH1F*                   fDimuonPtDistributionZeroZNCbins27to37H[2];//!
         TH1F*                   fDimuonPtDistributionZeroZNCthreebinsH[3]; //!
         TH1F*                   fDimuonPtDistributionZeroZNCfourbinsH[4];  //!
         TH1F*                   fDimuonPtDistributionZeroZNCfivebinsH[5];  //!
