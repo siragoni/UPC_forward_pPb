@@ -443,8 +443,12 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
         TH1F*                   fDimuonPtDistributionRestrictedRapidity0N0N36to31H;  //!
         TH1F*                   fDimuonPtDistributionRestrictedRapidity0N0N31to26H;  //!
 
-        TH1F*                   fPtSidebandZeroZNCH;             //!
-        TH1F*                   fPtSidebandZeroZNAH;             //!
+        TH1F*                   fPtSidebandZeroZNCH;                     //!
+        TH1F*                   fPtSidebandZeroZNAH;                     //!
+        TH1F*                   fPtSidebandZeroZNCRapidityH[3];          //!
+        TH1F*                   fPtSidebandZeroZNARapidityH[3];          //!
+        TH1F*                   fPtSidebandZeroZNARapidityAndMassH[12];  //!
+        TH1F*                   fPtSidebandZeroZNCRapidityAndMassH[12];  //!
 
         TH1F*                   fDimuonPtDistributionZeroZNAH;             //!
         TH1F*                   fDimuonPtDistributionZeroZNAbinsH[2];      //!

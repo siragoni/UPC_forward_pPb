@@ -165,6 +165,10 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
       fDimuonPtDistributionRestrictedRapidity0N0N31to26Hv3(0),
       fPtSidebandZeroZNCH(0),
       fPtSidebandZeroZNAH(0),
+      fPtSidebandZeroZNARapidityH{0,0,0},
+      fPtSidebandZeroZNCRapidityH{0,0,0},
+      fPtSidebandZeroZNCRapidityAndMassH{0,0,0,0,0,0, 0,0,0,0,0,0},
+      fPtSidebandZeroZNARapidityAndMassH{0,0,0,0,0,0, 0,0,0,0,0,0},
       fDimuonPtDistributionZeroZNAH(0),
       fDimuonPtDistributionZeroZNAbinsH{0,0},
       fDimuonPtDistributionZeroZNAfourbinsH{0,0,0,0},
@@ -343,6 +347,10 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
       fDimuonPtDistributionRestrictedRapidity0N0N31to26Hv3(0),
       fPtSidebandZeroZNCH(0),
       fPtSidebandZeroZNAH(0),
+      fPtSidebandZeroZNARapidityH{0,0,0},
+      fPtSidebandZeroZNCRapidityH{0,0,0},
+      fPtSidebandZeroZNCRapidityAndMassH{0,0,0,0,0,0, 0,0,0,0,0,0},
+      fPtSidebandZeroZNARapidityAndMassH{0,0,0,0,0,0, 0,0,0,0,0,0},
       fDimuonPtDistributionZeroZNAH(0),
       fDimuonPtDistributionZeroZNAbinsH{0,0},
       fDimuonPtDistributionZeroZNAfourbinsH{0,0,0,0},
@@ -1105,6 +1113,41 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
   }
 
 
+
+  // SIDEBANDS
+  for( Int_t iRapidity = 0; iRapidity < 3; iRapidity++ ) {
+    fPtSidebandZeroZNCRapidityH[iRapidity]
+            = new TH1F( Form("fPtSidebandZeroZNCRapidityH_%d", iRapidity),
+                        Form("fPtSidebandZeroZNCRapidityH_%d", iRapidity),
+                        4000, 0, 20);
+    fOutputList->Add(fPtSidebandZeroZNCRapidityH[iRapidity]);
+  }
+
+  for( Int_t iRapidity = 0; iRapidity < 3; iRapidity++ ) {
+    fPtSidebandZeroZNARapidityH[iRapidity]
+            = new TH1F( Form("fPtSidebandZeroZNARapidityH_%d", iRapidity),
+                        Form("fPtSidebandZeroZNARapidityH_%d", iRapidity),
+                        4000, 0, 20);
+    fOutputList->Add(fPtSidebandZeroZNARapidityH[iRapidity]);
+  }
+
+  for( Int_t iRapidity = 0; iRapidity < 12; iRapidity++ ) {
+    fPtSidebandZeroZNARapidityAndMassH[iRapidity]
+            = new TH1F( Form("fPtSidebandZeroZNARapidityAndMassH_%d", iRapidity),
+                        Form("fPtSidebandZeroZNARapidityAndMassH_%d", iRapidity),
+                        4000, 0, 20);
+    fOutputList->Add(fPtSidebandZeroZNARapidityAndMassH[iRapidity]);
+  }
+
+  for( Int_t iRapidity = 0; iRapidity < 12; iRapidity++ ) {
+    fPtSidebandZeroZNCRapidityAndMassH[iRapidity]
+            = new TH1F( Form("fPtSidebandZeroZNCRapidityAndMassH_%d", iRapidity),
+                        Form("fPtSidebandZeroZNCRapidityAndMassH_%d", iRapidity),
+                        4000, 0, 20);
+    fOutputList->Add(fPtSidebandZeroZNCRapidityAndMassH[iRapidity]);
+  }
+
+
   //_______________________________
   // - End of the function
   PostData(1, fOutputList);           // postdata will notify the analysis manager of changes / updates to the
@@ -1729,10 +1772,10 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
   //    -
   //    - Trying a more readable and immediate approach.
   //  */
-  if( fV0TotalNCells > 5 ) {
-       PostData(1, fOutputList);
-       return;
-  }
+  // if( fV0TotalNCells > 5 ) {
+  //      PostData(1, fOutputList);
+  //      return;
+  // }
   //
   //
   // //_______________________________
@@ -2524,8 +2567,42 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
         if ( ptOfTheDimuonPair < 1.00 ) fInvariantMassDistributionZeroZNCH->Fill(possibleJPsi.Mag());
         if ( ptOfTheDimuonPair < 1.00 && fVZEROCfiredcells < 5 ) fInvariantMassDistributionZeroZNCVZEROhitsLessThanFiveH->Fill(possibleJPsi.Mag());
         if ( ptOfTheDimuonPair < 1.00 && fVZEROCfiredcells > 4 ) fInvariantMassDistributionZeroZNCVZEROhitsMoreThanFiveH->Fill(possibleJPsi.Mag());
-        if ( (possibleJPsi.Mag() > 1.5) && (possibleJPsi.Mag() < 2.5) ) {
+        if ( (possibleJPsi.Mag() > 0.8) && (possibleJPsi.Mag() < 2.8) ) {
           fPtSidebandZeroZNCH->Fill(ptOfTheDimuonPair);
+          if            (possibleJPsi.Rapidity() <= -3.5) {
+            fPtSidebandZeroZNCRapidityH[0]->Fill(ptOfTheDimuonPair);
+            if (        (possibleJPsi.Mag() > 0.8) && (possibleJPsi.Mag() < 1.3) ) {
+              fPtSidebandZeroZNCRapidityAndMassH[0]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 1.3) && (possibleJPsi.Mag() < 1.8) ) {
+              fPtSidebandZeroZNCRapidityAndMassH[1]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 1.8) && (possibleJPsi.Mag() < 2.3) ) {
+              fPtSidebandZeroZNCRapidityAndMassH[2]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 2.3) && (possibleJPsi.Mag() < 2.8) ) {
+              fPtSidebandZeroZNCRapidityAndMassH[3]->Fill(ptOfTheDimuonPair);
+            }
+          } else if (possibleJPsi.Rapidity() <= -3.0) {
+            fPtSidebandZeroZNCRapidityH[1]->Fill(ptOfTheDimuonPair);
+            if (        (possibleJPsi.Mag() > 0.8) && (possibleJPsi.Mag() < 1.3) ) {
+              fPtSidebandZeroZNCRapidityAndMassH[4]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 1.3) && (possibleJPsi.Mag() < 1.8) ) {
+              fPtSidebandZeroZNCRapidityAndMassH[5]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 1.8) && (possibleJPsi.Mag() < 2.3) ) {
+              fPtSidebandZeroZNCRapidityAndMassH[6]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 2.3) && (possibleJPsi.Mag() < 2.8) ) {
+              fPtSidebandZeroZNCRapidityAndMassH[7]->Fill(ptOfTheDimuonPair);
+            }
+          } else if (possibleJPsi.Rapidity() <= -2.5) {
+            fPtSidebandZeroZNCRapidityH[2]->Fill(ptOfTheDimuonPair);
+            if (        (possibleJPsi.Mag() > 0.8) && (possibleJPsi.Mag() < 1.3) ) {
+              fPtSidebandZeroZNCRapidityAndMassH[8]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 1.3) && (possibleJPsi.Mag() < 1.8) ) {
+              fPtSidebandZeroZNCRapidityAndMassH[9]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 1.8) && (possibleJPsi.Mag() < 2.3) ) {
+              fPtSidebandZeroZNCRapidityAndMassH[10]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 2.3) && (possibleJPsi.Mag() < 2.8) ) {
+              fPtSidebandZeroZNCRapidityAndMassH[11]->Fill(ptOfTheDimuonPair);
+            }
+          }
         }
         if ( (possibleJPsi.Mag() > 2.8) && (possibleJPsi.Mag() < 3.3) ) {
           fDimuonPtDistributionZeroZNCH   ->Fill(ptOfTheDimuonPair);
@@ -2681,8 +2758,42 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
         } else {
           fDimuonPtDistributionZeroZNAVZEROhitsMoreThanFiveH->Fill( ptOfTheDimuonPair );
         }
-        if ( (possibleJPsi.Mag() > 1.5) && (possibleJPsi.Mag() < 2.5) ) {
+        if ( (possibleJPsi.Mag() > 0.8) && (possibleJPsi.Mag() < 2.8) ) {
           fPtSidebandZeroZNAH->Fill(ptOfTheDimuonPair);
+          if            (possibleJPsi.Rapidity() <= -3.5) {
+            fPtSidebandZeroZNARapidityH[0]->Fill(ptOfTheDimuonPair);
+            if (        (possibleJPsi.Mag() > 0.8) && (possibleJPsi.Mag() < 1.3) ) {
+              fPtSidebandZeroZNARapidityAndMassH[0]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 1.3) && (possibleJPsi.Mag() < 1.8) ) {
+              fPtSidebandZeroZNARapidityAndMassH[1]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 1.8) && (possibleJPsi.Mag() < 2.3) ) {
+              fPtSidebandZeroZNARapidityAndMassH[2]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 2.3) && (possibleJPsi.Mag() < 2.8) ) {
+              fPtSidebandZeroZNARapidityAndMassH[3]->Fill(ptOfTheDimuonPair);
+            }
+          } else if (possibleJPsi.Rapidity() <= -3.0) {
+            fPtSidebandZeroZNARapidityH[1]->Fill(ptOfTheDimuonPair);
+            if (        (possibleJPsi.Mag() > 0.8) && (possibleJPsi.Mag() < 1.3) ) {
+              fPtSidebandZeroZNARapidityAndMassH[4]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 1.3) && (possibleJPsi.Mag() < 1.8) ) {
+              fPtSidebandZeroZNARapidityAndMassH[5]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 1.8) && (possibleJPsi.Mag() < 2.3) ) {
+              fPtSidebandZeroZNARapidityAndMassH[6]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 2.3) && (possibleJPsi.Mag() < 2.8) ) {
+              fPtSidebandZeroZNARapidityAndMassH[7]->Fill(ptOfTheDimuonPair);
+            }
+          } else if (possibleJPsi.Rapidity() <= -2.5) {
+            fPtSidebandZeroZNARapidityH[2]->Fill(ptOfTheDimuonPair);
+            if (        (possibleJPsi.Mag() > 0.8) && (possibleJPsi.Mag() < 1.3) ) {
+              fPtSidebandZeroZNARapidityAndMassH[8]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 1.3) && (possibleJPsi.Mag() < 1.8) ) {
+              fPtSidebandZeroZNARapidityAndMassH[9]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 1.8) && (possibleJPsi.Mag() < 2.3) ) {
+              fPtSidebandZeroZNARapidityAndMassH[10]->Fill(ptOfTheDimuonPair);
+            } else if ( (possibleJPsi.Mag() > 2.3) && (possibleJPsi.Mag() < 2.8) ) {
+              fPtSidebandZeroZNARapidityAndMassH[11]->Fill(ptOfTheDimuonPair);
+            }
+          }
         }
         if ( (possibleJPsi.Mag() > 2.8) && (possibleJPsi.Mag() < 3.3) ) {
           fDimuonPtDistributionZeroZNAH   ->Fill(ptOfTheDimuonPair);
