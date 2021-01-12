@@ -253,7 +253,28 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
       fInvariantMassDistributionZeroZNC37to37H{0,0},
       fInvariantMassDistributionZeroZNA37to37H{0,0},
       fDimuonPtDistributionZeroZNCbins27to37H{0,0},
-      fDimuonPtDistributionZeroZNAbins27to37H{0,0}
+      fDimuonPtDistributionZeroZNAbins27to37H{0,0},
+      fRapidityShapeH(0),
+      fRapidityShapeAtDCAH(0),
+      fRapidityShapeADAdecH(0),
+      fRapidityShapeADAdecAtDCAH(0),
+      fRapidityShapeADCdecH(0),
+      fRapidityShapeADCdecAtDCAH(0),
+      fRapidityShapeADdecH(0),
+      fRapidityShapeADdecAtDCAH(0),
+      fZNCEnergyAfterTimingVsADAMultiH(0),
+      fZNCEnergyAfterTimingVsADCMultiH(0),
+      fZNCEnergyAfterTimingVsADMultiH(0),
+      fZNCEnergyBeforeTimingVsADAMultiH(0),
+      fZNCEnergyBeforeTimingVsADCMultiH(0),
+      fZNCEnergyBeforeTimingVsADMultiH(0),
+      fZNAEnergyAfterTimingVsADAMultiH(0),
+      fZNAEnergyAfterTimingVsADCMultiH(0),
+      fZNAEnergyAfterTimingVsADMultiH(0),
+      fZNAEnergyBeforeTimingVsADAMultiH(0),
+      fZNAEnergyBeforeTimingVsADCMultiH(0),
+      fZNAEnergyBeforeTimingVsADMultiH(0)
+
 {
     // default constructor, don't allocate memory here!
     // this is used by root for IO purposes, it needs to remain empty
@@ -435,7 +456,28 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
       fInvariantMassDistributionZeroZNC37to37H{0,0},
       fInvariantMassDistributionZeroZNA37to37H{0,0},
       fDimuonPtDistributionZeroZNCbins27to37H{0,0},
-      fDimuonPtDistributionZeroZNAbins27to37H{0,0}
+      fDimuonPtDistributionZeroZNAbins27to37H{0,0},
+      fRapidityShapeH(0),
+      fRapidityShapeAtDCAH(0),
+      fRapidityShapeADAdecH(0),
+      fRapidityShapeADAdecAtDCAH(0),
+      fRapidityShapeADCdecH(0),
+      fRapidityShapeADCdecAtDCAH(0),
+      fRapidityShapeADdecH(0),
+      fRapidityShapeADdecAtDCAH(0),
+      fZNCEnergyAfterTimingVsADAMultiH(0),
+      fZNCEnergyAfterTimingVsADCMultiH(0),
+      fZNCEnergyAfterTimingVsADMultiH(0),
+      fZNCEnergyBeforeTimingVsADAMultiH(0),
+      fZNCEnergyBeforeTimingVsADCMultiH(0),
+      fZNCEnergyBeforeTimingVsADMultiH(0),
+      fZNAEnergyAfterTimingVsADAMultiH(0),
+      fZNAEnergyAfterTimingVsADCMultiH(0),
+      fZNAEnergyAfterTimingVsADMultiH(0),
+      fZNAEnergyBeforeTimingVsADAMultiH(0),
+      fZNAEnergyBeforeTimingVsADCMultiH(0),
+      fZNAEnergyBeforeTimingVsADMultiH(0)
+
 {
 
     // constructor
@@ -1148,6 +1190,70 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
   }
 
 
+  fZNCEnergyAfterTimingVsADAMultiH = new TH2F("fZNCEnergyAfterTimingVsADAMultiH", "fZNCEnergyAfterTimingVsADAMultiH", 500, -3000, 7000, 100, -1., 99.);
+  fOutputList->Add(fZNCEnergyAfterTimingVsADAMultiH);
+
+  fZNCEnergyAfterTimingVsADCMultiH = new TH2F("fZNCEnergyAfterTimingVsADCMultiH", "fZNCEnergyAfterTimingVsADCMultiH", 500, -3000, 7000, 100, -1., 99.);
+  fOutputList->Add(fZNCEnergyAfterTimingVsADCMultiH);
+
+  fZNCEnergyAfterTimingVsADMultiH = new TH2F("fZNCEnergyAfterTimingVsADMultiH", "fZNCEnergyAfterTimingVsADMultiH", 500, -3000, 7000, 100, -1., 99.);
+  fOutputList->Add(fZNCEnergyAfterTimingVsADMultiH);
+
+  fZNCEnergyBeforeTimingVsADAMultiH = new TH2F("fZNCEnergyBeforeTimingVsADAMultiH", "fZNCEnergyBeforeTimingVsADAMultiH", 500, -3000, 7000, 100, -1., 99.);
+  fOutputList->Add(fZNCEnergyBeforeTimingVsADAMultiH);
+
+  fZNCEnergyBeforeTimingVsADCMultiH = new TH2F("fZNCEnergyBeforeTimingVsADCMultiH", "fZNCEnergyBeforeTimingVsADCMultiH", 500, -3000, 7000, 100, -1., 99.);
+  fOutputList->Add(fZNCEnergyBeforeTimingVsADCMultiH);
+
+  fZNCEnergyBeforeTimingVsADMultiH = new TH2F("fZNCEnergyBeforeTimingVsADMultiH", "fZNCEnergyBeforeTimingVsADMultiH", 500, -3000, 7000, 100, -1., 99.);
+  fOutputList->Add(fZNCEnergyBeforeTimingVsADMultiH);
+
+
+
+
+  fZNAEnergyAfterTimingVsADAMultiH = new TH2F("fZNAEnergyAfterTimingVsADAMultiH", "fZNAEnergyAfterTimingVsADAMultiH", 500, -3000, 7000, 100, -1., 99.);
+  fOutputList->Add(fZNAEnergyAfterTimingVsADAMultiH);
+
+  fZNAEnergyAfterTimingVsADCMultiH = new TH2F("fZNAEnergyAfterTimingVsADCMultiH", "fZNAEnergyAfterTimingVsADCMultiH", 500, -3000, 7000, 100, -1., 99.);
+  fOutputList->Add(fZNAEnergyAfterTimingVsADCMultiH);
+
+  fZNAEnergyAfterTimingVsADMultiH = new TH2F("fZNAEnergyAfterTimingVsADMultiH", "fZNAEnergyAfterTimingVsADMultiH", 500, -3000, 7000, 100, -1., 99.);
+  fOutputList->Add(fZNAEnergyAfterTimingVsADMultiH);
+
+  fZNAEnergyBeforeTimingVsADAMultiH = new TH2F("fZNAEnergyBeforeTimingVsADAMultiH", "fZNAEnergyBeforeTimingVsADAMultiH", 500, -3000, 7000, 100, -1., 99.);
+  fOutputList->Add(fZNAEnergyBeforeTimingVsADAMultiH);
+
+  fZNAEnergyBeforeTimingVsADCMultiH = new TH2F("fZNAEnergyBeforeTimingVsADCMultiH", "fZNAEnergyBeforeTimingVsADCMultiH", 500, -3000, 7000, 100, -1., 99.);
+  fOutputList->Add(fZNAEnergyBeforeTimingVsADCMultiH);
+
+  fZNAEnergyBeforeTimingVsADMultiH = new TH2F("fZNAEnergyBeforeTimingVsADMultiH", "fZNAEnergyBeforeTimingVsADMultiH", 500, -3000, 7000, 100, -1., 99.);
+  fOutputList->Add(fZNAEnergyBeforeTimingVsADMultiH);
+
+
+  fRapidityShapeH = new TH1F("fRapidityShapeH", "fRapidityShapeH", 1000, -5., 0.);
+  fOutputList->Add(fRapidityShapeH);
+
+  fRapidityShapeAtDCAH = new TH1F("fRapidityShapeAtDCAH", "fRapidityShapeAtDCAH", 1000, -5., 0.);
+  fOutputList->Add(fRapidityShapeAtDCAH);
+
+  fRapidityShapeADAdecH = new TH1F("fRapidityShapeADAdecH", "fRapidityShapeADAdecH", 1000, -5., 0.);
+  fOutputList->Add(fRapidityShapeADAdecH);
+
+  fRapidityShapeADAdecAtDCAH = new TH1F("fRapidityShapeADAdecAtDCAH", "fRapidityShapeADAdecAtDCAH", 1000, -5., 0.);
+  fOutputList->Add(fRapidityShapeADAdecAtDCAH);
+
+  fRapidityShapeADCdecH = new TH1F("fRapidityShapeADCdecH", "fRapidityShapeADCdecH", 1000, -5., 0.);
+  fOutputList->Add(fRapidityShapeADCdecH);
+
+  fRapidityShapeADCdecAtDCAH = new TH1F("fRapidityShapeADCdecAtDCAH", "fRapidityShapeADCdecAtDCAH", 1000, -5., 0.);
+  fOutputList->Add(fRapidityShapeADCdecAtDCAH);
+
+  fRapidityShapeADdecH = new TH1F("fRapidityShapeADdecH", "fRapidityShapeADdecH", 1000, -5., 0.);
+  fOutputList->Add(fRapidityShapeADdecH);
+
+  fRapidityShapeADdecAtDCAH = new TH1F("fRapidityShapeADdecAtDCAH", "fRapidityShapeADdecAtDCAH", 1000, -5., 0.);
+  fOutputList->Add(fRapidityShapeADdecAtDCAH);
+
   //_______________________________
   // - End of the function
   PostData(1, fOutputList);           // postdata will notify the analysis manager of changes / updates to the
@@ -1753,10 +1859,10 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
   //      PostData(1, fOutputList);
   //      return;
   // }
-  if(fADCDecision == 1) {
-       PostData(1, fOutputList);
-       return;
-  }
+  // if(fADCDecision == 1) {
+  //      PostData(1, fOutputList);
+  //      return;
+  // }
   //
   //
   // /* - Empty V0C decision
@@ -1947,6 +2053,52 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
 
 
 
+
+  TLorentzVector muonsAtDCA[2];
+  TLorentzVector possibleJPsiAtDCA;
+  for(int indexMuonAtDCA = 0; indexMuonAtDCA < 2; indexMuonAtDCA++) {
+        Double_t EnergyOfTheTrack = TMath::Sqrt(  track[indexMuonAtDCA]->PxAtDCA()*track[indexMuonAtDCA]->PxAtDCA() +
+                                                  track[indexMuonAtDCA]->PyAtDCA()*track[indexMuonAtDCA]->PyAtDCA() +
+                                                  track[indexMuonAtDCA]->PzAtDCA()*track[indexMuonAtDCA]->PzAtDCA() +
+                                                  TDatabasePDG::Instance()->GetParticle(13)->Mass()*TDatabasePDG::Instance()->GetParticle(13)->Mass()/1000000
+                                                  );
+        muonsAtDCA[indexMuonAtDCA].SetPxPyPzE(   track[indexMuonAtDCA]->PxAtDCA(),
+                                                 track[indexMuonAtDCA]->PyAtDCA(),
+                                                 track[indexMuonAtDCA]->PzAtDCA(),
+                                                 EnergyOfTheTrack
+                                                 );
+        possibleJPsiAtDCA += muonsAtDCA[indexMuonAtDCA];
+  }
+
+
+
+
+
+
+
+
+  if (  possibleJPsi.Rapidity() >  -4.0 &&
+        possibleJPsi.Rapidity() <= -2.5 &&
+        possibleJPsi.Mag()      >   2.8 &&
+        possibleJPsi.Mag()      <   3.3
+        ) {
+
+        fRapidityShapeH     ->Fill(     possibleJPsi.Rapidity());
+        fRapidityShapeAtDCAH->Fill(possibleJPsiAtDCA.Rapidity());
+        if( fADADecision != 0 ){
+          fRapidityShapeADAdecH     ->Fill(     possibleJPsi.Rapidity());
+          fRapidityShapeADAdecAtDCAH->Fill(possibleJPsiAtDCA.Rapidity());
+        }
+        if( fADCDecision != 0 ){
+          fRapidityShapeADCdecH     ->Fill(     possibleJPsi.Rapidity());
+          fRapidityShapeADCdecAtDCAH->Fill(possibleJPsiAtDCA.Rapidity());
+        }
+        if( fADADecision != 0 || fADCDecision != 0 ){
+          fRapidityShapeADdecH     ->Fill(     possibleJPsi.Rapidity());
+          fRapidityShapeADdecAtDCAH->Fill(possibleJPsiAtDCA.Rapidity());
+        }
+
+  }
 
 
 
@@ -2487,9 +2639,16 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
     //   fZNCEnergyCalibratedH          ->Fill( fZNCEnergy );
     //   fZNCEnergyCalibratedHigherGainH->Fill( dataZDC->GetZNCTowerEnergyLR()[0] );
     // }
+    fZNCEnergyAfterTimingVsADAMultiH->Fill(fZNCEnergy, ADAmultiplicitiesTotal);
+    fZNCEnergyAfterTimingVsADCMultiH->Fill(fZNCEnergy, ADCmultiplicitiesTotal);
+    fZNCEnergyAfterTimingVsADMultiH ->Fill(fZNCEnergy, ADmultiplicitiesTotal );
   }
   fZNCEnergyBeforeTimingSelectionH        ->Fill(fZNCEnergy);
   fZNCEnergyBeforeTimingSelectionExtendedH->Fill(fZNCEnergy);
+  fZNCEnergyBeforeTimingVsADAMultiH->Fill(fZNCEnergy, ADAmultiplicitiesTotal);
+  fZNCEnergyBeforeTimingVsADCMultiH->Fill(fZNCEnergy, ADCmultiplicitiesTotal);
+  fZNCEnergyBeforeTimingVsADMultiH ->Fill(fZNCEnergy, ADmultiplicitiesTotal );
+
   if ( dataZDC->IsZNCfired() && ( isZNCfired != 0 ) ) {
     fZNCEnergyAgainstEntriesExtendedHv2->Fill(fZNCEnergy);
   }
@@ -2504,9 +2663,23 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
     //   fZNAEnergyCalibratedH          ->Fill( fZNAEnergy );
     //   fZNAEnergyCalibratedHigherGainH->Fill( dataZDC->GetZNATowerEnergyLR()[0] );
     // }
+    fZNAEnergyAfterTimingVsADAMultiH->Fill(fZNAEnergy, ADAmultiplicitiesTotal);
+    fZNAEnergyAfterTimingVsADCMultiH->Fill(fZNAEnergy, ADCmultiplicitiesTotal);
+    fZNAEnergyAfterTimingVsADMultiH ->Fill(fZNAEnergy, ADmultiplicitiesTotal );
   }
   fZNAEnergyBeforeTimingSelectionH        ->Fill(fZNAEnergy);
   fZNAEnergyBeforeTimingSelectionExtendedH->Fill(fZNAEnergy);
+  fZNAEnergyBeforeTimingVsADAMultiH->Fill(fZNAEnergy, ADAmultiplicitiesTotal);
+  fZNAEnergyBeforeTimingVsADCMultiH->Fill(fZNAEnergy, ADCmultiplicitiesTotal);
+  fZNAEnergyBeforeTimingVsADMultiH ->Fill(fZNAEnergy, ADmultiplicitiesTotal );
+
+
+
+
+
+
+
+
 
   if( isZNCfired == 0 ) {
     if (        possibleJPsi.Rapidity() > -3.60 && possibleJPsi.Rapidity() <= -2.60 ) {

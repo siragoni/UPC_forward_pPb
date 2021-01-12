@@ -543,7 +543,29 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
 
 
 
-        // Finished cloned histograms.
+        TH1F*                   fRapidityShapeH;                   //!
+        TH1F*                   fRapidityShapeAtDCAH;              //!
+        TH1F*                   fRapidityShapeADAdecH;             //!
+        TH1F*                   fRapidityShapeADAdecAtDCAH;        //!
+        TH1F*                   fRapidityShapeADCdecH;             //!
+        TH1F*                   fRapidityShapeADCdecAtDCAH;        //!
+        TH1F*                   fRapidityShapeADdecH;              //!
+        TH1F*                   fRapidityShapeADdecAtDCAH;         //!
+        TH2F*                   fZNCEnergyAfterTimingVsADAMultiH;  //!
+        TH2F*                   fZNCEnergyAfterTimingVsADCMultiH;  //!
+        TH2F*                   fZNCEnergyAfterTimingVsADMultiH;   //!
+        TH2F*                   fZNCEnergyBeforeTimingVsADAMultiH; //!
+        TH2F*                   fZNCEnergyBeforeTimingVsADCMultiH; //!
+        TH2F*                   fZNCEnergyBeforeTimingVsADMultiH;  //!
+        TH2F*                   fZNAEnergyAfterTimingVsADAMultiH;  //!
+        TH2F*                   fZNAEnergyAfterTimingVsADCMultiH;  //!
+        TH2F*                   fZNAEnergyAfterTimingVsADMultiH;   //!
+        TH2F*                   fZNAEnergyBeforeTimingVsADAMultiH; //!
+        TH2F*                   fZNAEnergyBeforeTimingVsADCMultiH; //!
+        TH2F*                   fZNAEnergyBeforeTimingVsADMultiH;  //!
+
+
+
         //_______________________________
 
 
@@ -608,7 +630,7 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
          * If I happen to encounter it again in the future, I will make sure to
          * record it!
          */
-        ClassDef(AliAnalysisTaskUPCforwardpPb, 19);
+        ClassDef(AliAnalysisTaskUPCforwardpPb, 20);
 };
 
 #endif
