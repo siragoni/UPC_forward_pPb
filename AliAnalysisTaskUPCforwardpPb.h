@@ -630,7 +630,7 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
          * If I happen to encounter it again in the future, I will make sure to
          * record it!
          */
-        ClassDef(AliAnalysisTaskUPCforwardpPb, 20);
+        ClassDef(AliAnalysisTaskUPCforwardpPb, 21);
 };
 
 #endif
