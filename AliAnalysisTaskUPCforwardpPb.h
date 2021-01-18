@@ -566,6 +566,25 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
 
 
 
+
+
+
+
+
+        TH1F*                   fPhiSameSignZeroTrkH;  //!
+        TH1F*                   fPhiSameSignOneTrkH;   //!
+        TH1F*                   fPhiSameSignTwoTrkH;   //!
+        TH1F*                   fPtSameSignZeroTrkH;   //!
+        TH1F*                   fPtSameSignOneTrkH;    //!
+        TH1F*                   fPtSameSignTwoTrkH;    //!
+        TH1F*                   fRapSameSignZeroTrkH;  //!
+        TH1F*                   fRapSameSignOneTrkH;   //!
+        TH1F*                   fRapSameSignTwoTrkH;   //!
+        TH1F*                   fMassSameSignZeroTrkH; //!
+        TH1F*                   fMassSameSignOneTrkH;  //!
+        TH1F*                   fMassSameSignTwoTrkH;  //!
+
+
         //_______________________________
 
 
@@ -630,7 +649,7 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
          * If I happen to encounter it again in the future, I will make sure to
          * record it!
          */
-        ClassDef(AliAnalysisTaskUPCforwardpPb, 21);
+        ClassDef(AliAnalysisTaskUPCforwardpPb, 22);
 };
 
 #endif

@@ -148,15 +148,15 @@ void runAnalysis(Int_t opt)
            * - NB: Adding each run manually...
            * -
            */
-          // alienHandler->SetGridDataDir("/alice/data/2016/LHC16s");
-      	  // alienHandler->SetDataPattern("*pass1_UD/PWGUD/UD_pPb_AOD/144_20191104-1006/*AliAOD.UPCNano.root");
-      	  // // MC has no prefix, data has prefix 000
-      	  // alienHandler->SetRunPrefix("000");
-
-          alienHandler->SetGridDataDir("/alice/data/2016/LHC16r");
-      	  alienHandler->SetDataPattern("*pass1_UD/PWGUD/UD_pPb_AOD/143_20191104-1006/*AliAOD.UPCNano.root");
+          alienHandler->SetGridDataDir("/alice/data/2016/LHC16s");
+      	  alienHandler->SetDataPattern("*pass1_UD/PWGUD/UD_pPb_AOD/144_20191104-1006/*AliAOD.UPCNano.root");
       	  // MC has no prefix, data has prefix 000
       	  alienHandler->SetRunPrefix("000");
+
+          // alienHandler->SetGridDataDir("/alice/data/2016/LHC16r");
+      	  // alienHandler->SetDataPattern("*pass1_UD/PWGUD/UD_pPb_AOD/143_20191104-1006/*AliAOD.UPCNano.root");
+      	  // // MC has no prefix, data has prefix 000
+      	  // alienHandler->SetRunPrefix("000");
 
 
 
@@ -217,18 +217,18 @@ void runAnalysis(Int_t opt)
         // merging: run with "kTRUE" and "full" for normal run
         // to merge on grid run jobs in SetRunMode("terminate")
         // to collect final results set SetMergeViaJDL(kFALSE)
-        // alienHandler->SetMergeViaJDL(kTRUE);
+        alienHandler->SetMergeViaJDL(kTRUE);
 
         /* - The setting to kFALSE is to download the output files
            -
          */
-        alienHandler->SetMergeViaJDL(kFALSE);
+        // alienHandler->SetMergeViaJDL(kFALSE);
         alienHandler->SetMaxMergeStages(1);
 
 
         TString LHC16s("LHC16s");
         // define the output folders
-        alienHandler->SetGridWorkingDir("pPbLHC16r_New_correl");
+        alienHandler->SetGridWorkingDir("pPbLHC16r_New_tracks");
         // alienHandler->SetGridOutputDir("myOutputDir");
         if (opt == 0) alienHandler->SetGridOutputDir(LHC16s.Data());
 
@@ -248,12 +248,12 @@ void runAnalysis(Int_t opt)
             /* - The option FULL is to send the full analysis.
                -
              */
-            // alienHandler->SetRunMode("full");
+            alienHandler->SetRunMode("full");
 
             /* - This option TERMINATE is used for the merging of the files.
                -
              */
-            alienHandler->SetRunMode("terminate");
+            // alienHandler->SetRunMode("terminate");
             mgr->StartAnalysis("grid");
         }
     }

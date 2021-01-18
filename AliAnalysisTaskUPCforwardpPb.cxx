@@ -273,8 +273,19 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
       fZNAEnergyAfterTimingVsADMultiH(0),
       fZNAEnergyBeforeTimingVsADAMultiH(0),
       fZNAEnergyBeforeTimingVsADCMultiH(0),
-      fZNAEnergyBeforeTimingVsADMultiH(0)
-
+      fZNAEnergyBeforeTimingVsADMultiH(0),
+      fPhiSameSignZeroTrkH(0),
+      fPhiSameSignOneTrkH(0),
+      fPhiSameSignTwoTrkH(0),
+      fPtSameSignZeroTrkH(0),
+      fPtSameSignOneTrkH(0),
+      fPtSameSignTwoTrkH(0),
+      fRapSameSignZeroTrkH(0),
+      fRapSameSignOneTrkH(0),
+      fRapSameSignTwoTrkH(0),
+      fMassSameSignZeroTrkH(0),
+      fMassSameSignOneTrkH(0),
+      fMassSameSignTwoTrkH(0)
 {
     // default constructor, don't allocate memory here!
     // this is used by root for IO purposes, it needs to remain empty
@@ -476,7 +487,19 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
       fZNAEnergyAfterTimingVsADMultiH(0),
       fZNAEnergyBeforeTimingVsADAMultiH(0),
       fZNAEnergyBeforeTimingVsADCMultiH(0),
-      fZNAEnergyBeforeTimingVsADMultiH(0)
+      fZNAEnergyBeforeTimingVsADMultiH(0),
+      fPhiSameSignZeroTrkH(0),
+      fPhiSameSignOneTrkH(0),
+      fPhiSameSignTwoTrkH(0),
+      fPtSameSignZeroTrkH(0),
+      fPtSameSignOneTrkH(0),
+      fPtSameSignTwoTrkH(0),
+      fRapSameSignZeroTrkH(0),
+      fRapSameSignOneTrkH(0),
+      fRapSameSignTwoTrkH(0),
+      fMassSameSignZeroTrkH(0),
+      fMassSameSignOneTrkH(0),
+      fMassSameSignTwoTrkH(0)
 
 {
 
@@ -1254,6 +1277,49 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
   fRapidityShapeADdecAtDCAH = new TH1F("fRapidityShapeADdecAtDCAH", "fRapidityShapeADdecAtDCAH", 1000, -5., 0.);
   fOutputList->Add(fRapidityShapeADdecAtDCAH);
 
+
+
+
+
+
+  // Same sign bkg
+  fMassSameSignZeroTrkH = new TH1F("fMassSameSignZeroTrkH", "fMassSameSignZeroTrkH", 2000, 0, 20);
+  fOutputList->Add(fMassSameSignZeroTrkH);
+
+  fMassSameSignOneTrkH = new TH1F("fMassSameSignOneTrkH", "fMassSameSignOneTrkH", 2000, 0, 20);
+  fOutputList->Add(fMassSameSignOneTrkH);
+
+  fMassSameSignTwoTrkH = new TH1F("fMassSameSignTwoTrkH", "fMassSameSignTwoTrkH", 2000, 0, 20);
+  fOutputList->Add(fMassSameSignTwoTrkH);
+
+  fRapSameSignZeroTrkH = new TH1F("fRapSameSignZeroTrkH", "fRapSameSignZeroTrkH", 1000, -5., 0.);
+  fOutputList->Add(fRapSameSignZeroTrkH);
+
+  fRapSameSignOneTrkH = new TH1F("fRapSameSignOneTrkH", "fRapSameSignOneTrkH", 1000, -5., 0.);
+  fOutputList->Add(fRapSameSignOneTrkH);
+
+  fRapSameSignTwoTrkH = new TH1F("fRapSameSignTwoTrkH", "fRapSameSignTwoTrkH", 1000, -5., 0.);
+  fOutputList->Add(fRapSameSignTwoTrkH);
+
+  fPtSameSignZeroTrkH = new TH1F("fPtSameSignZeroTrkH", "fPtSameSignZeroTrkH", 4000, 0, 20);
+  fOutputList->Add(fPtSameSignZeroTrkH);
+
+  fPtSameSignOneTrkH = new TH1F("fPtSameSignOneTrkH", "fPtSameSignOneTrkH", 4000, 0, 20);
+  fOutputList->Add(fPtSameSignOneTrkH);
+
+  fPtSameSignTwoTrkH = new TH1F("fPtSameSignTwoTrkH", "fPtSameSignTwoTrkH", 4000, 0, 20);
+  fOutputList->Add(fPtSameSignTwoTrkH);
+
+  fPhiSameSignZeroTrkH = new TH1F("fPhiSameSignZeroTrkH", "fPhiSameSignZeroTrkH", 1000, -2., 8.);
+  fOutputList->Add(fPhiSameSignZeroTrkH);
+
+  fPhiSameSignOneTrkH = new TH1F("fPhiSameSignOneTrkH", "fPhiSameSignOneTrkH", 1000, -2., 8.);
+  fOutputList->Add(fPhiSameSignOneTrkH);
+
+  fPhiSameSignTwoTrkH = new TH1F("fPhiSameSignTwoTrkH", "fPhiSameSignTwoTrkH", 1000, -2., 8.);
+  fOutputList->Add(fPhiSameSignTwoTrkH);
+
+
   //_______________________________
   // - End of the function
   PostData(1, fOutputList);           // postdata will notify the analysis manager of changes / updates to the
@@ -2028,8 +2094,33 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
         }
         fInvariantMassDistributionLikeSignMuonsH->Fill(FakeJPsi.Mag());
         fCounterH->Fill(93);
+        // PostData(1, fOutputList);
+        // return;
+
+
+
+
+        if( fV0TotalNCells > 0 ){
+          if (        (Double_t) fV0Hits[FirstMuonVZEROC] > 0.5 && (Double_t) fV0Hits[SecondMuonVZEROC] > 0.5 ) {
+            fPhiSameSignTwoTrkH  ->Fill(FakeJPsi.Phi()     );
+            fPtSameSignTwoTrkH   ->Fill(FakeJPsi.Pt()      );
+            fRapSameSignTwoTrkH  ->Fill(FakeJPsi.Rapidity());
+            fMassSameSignTwoTrkH ->Fill(FakeJPsi.Mag()     );
+          } else if ( (Double_t) fV0Hits[FirstMuonVZEROC] > 0.5 || (Double_t) fV0Hits[SecondMuonVZEROC] > 0.5 ) {
+            fPhiSameSignOneTrkH  ->Fill(FakeJPsi.Phi()     );
+            fPtSameSignOneTrkH   ->Fill(FakeJPsi.Pt()      );
+            fRapSameSignOneTrkH  ->Fill(FakeJPsi.Rapidity());
+            fMassSameSignOneTrkH ->Fill(FakeJPsi.Mag()     );
+          } else { // no matching
+            fPhiSameSignZeroTrkH ->Fill(FakeJPsi.Phi()     );
+            fPtSameSignZeroTrkH  ->Fill(FakeJPsi.Pt()      );
+            fRapSameSignZeroTrkH ->Fill(FakeJPsi.Rapidity());
+            fMassSameSignZeroTrkH->Fill(FakeJPsi.Mag()     );
+          }
+        }
         PostData(1, fOutputList);
         return;
+
   }
   fCounterH->Fill(94);
 
