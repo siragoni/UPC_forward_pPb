@@ -585,6 +585,11 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
         TH1F*                   fMassSameSignTwoTrkH;  //!
 
 
+
+        TH1F*                   fDimuonPtDistributionRejectedZNAflagH;                              //!
+        TH1F*                   fDimuonPtDistributionRejectedZNCflagH;                              //!
+
+
         //_______________________________
 
 
