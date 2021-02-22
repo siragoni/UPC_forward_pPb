@@ -148,15 +148,15 @@ void runAnalysis(Int_t opt)
            * - NB: Adding each run manually...
            * -
            */
-          alienHandler->SetGridDataDir("/alice/data/2016/LHC16s");
-      	  alienHandler->SetDataPattern("*pass1_UD/PWGUD/UD_pPb_AOD/144_20191104-1006/*AliAOD.UPCNano.root");
-      	  // MC has no prefix, data has prefix 000
-      	  alienHandler->SetRunPrefix("000");
-
-          // alienHandler->SetGridDataDir("/alice/data/2016/LHC16r");
-      	  // alienHandler->SetDataPattern("*pass1_UD/PWGUD/UD_pPb_AOD/143_20191104-1006/*AliAOD.UPCNano.root");
+          // alienHandler->SetGridDataDir("/alice/data/2016/LHC16s");
+      	  // alienHandler->SetDataPattern("*pass1_UD/PWGUD/UD_pPb_AOD/144_20191104-1006/*AliAOD.UPCNano.root");
       	  // // MC has no prefix, data has prefix 000
       	  // alienHandler->SetRunPrefix("000");
+
+          alienHandler->SetGridDataDir("/alice/data/2016/LHC16r");
+      	  alienHandler->SetDataPattern("*pass1_UD/PWGUD/UD_pPb_AOD/143_20191104-1006/*AliAOD.UPCNano.root");
+      	  // MC has no prefix, data has prefix 000
+      	  alienHandler->SetRunPrefix("000");
 
 
 
