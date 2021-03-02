@@ -589,6 +589,9 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
         TH1F*                   fDimuonPtDistributionRejectedZNAflagH;                              //!
         TH1F*                   fDimuonPtDistributionRejectedZNCflagH;                              //!
 
+        TH1F*                   fDimuonPtDistributionGammaGammaZNAH;                              //!
+        TH1F*                   fDimuonPtDistributionGammaGammaZNCH;                              //!
+
 
         //_______________________________
 
@@ -654,7 +657,7 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
          * If I happen to encounter it again in the future, I will make sure to
          * record it!
          */
-        ClassDef(AliAnalysisTaskUPCforwardpPb, 22);
+        ClassDef(AliAnalysisTaskUPCforwardpPb, 23);
 };
 
 #endif

@@ -287,7 +287,9 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
       fMassSameSignOneTrkH(0),
       fMassSameSignTwoTrkH(0),
       fDimuonPtDistributionRejectedZNAflagH(0),
-      fDimuonPtDistributionRejectedZNCflagH(0)
+      fDimuonPtDistributionRejectedZNCflagH(0),
+      fDimuonPtDistributionGammaGammaZNAH(0),
+      fDimuonPtDistributionGammaGammaZNCH(0)
 {
     // default constructor, don't allocate memory here!
     // this is used by root for IO purposes, it needs to remain empty
@@ -503,7 +505,9 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
       fMassSameSignOneTrkH(0),
       fMassSameSignTwoTrkH(0),
       fDimuonPtDistributionRejectedZNAflagH(0),
-      fDimuonPtDistributionRejectedZNCflagH(0)
+      fDimuonPtDistributionRejectedZNCflagH(0),
+      fDimuonPtDistributionGammaGammaZNAH(0),
+      fDimuonPtDistributionGammaGammaZNCH(0)
 
 {
 
@@ -1331,6 +1335,14 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
   fDimuonPtDistributionRejectedZNCflagH = new TH1F("fDimuonPtDistributionRejectedZNCflagH", "fDimuonPtDistributionRejectedZNCflagH", 4000, 0, 20);
   fOutputList->Add(fDimuonPtDistributionRejectedZNCflagH);
 
+
+
+  fDimuonPtDistributionGammaGammaZNAH = new TH1F("fDimuonPtDistributionGammaGammaZNAH", "fDimuonPtDistributionGammaGammaZNAH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionGammaGammaZNAH);
+
+  fDimuonPtDistributionGammaGammaZNCH = new TH1F("fDimuonPtDistributionGammaGammaZNCH", "fDimuonPtDistributionGammaGammaZNCH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionGammaGammaZNCH);
+
   //_______________________________
   // - End of the function
   PostData(1, fOutputList);           // postdata will notify the analysis manager of changes / updates to the
@@ -1932,10 +1944,10 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
   //      PostData(1, fOutputList);
   //      return;
   // }
-  if(!(fADADecision == 1 || fADADecision == 0)) {
-       PostData(1, fOutputList);
-       return;
-  }
+  // if(!(fADADecision == 1 || fADADecision == 0)) {
+  //      PostData(1, fOutputList);
+  //      return;
+  // }
   // if(fADCDecision != 0) {
   //      PostData(1, fOutputList);
   //      return;
@@ -1944,6 +1956,10 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
   //      PostData(1, fOutputList);
   //      return;
   // }
+  if(fADADecision == 1) {
+       PostData(1, fOutputList);
+       return;
+  }
   //
   //
   // /* - Empty V0C decision
@@ -2852,6 +2868,12 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
         if ( ptOfTheDimuonPair < 1.00 && fVZEROCfiredcells > 4 ) fInvariantMassDistributionZeroZNCVZEROhitsMoreThanFiveH->Fill(possibleJPsi.Mag());
 
 
+        // GammaGamma Study
+        if ( (possibleJPsi.Mag() > 2.2) && (possibleJPsi.Mag() < 2.7) ) {
+          fDimuonPtDistributionGammaGammaZNCH->Fill(ptOfTheDimuonPair);
+        }
+
+
         // rejected events study
         if ( (possibleJPsi.Mag() > 2.8) && (possibleJPsi.Mag() < 3.3) ) {
           if ( (fV0ADecision != 0) || (fADADecision != 0) || (fADCDecision != 0)  || !(fV0CDecision == 0  || fV0CDecision == 1) ){
@@ -3058,6 +3080,12 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
                     fDimuonPtDistributionRejectedZNAflagH->Fill(ptOfTheDimuonPair);
                   }
                 }
+
+        // GammaGamma Study
+        if ( (possibleJPsi.Mag() > 2.2) && (possibleJPsi.Mag() < 2.7) ) {
+          fDimuonPtDistributionGammaGammaZNAH->Fill(ptOfTheDimuonPair);
+        }
+
 
         if ( (possibleJPsi.Mag() > 0.8) && (possibleJPsi.Mag() < 2.8) ) {
           fPtSidebandZeroZNAH->Fill(ptOfTheDimuonPair);
