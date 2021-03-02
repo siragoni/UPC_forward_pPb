@@ -1952,23 +1952,23 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
   //      PostData(1, fOutputList);
   //      return;
   // }
-  // if(fADCDecision == 1) {
-  //      PostData(1, fOutputList);
-  //      return;
-  // }
-  if(fADADecision == 1) {
+  if(fADCDecision == 1) {
        PostData(1, fOutputList);
        return;
   }
+  // if(fADADecision == 1) {
+  //      PostData(1, fOutputList);
+  //      return;
+  // }
   //
   //
   // /* - Empty V0C decision
   //  * - or at least in beam timing.
   //  */
-  // if( !(fV0CDecision == 0 || fV0CDecision == 1) ) {
-  //      PostData(1, fOutputList);
-  //      return;
-  // }
+  if( !(fV0CDecision == 0 || fV0CDecision == 1) ) {
+       PostData(1, fOutputList);
+       return;
+  }
   // /* - 0 tracklets in SPD
   //  */
   // if(fTracklets != 0) {
