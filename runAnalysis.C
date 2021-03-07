@@ -217,12 +217,12 @@ void runAnalysis(Int_t opt)
         // merging: run with "kTRUE" and "full" for normal run
         // to merge on grid run jobs in SetRunMode("terminate")
         // to collect final results set SetMergeViaJDL(kFALSE)
-        alienHandler->SetMergeViaJDL(kTRUE);
+        // alienHandler->SetMergeViaJDL(kTRUE);
 
         /* - The setting to kFALSE is to download the output files
            -
          */
-        // alienHandler->SetMergeViaJDL(kFALSE);
+        alienHandler->SetMergeViaJDL(kFALSE);
         alienHandler->SetMaxMergeStages(1);
 
 
@@ -253,7 +253,7 @@ void runAnalysis(Int_t opt)
             /* - This option TERMINATE is used for the merging of the files.
                -
              */
-            alienHandler->SetRunMode("terminate");
+            // alienHandler->SetRunMode("terminate");
             mgr->StartAnalysis("grid");
         }
     }
