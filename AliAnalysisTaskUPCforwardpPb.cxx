@@ -1954,6 +1954,10 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
   //      PostData(1, fOutputList);
   //      return;
   // }
+  if(fADADecision != 1) {
+       PostData(1, fOutputList);
+       return;
+  }
   // if(!(fADADecision == 1 || fADADecision == 0)) {
   //      PostData(1, fOutputList);
   //      return;
@@ -1962,10 +1966,10 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
   //      PostData(1, fOutputList);
   //      return;
   // }
-  if(fADCDecision == 1) {
-       PostData(1, fOutputList);
-       return;
-  }
+  // if(fADCDecision == 1) {
+  //      PostData(1, fOutputList);
+  //      return;
+  // }
   // if(fADADecision == 1) {
   //      PostData(1, fOutputList);
   //      return;
