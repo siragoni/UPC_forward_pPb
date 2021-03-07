@@ -289,7 +289,9 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
       fDimuonPtDistributionRejectedZNAflagH(0),
       fDimuonPtDistributionRejectedZNCflagH(0),
       fDimuonPtDistributionGammaGammaZNAH(0),
-      fDimuonPtDistributionGammaGammaZNCH(0)
+      fDimuonPtDistributionGammaGammaZNCH(0),
+      fDimuonPtDistributionGammaGamma0ZNAH(0),
+      fDimuonPtDistributionGammaGamma0ZNCH(0)
 {
     // default constructor, don't allocate memory here!
     // this is used by root for IO purposes, it needs to remain empty
@@ -507,7 +509,9 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
       fDimuonPtDistributionRejectedZNAflagH(0),
       fDimuonPtDistributionRejectedZNCflagH(0),
       fDimuonPtDistributionGammaGammaZNAH(0),
-      fDimuonPtDistributionGammaGammaZNCH(0)
+      fDimuonPtDistributionGammaGammaZNCH(0),
+      fDimuonPtDistributionGammaGamma0ZNAH(0),
+      fDimuonPtDistributionGammaGamma0ZNCH(0)
 
 {
 
@@ -1343,6 +1347,12 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
   fDimuonPtDistributionGammaGammaZNCH = new TH1F("fDimuonPtDistributionGammaGammaZNCH", "fDimuonPtDistributionGammaGammaZNCH", 4000, 0, 20);
   fOutputList->Add(fDimuonPtDistributionGammaGammaZNCH);
 
+  fDimuonPtDistributionGammaGamma0ZNAH = new TH1F("fDimuonPtDistributionGammaGamma0ZNAH", "fDimuonPtDistributionGammaGamma0ZNAH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionGammaGamma0ZNAH);
+
+  fDimuonPtDistributionGammaGamma0ZNCH = new TH1F("fDimuonPtDistributionGammaGamma0ZNCH", "fDimuonPtDistributionGammaGamma0ZNCH", 4000, 0, 20);
+  fOutputList->Add(fDimuonPtDistributionGammaGamma0ZNCH);
+
   //_______________________________
   // - End of the function
   PostData(1, fOutputList);           // postdata will notify the analysis manager of changes / updates to the
@@ -1971,18 +1981,18 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
   }
   // /* - 0 tracklets in SPD
   //  */
-  // if(fTracklets != 0) {
-  //      PostData(1, fOutputList);
-  //      return;
-  // }
+  if(fTracklets != 0) {
+       PostData(1, fOutputList);
+       return;
+  }
   // /* - Maximum 2 V0C cells fired.
   //    -
   //    - Trying a more readable and immediate approach.
   //  */
-  // if( fV0TotalNCells > 5 ) {
-  //      PostData(1, fOutputList);
-  //      return;
-  // }
+  if( fV0TotalNCells > 2 ) {
+       PostData(1, fOutputList);
+       return;
+  }
   //
   //
   // //_______________________________
@@ -2872,6 +2882,9 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
         if ( (possibleJPsi.Mag() > 2.2) && (possibleJPsi.Mag() < 2.7) ) {
           fDimuonPtDistributionGammaGammaZNCH->Fill(ptOfTheDimuonPair);
         }
+        if ( (possibleJPsi.Mag() > 1.7) && (possibleJPsi.Mag() < 2.2) ) {
+          fDimuonPtDistributionGammaGamma0ZNCH->Fill(ptOfTheDimuonPair);
+        }
 
 
         // rejected events study
@@ -3085,6 +3098,10 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
         if ( (possibleJPsi.Mag() > 2.2) && (possibleJPsi.Mag() < 2.7) ) {
           fDimuonPtDistributionGammaGammaZNAH->Fill(ptOfTheDimuonPair);
         }
+        if ( (possibleJPsi.Mag() > 1.7) && (possibleJPsi.Mag() < 2.2) ) {
+          fDimuonPtDistributionGammaGamma0ZNAH->Fill(ptOfTheDimuonPair);
+        }
+
 
 
         if ( (possibleJPsi.Mag() > 0.8) && (possibleJPsi.Mag() < 2.8) ) {

@@ -591,6 +591,8 @@ class AliAnalysisTaskUPCforwardpPb : public AliAnalysisTaskSE
 
         TH1F*                   fDimuonPtDistributionGammaGammaZNAH;                              //!
         TH1F*                   fDimuonPtDistributionGammaGammaZNCH;                              //!
+        TH1F*                   fDimuonPtDistributionGammaGamma0ZNAH;                             //!
+        TH1F*                   fDimuonPtDistributionGammaGamma0ZNCH;                             //!
 
 
         //_______________________________
