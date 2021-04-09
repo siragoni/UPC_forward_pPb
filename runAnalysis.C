@@ -197,7 +197,8 @@ void runAnalysis(Int_t opt)
                                                   266234, 266235, 266296, 266299, 266300, 266304, 266305, 266312,
                                                   266316, 266318    };
           for( Int_t iRunLHC16r = 0; iRunLHC16r <  57; iRunLHC16r++){
-            // // // if ( iRunLHC16r == 51 ) continue;
+            if ( iRunLHC16r == 0 ) continue;
+            if ( iRunLHC16r == 4 ) continue;
             alienHandler->AddRunNumber( listOfGoodRunNumbersLHC16r[iRunLHC16r] );
           }
 
@@ -217,18 +218,18 @@ void runAnalysis(Int_t opt)
         // merging: run with "kTRUE" and "full" for normal run
         // to merge on grid run jobs in SetRunMode("terminate")
         // to collect final results set SetMergeViaJDL(kFALSE)
-        // alienHandler->SetMergeViaJDL(kTRUE);
+        alienHandler->SetMergeViaJDL(kTRUE);
 
         /* - The setting to kFALSE is to download the output files
            -
          */
-        alienHandler->SetMergeViaJDL(kFALSE);
+        // alienHandler->SetMergeViaJDL(kFALSE);
         alienHandler->SetMaxMergeStages(1);
 
 
         TString LHC16s("LHC16s");
         // define the output folders
-        alienHandler->SetGridWorkingDir("pPbLHC16r_New_gamma5");
+        alienHandler->SetGridWorkingDir("pPbLHC16r_New_gamma6");
         // alienHandler->SetGridOutputDir("myOutputDir");
         if (opt == 0) alienHandler->SetGridOutputDir(LHC16s.Data());
 
