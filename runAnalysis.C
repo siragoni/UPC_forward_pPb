@@ -229,7 +229,7 @@ void runAnalysis(Int_t opt)
 
         TString LHC16s("LHC16s");
         // define the output folders
-        alienHandler->SetGridWorkingDir("pPbLHC16r_New_gamma6");
+        alienHandler->SetGridWorkingDir("pPbLHC16r_New_gamma7");
         // alienHandler->SetGridOutputDir("myOutputDir");
         if (opt == 0) alienHandler->SetGridOutputDir(LHC16s.Data());
 
@@ -249,12 +249,12 @@ void runAnalysis(Int_t opt)
             /* - The option FULL is to send the full analysis.
                -
              */
-            // alienHandler->SetRunMode("full");
+            alienHandler->SetRunMode("full");
 
             /* - This option TERMINATE is used for the merging of the files.
                -
              */
-            alienHandler->SetRunMode("terminate");
+            // alienHandler->SetRunMode("terminate");
             mgr->StartAnalysis("grid");
         }
     }
