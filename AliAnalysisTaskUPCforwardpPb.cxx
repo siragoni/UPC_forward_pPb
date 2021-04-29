@@ -291,7 +291,9 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb()
       fDimuonPtDistributionGammaGammaZNAH(0),
       fDimuonPtDistributionGammaGammaZNCH(0),
       fDimuonPtDistributionGammaGamma0ZNAH(0),
-      fDimuonPtDistributionGammaGamma0ZNCH(0)
+      fDimuonPtDistributionGammaGamma0ZNCH(0),
+      fDimuonPtDistributionGammaGammaRapidityZNAH{0,0,0, 0,0,0, 0,0,0},
+      fDimuonPtDistributionGammaGamma0RapidityZNAH{0,0,0, 0,0,0, 0,0,0}
 {
     // default constructor, don't allocate memory here!
     // this is used by root for IO purposes, it needs to remain empty
@@ -511,7 +513,10 @@ AliAnalysisTaskUPCforwardpPb::AliAnalysisTaskUPCforwardpPb(const char* name)
       fDimuonPtDistributionGammaGammaZNAH(0),
       fDimuonPtDistributionGammaGammaZNCH(0),
       fDimuonPtDistributionGammaGamma0ZNAH(0),
-      fDimuonPtDistributionGammaGamma0ZNCH(0)
+      fDimuonPtDistributionGammaGamma0ZNCH(0),
+      fDimuonPtDistributionGammaGammaRapidityZNAH{0,0,0, 0,0,0, 0,0,0},
+      fDimuonPtDistributionGammaGamma0RapidityZNAH{0,0,0, 0,0,0, 0,0,0}
+
 
 {
 
@@ -1352,6 +1357,23 @@ void AliAnalysisTaskUPCforwardpPb::UserCreateOutputObjects()
 
   fDimuonPtDistributionGammaGamma0ZNCH = new TH1F("fDimuonPtDistributionGammaGamma0ZNCH", "fDimuonPtDistributionGammaGamma0ZNCH", 4000, 0, 20);
   fOutputList->Add(fDimuonPtDistributionGammaGamma0ZNCH);
+
+  for( Int_t iRapidity = 0; iRapidity < 9; iRapidity++ ) {
+    fDimuonPtDistributionGammaGammaRapidityZNAH[iRapidity]
+            = new TH1F( Form("fDimuonPtDistributionGammaGammaRapidityZNAH_%d", iRapidity),
+                        Form("fDimuonPtDistributionGammaGammaRapidityZNAH_%d", iRapidity),
+                        4000, 0, 20);
+    fOutputList->Add(fDimuonPtDistributionGammaGammaRapidityZNAH[iRapidity]);
+  }
+
+  for( Int_t iRapidity = 0; iRapidity < 9; iRapidity++ ) {
+    fDimuonPtDistributionGammaGamma0RapidityZNAH[iRapidity]
+            = new TH1F( Form("fDimuonPtDistributionGammaGamma0RapidityZNAH_%d", iRapidity),
+                        Form("fDimuonPtDistributionGammaGamma0RapidityZNAH_%d", iRapidity),
+                        4000, 0, 20);
+    fOutputList->Add(fDimuonPtDistributionGammaGamma0RapidityZNAH[iRapidity]);
+  }
+
 
   //_______________________________
   // - End of the function
@@ -3101,9 +3123,54 @@ void AliAnalysisTaskUPCforwardpPb::UserExec(Option_t *)
         // GammaGamma Study
         if ( (possibleJPsi.Mag() > 2.2) && (possibleJPsi.Mag() < 2.7) ) {
           fDimuonPtDistributionGammaGammaZNAH->Fill(ptOfTheDimuonPair);
+          if        (possibleJPsi.Rapidity() <= -3.5) {
+            fDimuonPtDistributionGammaGammaRapidityZNAH[0]->Fill(ptOfTheDimuonPair);
+          } else if (possibleJPsi.Rapidity() <= -3.0) {
+            fDimuonPtDistributionGammaGammaRapidityZNAH[1]->Fill(ptOfTheDimuonPair);
+          } else if (possibleJPsi.Rapidity() <= -2.5) {
+            fDimuonPtDistributionGammaGammaRapidityZNAH[2]->Fill(ptOfTheDimuonPair);
+          }
+          if        (possibleJPsi.Rapidity() <= -3.25) {
+            fDimuonPtDistributionGammaGammaRapidityZNAH[3]->Fill(ptOfTheDimuonPair);
+          } else if (possibleJPsi.Rapidity() <= -2.5) {
+            fDimuonPtDistributionGammaGammaRapidityZNAH[4]->Fill(ptOfTheDimuonPair);
+          }
+          if        (possibleJPsi.Rapidity() <= (-4.+0.375) ) {
+            fDimuonPtDistributionGammaGammaRapidityZNAH[5]->Fill(ptOfTheDimuonPair);
+          } else if (possibleJPsi.Rapidity() <= (-4.+0.375*2.)) {
+            fDimuonPtDistributionGammaGammaRapidityZNAH[6]->Fill(ptOfTheDimuonPair);
+          } else if (possibleJPsi.Rapidity() <= (-4.+0.375*3.)) {
+            fDimuonPtDistributionGammaGammaRapidityZNAH[7]->Fill(ptOfTheDimuonPair);
+          } else if (possibleJPsi.Rapidity() <= (-4.+0.375*4.)) {
+            fDimuonPtDistributionGammaGammaRapidityZNAH[8]->Fill(ptOfTheDimuonPair);
+          }
+
+
         }
         if ( (possibleJPsi.Mag() > 1.7) && (possibleJPsi.Mag() < 2.2) ) {
           fDimuonPtDistributionGammaGamma0ZNAH->Fill(ptOfTheDimuonPair);
+          if        (possibleJPsi.Rapidity() <= -3.5) {
+            fDimuonPtDistributionGammaGamma0RapidityZNAH[0]->Fill(ptOfTheDimuonPair);
+          } else if (possibleJPsi.Rapidity() <= -3.0) {
+            fDimuonPtDistributionGammaGamma0RapidityZNAH[1]->Fill(ptOfTheDimuonPair);
+          } else if (possibleJPsi.Rapidity() <= -2.5) {
+            fDimuonPtDistributionGammaGamma0RapidityZNAH[2]->Fill(ptOfTheDimuonPair);
+          }
+          if        (possibleJPsi.Rapidity() <= -3.25) {
+            fDimuonPtDistributionGammaGamma0RapidityZNAH[3]->Fill(ptOfTheDimuonPair);
+          } else if (possibleJPsi.Rapidity() <= -2.5) {
+            fDimuonPtDistributionGammaGamma0RapidityZNAH[4]->Fill(ptOfTheDimuonPair);
+          }
+          if        (possibleJPsi.Rapidity() <= (-4.+0.375) ) {
+            fDimuonPtDistributionGammaGamma0RapidityZNAH[5]->Fill(ptOfTheDimuonPair);
+          } else if (possibleJPsi.Rapidity() <= (-4.+0.375*2.)) {
+            fDimuonPtDistributionGammaGamma0RapidityZNAH[6]->Fill(ptOfTheDimuonPair);
+          } else if (possibleJPsi.Rapidity() <= (-4.+0.375*3.)) {
+            fDimuonPtDistributionGammaGamma0RapidityZNAH[7]->Fill(ptOfTheDimuonPair);
+          } else if (possibleJPsi.Rapidity() <= (-4.+0.375*4.)) {
+            fDimuonPtDistributionGammaGamma0RapidityZNAH[8]->Fill(ptOfTheDimuonPair);
+          }
+
         }
 
 
